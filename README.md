@@ -48,17 +48,72 @@ Battle Tank
 ### Tank Control System
 ### Actors from Multiple Meshes
 ### Configuring a Tank
+
+- Viewport -> Blueprints -> World Override -> Game Mode -> Create -> BattleTankGameMode
+- BattleTankGameMode_BP
+- Default Pawn Class
+- Tank_BP
+
 ### 3rd Person Camera Control
 
+- Tank_BP Event Graph
+
+![Camera Input Binding](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_Camera_Input_Binding.png)
+
 ### User Interface (UI) in Unreal
+
+- Create Aiming reticule
+- Create Widget Blueprint called PlayerUI_BP
+	+ Create a test image
+	+ Edit scale and position of the reticule
+- Create a Player Controller Blueprint class
+	+ TankPlayerController_BP
+- TankPlayerController_BP Event Graph
+	+ Event BeginPlay
+	+ Create Widget with class PlayerUI_BP
+	+ Add to Viewport
+
+![PlayerUI_BP Event Graph](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_Event_Graph.png)
+
+- Make the reticule visible
+	+ BattleTankGameMode_BP
+	+ Player Controller Class
+		* TankPlayerController_BP
+
 ### Main Menu Screens
+
+- Create a new level called MainMenu Level
+- Create Widget Blueprint called MainMenu_BP
+	+ edit and add a quick test image
+- Edit the MainMenu Level BP
+	+ Event BeginPlay
+	+ Create Widget
+		* to display start screen image
+	+ Add to Viewport
+- Apply a background image
+
+![MainMenu Level BP Viewport Widget](BattleTank/Saved/Screenshots/Windows/MainMenu_Level_BP_ViewportWidget.png)
+
+![MainMenu_BP Viewport](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_Viewport_Hierarchy.png)
+
 ### UI Scale Box, Buttons & Mouse
+
+- MainMenu Level BP
+- How to show the Player Mouse
+- GetPlayerController
+- SetShowMouseCursor
+
+![MainMenu Level BP](BattleTank/Saved/Screenshots/Windows/MainMenu_Level_BP.png)
+
 ### Controller Ready Navigation
 
 - MainMenu_BP Viewport
 	+ Start Button widget
 		* Events
 			- OnClicked
+
+![MainMenu_BP Viewport](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_Viewport.png)
+
 - MainMenu_BP Event Graph
 	+ Wire up opening a level
 		* OpenLevel node
