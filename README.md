@@ -150,9 +150,27 @@ Battle Tank
 
 ### Delegating to Components
 
-- 
+- Create a Tank C++ Class
+
+![Create a Tank C++ Class](BattleTank/Saved/Screenshots/Windows/Tank_Class.png)
+
+- Create a TankPlayerController C++ Class
+
+![Reparent Player Controller Class](BattleTank/Saved/Screenshots/Windows/Class_Settings_ReParent_Controller_Class.png)
 
 ### Using Virtual and Override
+
+![Print Player Controller](BattleTank/Saved/Screenshots/Windows/Print_Player_Controller.png)
+
+[APlayerController Unreal Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/APlayerController/index.html)
+
+- `virtual void BeginPlay()`
+- need to override, what is the syntax?
+- `void BeginPlay() override;`
+- `virtual` ancestors are allowed to override
+- in implementation `Super::BeginPlay()`
+- Same setup in Tank boilerplate code
+
 ### Overloading and Polymorphism
 ### Virtual Functions and Vtables
 ### Creating an AI Controller Class
