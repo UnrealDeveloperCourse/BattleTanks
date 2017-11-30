@@ -186,7 +186,48 @@ Battle Tank
 
 ### Virtual Functions and Vtables
 
-- 
+- [Compiler Explorer](https://godbolt.org/)
+- [YT video](https://www.youtube.com/watch?v=bSkpMdDe4g4)
+- Assembly code and a view for Binary instructions!
+- Find out just how many more lines of Assembly virual will take
+- Assembly code methods are labels
+- Experiment by removing `virtual` + overrides
+	+ Observations
+	+ code is shorter
+	+ `animal.MakeNoise()`
+		* right click on the line, scroll to assembly
+		* Assembly is actually only one line of code
+		* it is actually an address in memory (400cf4)
+
+- virtual
+- Vtable lookup the address of MakeNoise function for the type of animal
+	+ Animal -> Cat Vtable -> Cat::MakeNoise()
+	+ Animal -> Dog Vtable -> Dog::MakeNoise()
+	+ If another Cat then share the same Cat Vtable
+- insert virtual back into the source code
+
+```cpp
+// 2. subtype polymorphism (AKA runtime polymorphism)
+class Animal
+{
+public:
+	virtual void MakeNoise()
+	{
+		std::cout << "???" << std::endl;
+	}
+};
+```
+
+- notice vtable in assembly
+- more 'hops' involved when using virtual
+- cpp mantra "don't pay for what you don't use"
+
+```
+vtable for Kitteh:
+  .quad 0
+  .quad typeinfo for Kitteh
+  .quad Kitteh::MakeNoise()
+```
 
 ### Creating an AI Controller Class
 ### Get the Player Controller with C++
