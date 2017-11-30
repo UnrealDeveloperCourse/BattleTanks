@@ -160,7 +160,12 @@ Battle Tank
 
 ### Using Virtual and Override
 
+- Backstory: what pawn are we possessing when starting the game?
+- Try Logging from a Blueprint
+
 ![Print Player Controller](BattleTank/Saved/Screenshots/Windows/Print_Player_Controller.png)
+
+- Take a look at APlayerController and the AActor parent
 
 [APlayerController Unreal Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/APlayerController/index.html)
 
