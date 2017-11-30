@@ -219,8 +219,6 @@ public:
 ```
 
 - notice vtable in assembly
-- more 'hops' involved when using virtual
-- cpp mantra "don't pay for what you don't use"
 
 ```
 vtable for Kitteh:
@@ -228,6 +226,9 @@ vtable for Kitteh:
   .quad typeinfo for Kitteh
   .quad Kitteh::MakeNoise()
 ```
+
+- more 'hops' involved when using virtual
+- cpp mantra "don't pay for what you don't use"
 
 ### Creating an AI Controller Class
 ### Get the Player Controller with C++
