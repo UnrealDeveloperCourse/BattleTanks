@@ -177,7 +177,17 @@ Battle Tank
 - Same setup in Tank boilerplate code
 
 ### Overloading and Polymorphism
+
+- Polymorphism
+	+ Ad-hoc = A different implementation per signature, same signature different implementation
+	+ Subtype = Parent pointers pointing at children instances
+	+ Parametric = One implementation, multiple signatures
+	+ [Blog about cpp polymorphism](http://www.catonmat.net/blog/cpp-polymorphism/)
+
 ### Virtual Functions and Vtables
+
+- 
+
 ### Creating an AI Controller Class
 ### Get the Player Controller with C++
 ### Add `Tick()` to Player Controller
