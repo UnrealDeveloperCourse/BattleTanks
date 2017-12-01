@@ -251,6 +251,15 @@ vtable for Kitteh:
 
 ![Finding Player Controller](BattleTank/Saved/Screenshots/Windows/Finding_Player_Controller.png)
 
+```cpp
+ATank* ATankAIController::GetPlayerTank() const
+{
+	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (!PlayerPawn){ return PlayerPawn; }
+	return Cast<ATank>(PlayerPawn);
+}
+```
+
 ![GetPlayerTank](BattleTank/Saved/Screenshots/Windows/GetPlayerTank.png)
 
 ### Add `Tick()` to Player Controller
