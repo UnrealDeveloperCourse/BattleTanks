@@ -231,6 +231,20 @@ vtable for Kitteh:
 - cpp mantra "don't pay for what you don't use"
 
 ### Creating an AI Controller Class
+
+![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture.png)
+
+![AI Controller C++ Class](BattleTank/Saved/Screenshots/Windows/AI_Controller_Cpp_Class.png)
+
+- Create a TankAIController
+- Auto Possess [with] AI
+
+![AI Auto Possess](BattleTank/Saved/Screenshots/Windows/Tank_BP_AI_AutoPossess.PNG)
+
+- At Game Start multiple pawns get possessed by TankAIController
+
+![TankAIController Start Game](BattleTank/Saved/Screenshots/Windows/Tank_AIController_StartGame.png)
+
 ### Get the Player Controller with C++
 ### Add `Tick()` to Player Controller
 ### Creating an Out Parameter Method
