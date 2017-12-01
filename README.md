@@ -232,7 +232,7 @@ vtable for Kitteh:
 
 ### Creating an AI Controller Class
 
-![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture.png)
+![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_01.png)
 
 ![AI Controller C++ Class](BattleTank/Saved/Screenshots/Windows/AI_Controller_Cpp_Class.png)
 
