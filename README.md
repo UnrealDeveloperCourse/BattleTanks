@@ -239,7 +239,7 @@ vtable for Kitteh:
 - Create a TankAIController
 - Auto Possess [with] AI
 
-![AI Auto Possess](BattleTank/Saved/Screenshots/Windows/Tank_BP_AI_AutoPossess.PNG)
+![AI Auto Possess](BattleTank/Saved/Screenshots/Windows/Tank_BP_AI_AutoPossess.png)
 
 - At Game Start multiple pawns get possessed by TankAIController
 
