@@ -246,6 +246,13 @@ vtable for Kitteh:
 ![TankAIController Start Game](BattleTank/Saved/Screenshots/Windows/Tank_AIController_StartGame.png)
 
 ### Get the Player Controller with C++
+
+![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_02.png)
+
+![Finding Player Controller](BattleTank/Saved/Screenshots/Windows/Finding_Player_Controller.png)
+
+![GetPlayerTank](BattleTank/Saved/Screenshots/Windows/GetPlayerTank.png)
+
 ### Add `Tick()` to Player Controller
 ### Creating an Out Parameter Method
 ### Finding Screen Pixel Coordinates
