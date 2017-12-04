@@ -247,6 +247,8 @@ vtable for Kitteh:
 
 ### Get the Player Controller with C++
 
+- AimAt(Player)
+
 ![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_02.png)
 
 ![Finding Player Controller](BattleTank/Saved/Screenshots/Windows/Finding_Player_Controller.png)
@@ -263,7 +265,33 @@ ATank* ATankAIController::GetPlayerTank() const
 ![GetPlayerTank](BattleTank/Saved/Screenshots/Windows/GetPlayerTank.png)
 
 ### Add `Tick()` to Player Controller
+
+- AimAt(Crosshair)
+
+![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_03.png)
+
+```cpp
+void ATankPlayerController::AimAtCrosshair()
+{
+	if (!GetControlledTank()) { return; }
+
+	// Get world location of linetrace through crosshair
+	// If it hits the landscape
+		// Tell controlled tank to aim at this point
+}
+```
+
 ### Creating an Out Parameter Method
+
+```cpp
+// Get world location of linetrace through crosshair, true if hits landscape
+bool GetSightRayHitLocation(FVector& OutHitLocation) const
+{
+	OutHitLocation = FVector(1.0);
+	return true;
+}
+```
+
 ### Finding Screen Pixel Coordinates
 ### Using `DeprojectScreenToWorld`
 ### Using `LineTraceSingleByChannel`
