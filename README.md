@@ -293,6 +293,30 @@ bool GetSightRayHitLocation(FVector& OutHitLocation) const
 ```
 
 ### Finding Screen Pixel Coordinates
+
+- First, find crosshair location on the screen
+
+```cpp
+/// TankPlayerController.h
+
+// location left/right
+UPROPERTY(EditAnywhere)
+float CrosshairXLocation = 0.5;
+
+// location from top down
+UPROPERTY(EditAnywhere)
+float CrosshairYLocation = 0.3333;
+```
+
+```cpp
+/// TankPlayerController.cpp
+
+// Find crosshair location
+	int32 ViewportSizeX, ViewportSizeY;
+	GetViewportSize(ViewportSizeX, ViewportSizeY);
+	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
+```
+
 ### Using `DeprojectScreenToWorld`
 ### Using `LineTraceSingleByChannel`
 ### Unify Player and AI Aiming
