@@ -33,17 +33,17 @@ void ATankPlayerController::AimAtCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	FVector OutHitLocation;
-	if (GetSightRayHitLocation(OutHitLocation))
+	FVector HitLocation;
+	if (GetSightRayHitLocation(HitLocation))
 	{
-		// UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *OutHitLocation.ToString())
+		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString())
 		// TODO Tell controlled tank to aim at this point
 	}
 
 }
 
 // Get world location of linetrace through crosshair, true if hits landscape
-bool ATankPlayerController::GetSightRayHitLocation(FVector & OutHitLocation) const
+bool ATankPlayerController::GetSightRayHitLocation(FVector & HitLocation) const
 {
 	// Find crosshair location
 	int32 ViewportSizeX, ViewportSizeY;
@@ -55,11 +55,14 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector & OutHitLocation) con
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *LookDirection.ToString())
+		// Line trace along the look direction and see what we hit up to a max range
+		GetLookVectorHitLocation(LookDirection, HitLocation);
+		return true;
 	}
 
-	// Line trace along the look direction and see what we hit up to a max range
-	return true;
+	HitLocation = FVector(0);
+	return false;
+
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const
@@ -71,4 +74,23 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &
 		CameraWorldLocation,
 		LookDirection
 	);
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector & HitLocation) const
+{
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+
+	if (GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		StartLocation,
+		EndLocation,
+		ECollisionChannel::ECC_Visibility))
+	{
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	
+	return false;
 }
