@@ -392,6 +392,8 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 
 ![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_04.png)
 
+- Create `AimAt` method on the Tank class
+
 ```cpp
 /// Tank.h
 
@@ -409,6 +411,8 @@ void ATank::AimAt(FVector HitLocation)
 }
 ```
 
+- Call the method from the player controller
+
 ```cpp
 /// TankPlayerController.cpp
 
@@ -423,6 +427,8 @@ void ATankPlayerController::AimAtCrosshair()
 	}
 }
 ```
+
+- Add a `Tick` method, call same `AimAt` method every frame to aim at the player
 
 ```cpp
 /// TankAIController.h
@@ -449,6 +455,8 @@ void ATankAIController::Tick(float DeltaTime)
 	}
 }
 ```
+
+- Using the same `AimAt` method is automatically equitable game play, fair, and balanced.
 
 
 ### Mid Section Quiz
