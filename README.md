@@ -318,6 +318,24 @@ float CrosshairYLocation = 0.3333;
 ```
 
 ### Using `DeprojectScreenToWorld`
+
+![DeprojectScreenToWorld](BattleTank/Saved/Screenshots/Windows/UE_Log_DeprojectScreenToWorld.png)
+
+- [DeprojectScreenPositionToWorld](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/APlayerController/DeprojectScreenPositionToWorld/index.html)
+
+```cpp
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const
+{
+	FVector CameraWorldLocation; // TODO: discard
+	return DeprojectScreenPositionToWorld(
+		ScreenLocation.X,
+		ScreenLocation.Y,
+		CameraWorldLocation,
+		LookDirection
+	);
+}
+```
+
 ### Using `LineTraceSingleByChannel`
 ### Unify Player and AI Aiming
 
