@@ -355,6 +355,8 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &
 - [LineTraceSingleByChannel Unreal Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UWorld/LineTraceSingleByChannel/index.html)
 
 ```cpp
+/// TankPlayerController.h
+
 UPROPERTY(EditAnywhere)
 float LineTraceRange = 1000000;
 
@@ -385,6 +387,69 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 ```
 
 ### Unify Player and AI Aiming
+
+- **Objective**: Call same `AimAt()` method whether it is a player controller or an AI controller possessing a tank
+
+![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_04.png)
+
+```cpp
+/// Tank.h
+
+public:
+	void AimAt(FVector HitLocation);
+```
+
+```cpp
+/// Tank.cpp
+
+void ATank::AimAt(FVector HitLocation)
+{
+	auto OurTankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *OurTankName, *HitLocation.ToString())
+}
+```
+
+```cpp
+/// TankPlayerController.cpp
+
+void ATankPlayerController::AimAtCrosshair()
+{
+	if (!GetControlledTank()) { return; }
+
+	FVector HitLocation;
+	if (GetSightRayHitLocation(HitLocation))
+	{
+		GetControlledTank()->AimAt(HitLocation);
+	}
+}
+```
+
+```cpp
+/// TankAIController.h
+
+private:
+	virtual void Tick(float DeltaTime) override;
+```
+
+```cpp
+/// TankAIController.cpp
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (GetPlayerTank())
+	{
+		// Move towards the player
+		
+		// Aim towards the player
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+
+		// Fire when ready
+	}
+}
+```
+
 
 ### Mid Section Quiz
 
