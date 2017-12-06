@@ -294,7 +294,7 @@ bool GetSightRayHitLocation(FVector& OutHitLocation) const
 
 ### Finding Screen Pixel Coordinates
 
-- First, find crosshair location on the screen
+- **Objective**: Find crosshair location on the screen
 
 ```cpp
 /// TankPlayerController.h
@@ -319,11 +319,21 @@ float CrosshairYLocation = 0.3333;
 
 ### Using `DeprojectScreenToWorld`
 
-![DeprojectScreenToWorld](BattleTank/Saved/Screenshots/Windows/UE_Log_DeprojectScreenToWorld.png)
+- **Objective**: Get world space direction as a unit vector
 
-- [DeprojectScreenPositionToWorld](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/APlayerController/DeprojectScreenPositionToWorld/index.html)
+![DeprojectScreenToWorld UE_Log](BattleTank/Saved/Screenshots/Windows/UE_Log_DeprojectScreenToWorld.png)
+
+- [DeprojectScreenPositionToWorld Unreal Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/APlayerController/DeprojectScreenPositionToWorld/index.html)
 
 ```cpp
+/// TankPlayerController.h
+
+bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+```
+
+```cpp
+/// TankPlayerController.cpp
+
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const
 {
 	FVector CameraWorldLocation; // TODO: discard
@@ -337,6 +347,43 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &
 ```
 
 ### Using `LineTraceSingleByChannel`
+
+- **Objective**: Get an actual point in the world to aim at
+ 
+![LinearTraceSingleByChannel UE_Log](BattleTank/Saved/Screenshots/Windows/UE_Log_LinearTraceSingleByChannel.png)
+
+- [LineTraceSingleByChannel Unreal Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UWorld/LineTraceSingleByChannel/index.html)
+
+```cpp
+UPROPERTY(EditAnywhere)
+float LineTraceRange = 1000000;
+
+bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+```
+
+```cpp
+/// TankPlayerController.cpp
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector & HitLocation) const
+{
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+
+	if (GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		StartLocation,
+		EndLocation,
+		ECollisionChannel::ECC_Visibility))
+	{
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	
+	return false;
+}
+```
+
 ### Unify Player and AI Aiming
 
 ### Mid Section Quiz
