@@ -462,7 +462,95 @@ void ATankAIController::Tick(float DeltaTime)
 ### Mid Section Quiz
 
 ### Creating Default Sub Objects in C++
+
+- **Objective**: Create an Aiming Component in C++ and Delegate aiming to it
+
+![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_05.png)
+
+1. Create the Aiming Component Default Subobject and add it to the Tank
+
+```cpp
+/// Tank.h
+
+// Create in UnrealEd and hash include this Actor Component
+#include "TankAimingComponent.h"
+
+UCLASS()
+class BATTLETANK_API ATank : public APawn
+{
+	GENERATED_BODY()
+
+public:
+	// Aiming code
+
+protected:
+	// Cannot make private, would cause compile error and shouldn't be public
+	UTankAimingComponent* TankAimingComponent = nullptr;
+
+private:
+	// Private code
+}
+```
+
+```cpp
+/// Tank.cpp
+
+ATank::ATank()
+{
+ 	// Tick code
+
+	// Pointer protection not needed since created during construction
+	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
+}
+```
+
+2. Delegate `AimAt()` to the Aiming Component instead of Tank
+
+```cpp
+/// TankAimingComponent.h
+
+// Macro Boilerplate code
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	GENERATED_BODY()
+
+public:	
+	// Boilerplate code
+
+	// Tick Component code
+
+	void AimAt(FVector HitLocation);
+}
+
+```
+
+```cpp
+/// TankAimingComponent.cpp
+
+void UTankAimingComponent::AimAt(FVector HitLocation)
+{	
+	// `GetOwner()` grab the parent's name, just `GetName()` when implemented in Tank.cpp
+	auto OurTankName = GetOwner()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *OurTankName, *HitLocation.ToString())
+}
+```
+
+3. Call the method on the `TankAimingComponent`
+
+```cpp
+/// Tank.cpp
+
+// Much simpler `AimAt` method delegated to the component
+void ATank::AimAt(FVector HitLocation)
+{
+	TankAimingComponent->AimAt(HitLocation);
+}
+```
+
 ### `BlueprintCallable()`
+
+- **Objective**: Find start and end location of the projectile
+
 ### `SuggestProjectileVelocity()`
 ### Predict Projectile Landing Point
 ### Using `FRotators` in Unreal
@@ -487,8 +575,28 @@ void ATankAIController::Tick(float DeltaTime)
 
 ### Mid-Section Quiz
 
-### 
-### 
-### 
-### 
+### Adding a Quit Button
+### Setup Track Throttles
+### `ApplyForceAtLocation()` in Action
+### Physics Materials and Friction
+### Fly-By-Wire Control System
+### Using BluePrintReadOnly
+### A Better Component Architecture
+### Completing Manual Tank Movement
+### Introducing AI Pathfinding
+### Dissecting `RequestDirectMove()`
 
+### Mid-Section Quiz
+
+### DotProduct() Vector Operator
+### CrossProduct() Vector Operator
+### Finalizing Your Class Code
+### How to Use Blueprint Variables
+### Using Enum(erations) in UE4
+### Refactoring our Aiming Component
+### Attaching a Debugger to Unreal
+### Constructor and Begin Play Timing
+### Decoupling Your Architecture
+### `BlueprintImplementableEvent`
+
+### Mid-Section Quiz
