@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Components/StaticMeshComponent.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
@@ -21,8 +22,13 @@ public:
 
 	void AimAt(FVector HitLocation);
 
+	void SetBarrelReference(UStaticMeshComponent * BarrelToSet);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+private:
+
+	UStaticMeshComponent * Barrel = nullptr;
 };
