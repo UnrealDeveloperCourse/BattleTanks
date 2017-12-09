@@ -551,6 +551,91 @@ void ATank::AimAt(FVector HitLocation)
 
 - **Objective**: Find start and end location of the projectile
 
+[Barrel -> HitLocation](BattleTank/Saved/Screenshots/Windows/BP_Callable_Barrel_HitLocation.png)
+
+[Class Viewer Static Mesh Component](BattleTank/Saved/Screenshots/Windows/Class_Viewer_Static_Mesh_Component.png)
+
+[TankBP Blueprint Callable Set Barrel Reference](BattleTank/Saved/Screenshots/Windows/TankBP_Blueprint_Callable.png)
+
+1. Declare `SetBarrelReferenced`
+
+```cpp
+/// TankAimingComponent.h
+
+#include "Components/StaticMeshComponent.h"
+
+/// Macro here
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	/// Boilerplate here
+
+public:	
+	/// Other methods here
+
+	// Method for setting the barrel reference
+	void SetBarrelReference(UStaticMeshComponent * BarrelToSet);
+protected:
+	// protected code
+private:
+	// initialize default barrel pointer
+	UStaticMeshComponent * Barrel = nullptr;
+}
+```
+
+2. Implement `SetBarrelReference`
+
+```cpp
+/// TankAimingComponent.cpp
+
+// implementation for setting the barrel reference
+void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
+{
+	Barrel = BarrelToSet;
+}
+```
+
+```cpp
+/// Tank.h
+
+/// Macro here
+class BATTLETANK_API ATank : public APawn
+{
+	/// Boilerplate here
+public:
+	// Create a BlueprintCallable method
+	UFUNCTION(BlueprintCallable, category=Setup)
+	void SetBarrelReference(UStaticMeshComponent * BarrelToSet);
+protected:
+	// protected code
+private:
+	// private code
+}
+```
+
+```cpp
+/// Tank.cpp
+
+// Delegate out setting the barrel reference
+void ATank::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
+{
+	TankAimingComponent->SetBarrelReference(BarrelToSet);
+}
+```
+
+3. Logging out the Barrel Component Location
+
+```cpp
+/// TankAimingComponent.cpp
+
+void UTankAimingComponent::AimAt(FVector HitLocation)
+{
+	auto OurTankName = GetOwner()->GetName();
+	// Now we can get the barrel component location
+	auto BarrelLocation = Barrel->GetComponentLocation();
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *OurTankName, *HitLocation.ToString(), *BarrelLocation.ToString())
+}
+```
+
 ### `SuggestProjectileVelocity()`
 ### Predict Projectile Landing Point
 ### Using `FRotators` in Unreal
