@@ -594,6 +594,8 @@ void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet
 }
 ```
 
+- Make it possible to call C++ function from Blueprint
+
 ```cpp
 /// Tank.h
 
@@ -750,6 +752,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 			)
 		)
 	{
+		// Direction of the Vector provided
 		// Getting the "Unit Vector"
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		auto TankName = GetOwner()->GetName();
@@ -925,8 +928,31 @@ void UTankBarrel::Elevate(float RelativeSpeed)
 
 ### How to Report Bugs
 
+- **Objective**: Fix the Aim Solution bug, report it to Unreal
 
-- **Objective**:
+1. Solution: Default parameters not being specified in `SuggestProjectileVelocity`
+2. Problem is in 4.11 and 4.12
+3. To report, comment and upload code to GitHub and share the commit link with Unreal
+
+```cpp
+/// TankAimingComponent.cpp
+
+bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
+		this,
+		OutLaunchVelocity,
+		StartLocation,
+		HitLocation,
+		LaunchSpeed,
+		false, // <--
+		0,     // <--
+		0,     // <--
+		ESuggestProjVelocityTraceOption::DoNotTrace	
+);
+```
+
+- **Second Objective**: Move to Forward Delarations in all .h files
+
+1. `#includes Tank.h` in multiple h files, declare `class ATank;` in each header and hash include `Tank.h` in each cpp file
 
 ### Mid-Section Quiz
 
