@@ -551,11 +551,11 @@ void ATank::AimAt(FVector HitLocation)
 
 - **Objective**: Find start and end location of the projectile
 
-[Barrel -> HitLocation](BattleTank/Saved/Screenshots/Windows/BP_Callable_Barrel_HitLocation.png)
+![Barrel -> HitLocation](BattleTank/Saved/Screenshots/Windows/BP_Callable_Barrel_HitLocation.png)
 
-[Class Viewer Static Mesh Component](BattleTank/Saved/Screenshots/Windows/Class_Viewer_Static_Mesh_Component.png)
+![Class Viewer Static Mesh Component](BattleTank/Saved/Screenshots/Windows/Class_Viewer_Static_Mesh_Component.png)
 
-[TankBP Blueprint Callable Set Barrel Reference](BattleTank/Saved/Screenshots/Windows/TankBP_Blueprint_Callable.png)
+![TankBP Blueprint Callable Set Barrel Reference](BattleTank/Saved/Screenshots/Windows/TankBP_Blueprint_Callable.png)
 
 1. Declare `SetBarrelReferenced`
 
@@ -637,51 +637,251 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 ```
 
 ### `SuggestProjectileVelocity()`
+
+- **Objective**: Understand launch velocity
+
+![Launch Unit Vectors](BattleTank/Saved/Screenshots/Windows/LaunchVelocity_UnitVectors.png)
+
+[Wikipedia Projectile Motion](https://en.wikipedia.org/wiki/Projectile_motion)
+
+![Wikipedia Projectile Motion Image](BattleTank/Saved/Downloads/Ideal_projectile_motion_for_different_angles.png)
+
+[SuggestProjectileVelocity Learn Doc](https://docs.unrealengine.com/latest/INT/BlueprintAPI/Game/Components/ProjectileMovement/SuggestProjectileVelocity/index.html)
+
+[SuggestProjectileVelocity C++ Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UGameplayStatics/SuggestProjectileVelocity/index.html)
+
+1. Setup a `LaunchSpeed` parameter
+
+```cpp
+/// Tank.h
+
+/// Macros here
+class BATTLETANK_API ATank : public APawn
+{
+	/// Boilerplate
+public:
+	// Tank doesn't care about `LaunchSpeed` or other firing parameters
+	void AimAt(FVector HitLocation);
+	// More code
+protected:
+	// Protected code
+private:
+	// Create a new property that will show up in a new
+	// Firing category on the Blueprint which will 
+	// allow us to experiment with different launch speeds
+	UPROPERTY(EditAnywhere, category=Firing)
+	float LaunchSpeed = 100000; // 1000 m/s
+};
+
+```
+
+2. Pass the `LaunchSpeed` to `TankAimingComponent` `AimAt()`
+
+```cpp
+/// Tank.cpp
+
+void ATank::AimAt(FVector HitLocation)
+{
+	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+}
+```
+
+3. Add the new parameter to the aiming component
+
+```cpp
+/// TankAimingComponent.h
+
+/// Macro here
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	/// Boilerplate here
+public:	
+	void AimAt(FVector HitLocation, float LaunchSpeed);
+protected:
+	// protected code
+private:
+	// private code
+}
+```
+
+4. Log out the `LaunchSpeed` parameter's value
+
+```cpp
+/// TankAimingComponent.cpp
+
+void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Firing at %.2f cm/s"), LaunchSpeed)
+}
+```
+
 ### Predict Projectile Landing Point
+
+- **Objective**:
+
 ### Using `FRotators` in Unreal
+
+- **Objective**:
+
 ### The C++ Compilation Process
+
+- **Objective**:
+
 ### Using Forward Declarations
+
+- **Objective**:
+
 ### `BlueprintSpawnableComponent()`
+
+- **Objective**:
+
 ### Review Our Execution Flow
+
+- **Objective**:
+
 ### How to Report Bugs
 
+
+- **Objective**:
+
 ### Mid-Section Quiz
+
+
+- **Objective**:
 
 ### Using `Clamp()` to Limit Values
+
+- **Objective**:
+
 ### CHALLENGE - Turret Rotation
+
+- **Objective**:
+
 ### CHALLENGE - Turret Rotation Pt 2
+
+- **Objective**:
+
 ### Setting Up Projectiles
+
+- **Objective**:
+
 ### Upgrading to Unreal 4.2
+
+- **Objective**:
+
 ### Working Around Awkward Bugs
+
+- **Objective**:
+
 ### Using `SpawnActor<>()` to Spawn
+
+- **Objective**:
+
 ### Projectile Moving Components
+
+- **Objective**:
+
 ### Making AI Tanks Fire
+
+- **Objective**:
+
 ### `EditAnywhere` vs `EditDefaultsOnly`
 
+
+- **Objective**:
+
 ### Mid-Section Quiz
+
+
+- **Objective**:
 
 ### Adding a Quit Button
+
+- **Objective**:
+
 ### Setup Track Throttles
+
+- **Objective**:
+
 ### `ApplyForceAtLocation()` in Action
+
+- **Objective**:
+
 ### Physics Materials and Friction
+
+- **Objective**:
+
 ### Fly-By-Wire Control System
+
+- **Objective**:
+
 ### Using BluePrintReadOnly
+
+- **Objective**:
+
 ### A Better Component Architecture
+
+- **Objective**:
+
 ### Completing Manual Tank Movement
+
+- **Objective**:
+
 ### Introducing AI Pathfinding
+
+- **Objective**:
+
 ### Dissecting `RequestDirectMove()`
 
+
+- **Objective**:
+
 ### Mid-Section Quiz
+
+
+- **Objective**:
 
 ### DotProduct() Vector Operator
+
+- **Objective**:
+
 ### CrossProduct() Vector Operator
+
+- **Objective**:
+
 ### Finalizing Your Class Code
+
+- **Objective**:
+
 ### How to Use Blueprint Variables
+
+- **Objective**:
+
 ### Using Enum(erations) in UE4
+
+- **Objective**:
+
 ### Refactoring our Aiming Component
+
+- **Objective**:
+
 ### Attaching a Debugger to Unreal
+
+- **Objective**:
+
 ### Constructor and Begin Play Timing
+
+- **Objective**:
+
 ### Decoupling Your Architecture
+
+- **Objective**:
+
 ### `BlueprintImplementableEvent`
 
-### Mid-Section Quiz
+
+- **Objective**:
+
+
+- **Objective**:### Mid-Section Quiz
+
