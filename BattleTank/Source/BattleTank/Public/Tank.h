@@ -11,6 +11,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
+class AProjectile;
 
 
 UCLASS()
@@ -43,6 +44,13 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditAnywhere, category=Firing)
+	UPROPERTY(EditAnywhere, category = Firing)
 	float LaunchSpeed = 100000; // 1000 m/s
+
+	UPROPERTY(EditAnywhere, category = Setup)
+	// UClass* ProjectileBlueprint;
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	// Local barrel reference for spawning a projectile
+	UTankBarrel* Barrel = nullptr;
 };

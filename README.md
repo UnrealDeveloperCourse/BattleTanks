@@ -662,7 +662,7 @@ class BATTLETANK_API ATank : public APawn
 {
 	/// Boilerplate
 public:
-	// Tank doesn't care about `LaunchSpeed` or other firing parameters
+	// Tank doesn't care about `LaunchSpeed` or other aiming parameters
 	void AimAt(FVector HitLocation);
 	// More code
 protected:
@@ -765,6 +765,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 ### Using `FRotators` in Unreal
 
 - **Objective**: Control the Roll, Pitch, and Yaw of barrel
+
+***NOTE***: A vector that points equally down the X and Y axis is "Yawed" by 45 degrees clockwise as seen from above. Note Roll may be null as we have said nothing about Roll so it can't be inferred (we're pointing the arrow not rotating it when we create the FVector)
 
 1. Create a Barrel Class
 
@@ -961,31 +963,45 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 ### Using `Clamp()` to Limit Values
 
-- **Objective**:
+- **Objective**: Rotate the TankBarrel but clamp rotations to a maximum value
+
+![Barrel Elevated](BattleTank/Saved/Screenshots/Windows/TankBarrel_Elevate.png)
 
 ### CHALLENGE - Turret Rotation
 
-- **Objective**:
+- **Objective**: Make the turret rotate
+
+1. Create the TankTurret C++ Class
+2. Add the `UCLASS(meta = (BlueprintSpawnableComponent))` macro
+3. Create `SetTurretReference` `BlueprintCallable` function in `Tank.h` and create the implementation
+4. Create forward declaration of `UTankTurret` in `Tank.h`
+5. `TankAimingComponent.h` create a `void SetTurretReference(UTankTurret * TurretToSet);`
+6. `TankAimingComponent.h` create a `UTankTurret * Turret = nullptr;`
+7. `TankAimingComponent.h` forward declaration `class UTankTurret;`
+8. `TankAimingComponent.cpp` create a `void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)`
+9. `TankAimingComponent.cpp` preemptively hash include `#include "TankTurret.h"`
 
 ### CHALLENGE - Turret Rotation Pt 2
 
-- **Objective**:
+- **Objective**: Get fully operational and game play tested Rotation
 
 ### Setting Up Projectiles
 
-- **Objective**:
+- **Objective**: Move beyond the Tank and focus on firing
+
+![Iterative Cycle Controls Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_ControlsStage.png)
 
 ### Upgrading to Unreal 4.2
 
-- **Objective**:
+- **Objective**: Install 4.2, Test Game
 
 ### Working Around Awkward Bugs
 
-- **Objective**:
+- **Objective**: Stop an annoying bug that manifests after upgrading engine version
 
 ### Using `SpawnActor<>()` to Spawn
 
-- **Objective**:
+- **Objective**: Spawn projectiles at the end of the barrel
 
 ### Projectile Moving Components
 
