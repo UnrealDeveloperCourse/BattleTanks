@@ -896,7 +896,32 @@ UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
 
 ### Review Our Execution Flow
 
-- **Objective**:
+- **Objective**: Zoom out of the details and examine the Call Stack
+
+![](Tank_FireProjectile_Execution_Flow.png)
+
+1. `DegreesPerSecond` is wrong, change `Elevate(float DegreesPerSecond)` to `Elevate(float RelativeSpeed)`
+2. `RelativeSpeed` is +-1 max speed
+
+![](Tank_FireProjectile_Execution_Flow_2.png)
+
+3. Player/AI Controller need a tick, as well as Tank Aiming Component
+4. Tank Does not need a tick to get rid of it in Tank h and cpp files
+
+5. Print the time to verify method is called every tick
+
+```cpp
+/// TankBarrel.cpp
+
+void UTankBarrel::Elevate(float RelativeSpeed)
+{
+	auto Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%.2f: Rotate at speed: %f"), Time, RelativeSpeed)
+}
+```
+
+6. Verify: Does the `TankAimingComponent` really need to tick?
+7. Figure out: Aiming logs stop intermittently, could it be the Aiming Solution? Change the logs to figure out why.
 
 ### How to Report Bugs
 
