@@ -761,15 +761,60 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 ### Using `FRotators` in Unreal
 
-- **Objective**:
+- **Objective**: Control the Roll, Pitch, and Yaw of barrel
+
+**The pseudo-code for this is** 
+
+1. Get the difference between the current barrel rotation and `AimDirection`
+2. Move the barrel the correct amount this frame
+3. Given a max elevation speed, and the frame time
+
+```cpp
+/// TankAimingComponent.h
+// Macro here
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	// Boilerplate
+public:	
+	// public code
+private:
+	void MoveBarrelTowards(FVector AimDirection);
+};
+```
+
+```cpp
+/// TankAimingComponent.cpp
+
+void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+{
+	// Code to get projectile velocity here
+	// Get the result as `bHaveAimSolution`
+
+	// Call `MoveBarrelTowards()`
+	if (bHaveAimSolution) {
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		MoveBarrelTowards(AimDirection);
+	}
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
+{
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	UE_LOG(LogTemp, Warning, TEXT("DeltaRotator: %s"), *DeltaRotator.ToString())
+}
+```
 
 ### The C++ Compilation Process
 
-- **Objective**:
+- **Objective**: Understand the best way to import header files
+
+![Compiliation Process](BattleTank/Saved/Screenshots/Windows/Cpp_Compilation_Process.png)
 
 ### Using Forward Declarations
 
-- **Objective**:
+- **Objective**: Create Barrel Class and Barrel Elevate method
 
 ### `BlueprintSpawnableComponent()`
 
