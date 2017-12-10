@@ -2,6 +2,8 @@
 
 #include "TankBarrel.h"
 #include "TankAimingComponent.h"
+#include "Engine/StaticMeshSocket.h"
+#include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/GameplayStaticsTypes.h"
 
@@ -30,6 +32,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 			StartLocation,
 			HitLocation,
 			LaunchSpeed,
+			false,
+			0,
+			0,
 			ESuggestProjVelocityTraceOption::DoNotTrace	
 	);
 
