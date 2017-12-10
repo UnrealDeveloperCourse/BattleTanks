@@ -1005,7 +1005,7 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 ### Projectile Moving Components
 
-- **Objective**:
+- **Objective**: Add a Movement Component to the projectile much the same way we added Aiming Component to the Tank
 
 ### Making AI Tanks Fire
 
