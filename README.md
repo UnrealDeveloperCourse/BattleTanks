@@ -717,7 +717,47 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 ### Predict Projectile Landing Point
 
-- **Objective**:
+- **Objective**: Get the `AimDirection`: where we should be aiming our barrel
+
+```cpp
+/// TankAimingComponent.cpp
+
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/GameplayStaticsTypes.h"
+
+void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+{
+	// protect pointers
+	if (!Barrel) { return; }
+
+	// Out parameter, in engine code all are prefixed "Out"
+	FVector OutLaunchVelocity;
+	// Create a socket in Unreal on the barrel first
+	// The start location is the projectile location
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+
+	// https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UGameplayStatics/SuggestProjectileVelocity/index.html
+	if (UGameplayStatics::SuggestProjectileVelocity(
+				this,
+				OutLaunchVelocity,
+				StartLocation,
+				HitLocation,
+				LaunchSpeed,
+				false,
+				0.0,
+				0.0,
+				ESuggestProjVelocityTraceOption::DoNotTrace	
+			)
+		)
+	{
+		// Getting the "Unit Vector"
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *TankName, *AimDirection.ToString())
+	}
+	// do nothing if unsuccessful
+}
+```
 
 ### Using `FRotators` in Unreal
 
