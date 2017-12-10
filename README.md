@@ -763,11 +763,20 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 - **Objective**: Control the Roll, Pitch, and Yaw of barrel
 
-**The pseudo-code for this is** 
+1. Create a Barrel Class
 
-1. Get the difference between the current barrel rotation and `AimDirection`
-2. Move the barrel the correct amount this frame
-3. Given a max elevation speed, and the frame time
+![Create TankBarrel C++ Class](BattleTank/Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class.png)
+
+![Create TankBarrel C++ Class](BattleTank/Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class_2.png)
+
+2. Create the `MoveBarrelTowards` method
+3. Work out what `MoveBarrelTowards` needs to do
+
+**The pseudo-code** 
+
+- Get the difference between the current barrel rotation and `AimDirection`
+- Move the barrel the correct amount this frame
+- Given a max elevation speed, and the frame time
 
 ```cpp
 /// TankAimingComponent.h
@@ -790,7 +799,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	// Code to get projectile velocity here
 	// Get the result as `bHaveAimSolution`
 
-	// Call `MoveBarrelTowards()`
+	// Call `MoveBarrelTowards()` where we used to log out information
 	if (bHaveAimSolution) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
@@ -802,9 +811,12 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("DeltaRotator: %s"), *DeltaRotator.ToString())
+	Barrel->Elevate(5);
 }
 ```
+
+4. It is at this time that we need to search/replace in Tank (h and cpp) and TankAimingComponent (h and cpp) `UStaticMeshComponent * Barrel` with `UTankBarrel * Barrel` and `UStaticMeshComponent * BarrelToSet` with `UTankBarrel * BarrelToSet`
+5. Hash include `TankBarrel.h` in `TankAimingComponent.cpp` is not necessary because we are calling a method on the `TankBarrel` class
 
 ### The C++ Compilation Process
 
@@ -814,11 +826,73 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 ### Using Forward Declarations
 
-- **Objective**: Create Barrel Class and Barrel Elevate method
+- **Objective**: Create Barrel Class and Barrel `Elevate` method
+
+1. Create Forward Declarations in h files
+
+```cpp
+/// Tank.h
+
+// Forward Declaration, enable referencing of the type in class decaration
+class UTankBarrel;
+```
+
+```cpp
+/// TankAimingComponent.h
+
+// Forward Declaration, enable referencing of the type in class decaration
+class UTankBarrel;
+```
+
+2. Update the cpp files' hash includes if necessary
+
+```cpp
+/// Tank.cpp
+
+// No methods called on `TankBarrel`, no need to hash include `TankBarrel.h`
+#include "Tank.h"
+```
+
+```cpp
+/// TankAimingComponent.cpp
+
+// `MoveBarrelTowards()` calls `TankBarrel` `Elevate` method, need to hash include `TankBarrel.h` in the cpp file
+#include "TankBarrel.h"
+```
 
 ### `BlueprintSpawnableComponent()`
 
-- **Objective**:
+- **Objective**: Replace the `UStaticMeshComponent` class with `TankBarrel` C++ class as input to the `Set Barrel Reference` Unreal Function in the Event Graph for Tank_BP and add some setup Unreal Properties to the `TankBarrel`
+
+![Set Barrel Reference and Setup Properties](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel.png)
+
+![Tank Barrel in `Add Component` menu](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_2.png)
+
+1. Make TankBarrel show up in Unreal's Add Component menu by adding `BlueprintSpawnableComponent` to the class definition
+
+```cpp
+/// TankBarrel.h
+
+UCLASS(meta = (BlueprintSpawnableComponent))
+class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
+{
+	// Class Definition code
+}
+```
+
+![Tank Barrel in `Add Component` menu](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_3.png)
+
+2. Replace the StaticMeshComponent Barrel with the new TankBarrel component and drag that component to the Event Graph
+3. Hook up the new Barrel to the Unreal Function Input
+4. Re-assign Static Mesh of the Barrel
+5. Verify new Setup properties exist on the new Barrel
+
+```cpp
+/// TankBarrel.h
+
+// Sometimes useful to hide categories in UEd from designers for instance "Collision"
+UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
+```
 
 ### Review Our Execution Flow
 

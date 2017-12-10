@@ -8,7 +8,9 @@
 #include "Tank.generated.h"
 
 
+// Forward Declaration
 class UTankBarrel;
+
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
