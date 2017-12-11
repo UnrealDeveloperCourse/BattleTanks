@@ -43,7 +43,7 @@ Battle Tank
 ### Flat Shading Low Poly Landscapes
 ### More Landscaping Tools
 
-### Mid-Section Quiz
+## Mid-Section Quiz
 
 ### Tank Control System
 ### Actors from Multiple Meshes
@@ -956,7 +956,7 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 1. `#includes Tank.h` in multiple h files, declare `class ATank;` in each header and hash include `Tank.h` in each cpp file
 
-### Mid-Section Quiz
+## Mid-Section Quiz
 
 
 - **Objective**:
@@ -1018,10 +1018,7 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 - **Objective**: Start using EditDefaultsOnly and examine the effects
 
-### Mid-Section Quiz
-
-
-- **Objective**:
+## Mid-Section Quiz
 
 ### Adding a Quit Button
 
@@ -1064,10 +1061,7 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 - **Objective**:
 
-### Mid-Section Quiz
-
-
-- **Objective**:
+## Mid-Section Quiz
 
 ### DotProduct() Vector Operator
 
@@ -1107,9 +1101,128 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 ### `BlueprintImplementableEvent`
 
+- **Objective**:
+
+## Mid-Section Quiz
+
+### Using the ensure Assertion
 
 - **Objective**:
 
+### Dependency Mapping
 
-- **Objective**:### Mid-Section Quiz
+- **Objective**:
 
+### Talking Head - Real World Skills
+
+- **Objective**:
+
+### Starting From Green
+
+- **Objective**:
+
+### Aiming Without the Tank
+
+- **Objective**:
+
+### Finish Our Refactoring
+
+- **Objective**:
+
+### Adding TickComponent() Back
+
+- **Objective**:
+
+### Are Two Floats Equal?
+
+- **Objective**:
+
+### Programmatic Sideways Friction
+
+- **Objective**:
+
+### OnComponentHit Event in 4.12
+
+- **Objective**:
+
+### Avoiding Boolean Flags
+
+- **Objective**:
+
+## Mid-Section Quiz
+
+### Improving Tank Aiming
+
+- **Objective**:
+
+### Tweaking Tank AI
+
+- **Objective**:
+
+### Making an Ammo Display
+
+- **Objective**:
+
+### Making an AutoMortar
+
+- **Objective**:
+
+### Using the Reference Viewer
+
+- **Objective**:
+
+### Preparing for Particles
+
+- **Objective**:
+
+### Introducing Particle Systems
+
+- **Objective**:
+
+### Particle Bounding Boxes
+
+- **Objective**:
+
+### Using FAttachmentTransformRules
+
+- **Objective**:
+
+## Mid-Section Quiz
+
+### Radial Forces & Caching
+
+- **Objective**:
+
+### Using GetTimerManager()
+
+- **Objective**:
+
+### Using TakeDamage() on Actors
+
+- **Objective**:
+
+### BlueprintPure & Health Bars
+
+- **Objective**:
+
+### The Observer Pattern
+
+- **Objective**:
+
+### Finishing Off - Part 1
+
+- **Objective**:
+
+### Finishing Off - Part 2
+
+- **Objective**:
+
+### Section 4 Wrap-Up
+
+- **Objective**:
+
+### Bonus - Switching Cameras
+
+- **Objective**:
+
+## End of Section Quiz
