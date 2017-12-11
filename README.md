@@ -1009,12 +1009,14 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 ### Making AI Tanks Fire
 
-- **Objective**:
+- **Objective**: Limit firing rate, make the Tank AI fire at the Player Tank
+
+![Iterative Cycle Player2 Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_Player2Stage.png)
 
 ### `EditAnywhere` vs `EditDefaultsOnly`
 
 
-- **Objective**:
+- **Objective**: Start using EditDefaultsOnly and examine the effects
 
 ### Mid-Section Quiz
 
