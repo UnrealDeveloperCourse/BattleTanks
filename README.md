@@ -980,15 +980,104 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 - **Objective**: Make the turret rotate
 
+- To get started, what we would like to see in the UI is the Turret class along side the Barrel Class. Then we need to make a `BlueprintCallable` function we can use in the Event Graph.
+
 1. Create the TankTurret C++ Class
+
+![TankTurret Cpp Class](BattleTank/Saved/Screenshots/Windows/TankTurret_Cpp_Class.png)
+
+![TankTurret Cpp Class](BattleTank/Saved/Screenshots/Windows/TankTurret_Cpp_Class_2.png)
+
 2. Add the `UCLASS(meta = (BlueprintSpawnableComponent))` macro
+
+![Add Component](BattleTank/Saved/Screenshots/Windows/TankTurret_Add_Component.png)
+
+![Add Component](BattleTank/Saved/Screenshots/Windows/TankTurret_Add_Component_2.png)
+
 3. Create `SetTurretReference` `BlueprintCallable` function in `Tank.h` and create the implementation
+
 4. Create forward declaration of `UTankTurret` in `Tank.h`
+
+```cpp
+/// Tank.h
+
+// Forward declaration
+class UTankTurret;
+
+/// Macro here
+class BATTLETANK_API ATank : public APawn
+{
+	// Boilerplate code here
+
+public:
+	// Add `BlueprintCallable` function
+	UFUNCTION(BlueprintCallable, category = Setup)
+		void SetTurretReference(UTankTurret * TurretToSet);
+
+	// Class definition continued...
+}
+```
+
+```cpp
+/// Tank.cpp
+
+// Deleget `SetTurretReference` to the `TankAimingComponent`
+void ATank::SetTurretReference(UTankTurret * TurretToSet)
+{
+	TankAimingComponent->SetTurretReference(TurretToSet);
+}
+```
+
 5. `TankAimingComponent.h` create a `void SetTurretReference(UTankTurret * TurretToSet);`
+
 6. `TankAimingComponent.h` create a `UTankTurret * Turret = nullptr;`
+
 7. `TankAimingComponent.h` forward declaration `class UTankTurret;`
+
+
+```cpp
+/// TankAimingComponent.h
+
+// Forward declaration
+class UTankTurret;
+
+
+/// Macro here
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	// Boilerplate code here
+
+public:
+	// Delegated `SetTurretReference`
+	void SetTurretReference(UTankTurret * TurretToSet);
+	// More code here
+private:
+	UTankTurret* Turret = nullptr;
+	// Class definition continued...
+}
+```
+
 8. `TankAimingComponent.cpp` create a `void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)`
-9. `TankAimingComponent.cpp` preemptively hash include `#include "TankTurret.h"`
+
+9. `TankAimingComponent.cpp` hash include `#include "TankTurret.h"`
+
+```cpp
+/// TankAimingComponent.cpp
+
+// Forward declarations require us to hash include the header
+#include "TankTurret.h"
+
+
+void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
+{
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
+}
+```
+
+- Now we are able to create the function in `Tank_BP`
+
+![SetTurretReferece BlueprintCallable Function](BattleTank/Saved/Screenshots/Windows/TankTurret_SetTurretReference_BPCallable_Function.png)
 
 ### CHALLENGE - Turret Rotation Pt 2
 
