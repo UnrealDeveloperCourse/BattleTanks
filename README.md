@@ -1,7 +1,7 @@
 # Section_04
 Battle Tank
 
-### Intro, Notes & Section 4 Assets
+## Intro, Notes & Section 4 Assets
 
 
 ### Battle Tank Overview
@@ -146,7 +146,7 @@ Battle Tank
 - Problem: Set Input Mode UIOnly
 	+ Mode never switches over to Game Only
 
-### Mid Section Quiz
+## Mid Section Quiz
 
 ### Delegating to Components
 
@@ -958,12 +958,21 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 ## Mid-Section Quiz
 
-
-- **Objective**:
-
 ### Using `Clamp()` to Limit Values
 
 - **Objective**: Rotate the TankBarrel but clamp rotations to a maximum value
+
+- If values are plugged in manually for `SetRelativeRotation()` then the problem we need to solve is visible by playing the game. The barrel rotates beyond the maximum elevation and does not stop rotating at around 8 seconds (calculation based on `MaxDegreesPerSecond`)
+
+![Barrel Elevated](BattleTank/Saved/Screenshots/Windows/TankBarrel_Elevate_02.png)
+
+- Use the `FMath` struct's `Clamp` function to clamp the elevate speed to +/-1
+- Calculate the `ElevationChange` using `GetWorld()->DeltaTimeSeconds` to get current time in seconds
+- Also `Clamp` the degree of elevation to the values set in the blueprint 0 -> 40
+
+![Barrel Elevated](BattleTank/Saved/Screenshots/Windows/TankBarrel_Elevate_03.png)
+
+- Test it works, play game, deposess the tank and inspect it's details
 
 ![Barrel Elevated](BattleTank/Saved/Screenshots/Windows/TankBarrel_Elevate.png)
 
