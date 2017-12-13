@@ -1417,7 +1417,7 @@ void ATankAIController::Tick(float DeltaTime)
 }
 ```
 
-2. Limit the firing rate by declaring `ReloadTimeInSeconds` on the Tank and make it a `UPROPERTY`
+2. Limit the firing rate by declaring `ReloadTimeInSeconds` on the Tank and make it a `UPROPERTY` (in the videos this doesn't happen until next lecture)
 
 ```cpp
 /// Tank.h
@@ -1482,6 +1482,14 @@ void ATank::Fire()
 
 
 - **Objective**: Start using EditDefaultsOnly and examine the effects
+
+- *Note from previous*: `FPlatformTime::Seconds()` is time that begins some time in the past
+
+- EditAnywhere: Editable on any tank instance
+
+- EditDefaultsOnly: Editable only on the Tank_BP
+	+ most sensible choice for all game properties created up until this point
+
 
 ## Mid-Section Quiz
 
