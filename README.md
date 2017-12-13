@@ -1,11 +1,11 @@
 # Section_04
 Battle Tank
 
+Hint: Make viewing this README an extra special experience with [Octopatcher](https://chrome.google.com/webstore/detail/octopatcher/lcilaoigfgceebdljpanjenhmnoijmal/related?hl=en-US&gl=US)
+
 ## Intro, Notes & Section 4 Assets
 
-
 ### Battle Tank Overview
-
 
 ### Game Design Document
 
@@ -1212,6 +1212,65 @@ void ATank::Fire()
 ### Using `SpawnActor<>()` to Spawn
 
 - **Objective**: Spawn projectiles at the end of the barrel
+
+- [TSubclassOf docs](https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf/)
+
+- Before getting started add a Sphere with a scale of 1 to the Projectile_BP, Save All
+
+- First Achievement: Instantiate Projectile from code
+
+1. Create A `BlueprintCallable` Property on the Tank class that we can set the Projectile with, remember forward delaration of `AProjectile`
+
+```cpp
+/// Tank.h
+
+// Forward declarations
+// more declarations here
+class AProjectile;
+
+/// Macro here
+class BATTLETANK_API ATank : public APawn
+{
+	// Boilerplate code here
+public:
+	// public code here
+protected:
+	// protected code here
+private:
+	// Set the `BlueprintCallable` property for the projectile
+	UPROPERTY(EditDefaultsOnly, category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+}
+```
+
+![Add Projectile to Tank_BP](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Add_To_TankBP.png)
+
+2. Declare a reference to the barrel in the Tank class for spawning a projectile off of `UTankBarrel* Barrel = nullptr;`
+3. Create socket location on the Barrel called "Projectile"
+4. Spawn actor in the `ATank::Fire()` method
+
+```cpp
+/// Tank.cpp
+
+#include "Projectile.h"
+
+
+void ATank::Fire()
+{	
+	// ...
+
+	// Spawn a projectile at the socket on the barrel
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+		ProjectileBlueprint,
+		Barrel->GetSocketLocation(FName("Projectile")),
+		Barrel->GetSocketRotation(FName("Projectile"))
+	);
+
+	// ...
+}
+```
+
+![Projectile SpawnActor](BattleTank/Saved/Screenshots/Windows/Projectile_SpawnActor.png)
 
 ### Projectile Moving Components
 
