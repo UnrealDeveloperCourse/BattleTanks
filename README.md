@@ -1270,11 +1270,118 @@ void ATank::Fire()
 }
 ```
 
+- **Achievement Unlocked!**
+
 ![Projectile SpawnActor](BattleTank/Saved/Screenshots/Windows/Projectile_SpawnActor.png)
 
 ### Projectile Moving Components
 
 - **Objective**: Add a Movement Component to the projectile much the same way we added Aiming Component to the Tank
+
+1. Add Projectile Movement Component, first what is it called?
+
+![Projectile Movement Component](Projectile_MovementComponent_Creation_1.png)
+
+2. set `bAutoActivate` to false
+
+```cpp
+/// Projectile.h
+
+#include "GameFramework/ProjectileMovementComponent.h"
+
+// Macro here
+class BATTLETANK_API AProjectile : public AActor
+{
+	// Boilerplate code
+	
+public:	
+	// public code here
+
+protected:
+	// protected code here
+private:
+	// Declare the Movement Component
+	UProjectileMovementComponent * ProjectileMovementComponent = nullptr;
+};
+```
+
+```cpp
+/// Projectile.cpp
+
+#include "Projectile.h"
+
+// Sets default values
+AProjectile::AProjectile()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("MovementComponent"));
+	ProjectileMovementComponent->bAutoActivate = false;
+	
+}
+```
+
+![Projectile Movement Component](Projectile_MovementComponent_Creation_2.png)
+
+3. Create the lauch projectile method and call it in `Tank.cpp`
+
+```cpp
+/// Projectile.h
+
+#include "GameFramework/ProjectileMovementComponent.h"
+
+// Macro here
+class BATTLETANK_API AProjectile : public AActor
+{
+	// Boilerplate code
+public:	
+	// Launch projectile method
+	void LaunchProjectile(float Speed);
+
+// Class delaration continued...
+};
+```
+
+```cpp
+void AProjectile::LaunchProjectile(float Speed)
+{
+	auto TankName = GetOwner()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s Firing at speed %f"), *TankName, Speed)
+}
+```
+
+```cpp
+/// Tank.cpp
+
+void ATank::Fire()
+{	
+	// ...
+
+	// Spawn a projectile at the socket on the barrel
+
+	// Fire the projectile
+	Projectile->LaunchProjectile(LaunchSpeed);
+
+	// ...
+}
+
+```
+
+4. Actually launch the projectile
+5. Since `ProjectileMovementComponent->bAutoActivate = false;` we need to set the velocity then call `Activate()`
+
+```cpp
+
+void AProjectile::LaunchProjectile(float Speed)
+{
+	// Log firing
+
+	// Launch
+	ProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
+	ProjectileMovementComponent->Activate();
+}
+```
 
 ### Making AI Tanks Fire
 
