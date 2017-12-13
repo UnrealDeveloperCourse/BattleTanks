@@ -146,7 +146,7 @@ Battle Tank
 - Problem: Set Input Mode UIOnly
 	+ Mode never switches over to Game Only
 
-## Mid Section Quiz
+## Mid-Section Quiz
 
 ### Delegating to Components
 
@@ -459,7 +459,7 @@ void ATankAIController::Tick(float DeltaTime)
 - Using the same `AimAt` method is automatically equitable game play, fair, and balanced.
 
 
-### Mid Section Quiz
+## Mid-Section Quiz
 
 ### Creating Default Sub Objects in C++
 
@@ -1092,6 +1092,59 @@ void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
 ### CHALLENGE - Turret Rotation Pt 2
 
 - **Objective**: Get fully operational and game play tested Rotation
+
+1. Create `Rotation` method
+2. Create the MaxDegreesPerSecond Property
+
+```cpp
+/// TankTurret.h
+
+//Macro here
+class BATTLETANK_API UTankTurret : public UStaticMeshComponent
+{
+	// Boilerplate here
+public:
+	void Rotate(float RelativeSpeed);
+
+private:
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	float MaxDegreesPerSecond = 25;
+}
+```
+
+```cpp
+/// TankTurret.cpp
+
+void UTankTurret::Rotate(float RelativeSpeed)
+{
+	auto RelativeSpeedClamped = FMath::Clamp<float>(RelativeSpeed, -1., 1.);
+	auto RotationChange = RelativeSpeedClamped * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+	auto Rotation = RelativeRotation.Yaw + RotationChange;
+	SetRelativeRotation(FRotator(0, Rotation, 0));
+}
+```
+
+![MaxDegreesPerSecond Property](BattleTank/Saved/Screenshots/TankTurret_MaxDegreesPerSecond_Property.png)
+
+3. To get the Turret, the control stack will be similar to Aiming
+
+![Aiming Diagram](BattleTank/Saved/Screenshots/TankTurret_Aiming_Diagram.png)
+
+```cpp
+/// TankAimingComponent.cpp
+
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
+{
+	// Aiming code here
+
+	// Finally call Rotate
+	Turret->Rotate(DeltaRotator.Yaw);
+}
+```
+
+4. Test some values in Blueprint for Elevation and Rotation values then push the values into C++ so that if designer creates more tanks the default values will all be the same.
+
+5. Address the TODO find out if Aiming Component needs to tick optimization. In the video, it is not necessary but in my case it IS necessary
 
 ### Setting Up Projectiles
 
