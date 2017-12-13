@@ -1124,11 +1124,11 @@ void UTankTurret::Rotate(float RelativeSpeed)
 }
 ```
 
-![MaxDegreesPerSecond Property](BattleTank/Saved/Screenshots/TankTurret_MaxDegreesPerSecond_Property.png)
+![MaxDegreesPerSecond Property](BattleTank/Saved/Screenshots/Windows/TankTurret_MaxDegreesPerSecond_Property.png)
 
 3. To get the Turret, the control stack will be similar to Aiming
 
-![Aiming Diagram](BattleTank/Saved/Screenshots/TankTurret_Aiming_Diagram.png)
+![Aiming Diagram](BattleTank/Saved/Screenshots/Windows/TankTurret_Aiming_Diagram.png)
 
 ```cpp
 /// TankAimingComponent.cpp
