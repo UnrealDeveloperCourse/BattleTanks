@@ -990,6 +990,16 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 2. Add the `UCLASS(meta = (BlueprintSpawnableComponent))` macro
 
+```cpp
+/// TankTurret.h
+
+// Add `BlueprintSpawnableComponent` macro
+UCLASS(meta = (BlueprintSpawnableComponent))
+class BATTLETANK_API UTankTurret : public UStaticMeshComponent
+{ //Class Definition
+}
+```
+
 ![Add Component](BattleTank/Saved/Screenshots/Windows/TankTurret_Add_Component.png)
 
 ![Add Component](BattleTank/Saved/Screenshots/Windows/TankTurret_Add_Component_2.png)
