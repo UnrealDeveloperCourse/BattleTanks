@@ -1389,6 +1389,95 @@ void AProjectile::LaunchProjectile(float Speed)
 
 ![Iterative Cycle Player2 Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_Player2Stage.png)
 
+1. Defactor or Inline refactored code and remove logging code in BeginPlay
+
+- Start off firing every tick in `UTankAimingComponent::AimAt`
+
+```cpp
+/// TankAIController.cpp
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	// Inlining what was previously 2 methods
+	auto ControlledTank = Cast<ATank>(GetPawn());
+	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	if (PlayerTank)
+	{
+		// Move towards the player
+		
+		// Aim towards the player
+		ControlledTank->AimAt(PlayerTank->GetActorLocation());
+
+		// TODO: limit firing rate
+		ControlledTank->Fire();
+	}
+}
+```
+
+2. Limit the firing rate by declaring `ReloadTimeInSeconds` on the Tank and make it a `UPROPERTY`
+
+```cpp
+/// Tank.h
+
+// Forward declarations
+// more declarations here
+class AProjectile;
+
+/// Macro here
+class BATTLETANK_API ATank : public APawn
+{
+	// Boilerplate code here
+public:
+	// public code here
+protected:
+	// protected code here
+private:
+	// declare ReloadTimeInSeconds
+	UPROPERTY(EditDefaultsOnly, category = Firing)
+	float ReloadTimeInSeconds = 3;
+// Class declaration continued...
+}
+```
+
+3. Create a timer and only fire when the timer expires
+
+```cpp
+/// Tank.h
+/// Macro here
+class BATTLETANK_API ATank : public APawn
+{
+	// ...
+private:
+	// ...
+	double LastFireTime = 0;
+	// ...
+}
+```
+
+```cpp
+/// Tank.cpp
+
+void ATank::Fire()
+{	
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	if (Barrel && isReloaded)
+	{
+		// Spawn a projectile at the socket on the barrel
+
+		// Fire the projectile
+
+		// Reset timer
+		LastFireTime = FPlatformTime::Seconds();
+	}
+	// ...
+}
+```
+
+
 ### `EditAnywhere` vs `EditDefaultsOnly`
 
 
