@@ -1280,7 +1280,7 @@ void ATank::Fire()
 
 1. Add Projectile Movement Component, first what is it called?
 
-![Projectile Movement Component](Projectile_MovementComponent_Creation_1.png)
+![Projectile Movement Component](BattleTank/Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_1.png)
 
 2. set `bAutoActivate` to false
 
@@ -1322,7 +1322,7 @@ AProjectile::AProjectile()
 }
 ```
 
-![Projectile Movement Component](Projectile_MovementComponent_Creation_2.png)
+![Projectile Movement Component](BattleTank/Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_2.png)
 
 3. Create the lauch projectile method and call it in `Tank.cpp`
 
