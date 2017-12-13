@@ -931,6 +931,7 @@ void UTankBarrel::Elevate(float RelativeSpeed)
 ### How to Report Bugs
 
 - **Objective**: Fix the Aim Solution bug, report it to Unreal
+	+ [Unreal Answer Hub](https://answers.unrealengine.com/index.html)
 
 1. Solution: Default parameters not being specified in `SuggestProjectileVelocity`
 2. Problem is in 4.11 and 4.12
@@ -1151,6 +1152,54 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 - **Objective**: Move beyond the Tank and focus on firing
 
 ![Iterative Cycle Controls Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_ControlsStage.png)
+
+1. Set up Firing control setting in Project Settings
+
+![Projectie Fire Input Binding](BattleTank/Saved/Screenshots/Windows/Projectile_Firing_Input_Binding.png)
+
+2. Create Fire BlueprintCallable method in C++
+
+```cpp
+/// Tank.h
+
+/// Macro here
+class BATTLETANK_API ATank : public APawn
+{
+	// Boilerplate code here
+public:
+	// Add `BlueprintCallable` function
+	UFUNCTION(BlueprintCallable, category = Firing)
+	void Fire();
+}
+```
+
+```cpp
+/// Tank.cpp
+
+void ATank::Fire()
+{
+	// Log out which Tank is firing
+	UE_LOG(LogTemp, Warning, TEXT("%s Firing"), *this->GetName())
+}
+```
+
+3. Edit the Input Binding Setup in Tank_BP
+
+![Projectie Fire Input Binding](BattleTank/Saved/Screenshots/Windows/Projectile_Firing_Input_Binding_2.png)
+
+- **Next Achievement**: Create a projectile and fire it
+
+1. Projectile deserves its own C++ class because it will have many attributes
+
+![Projectie C++ Class Creation](BattleTank/Saved/Screenshots/Windows/Projectile_Cpp_Creation_1.png)
+
+![Projectie C++ Class Creation](BattleTank/Saved/Screenshots/Windows/Projectile_Cpp_Creation_2.png)
+
+2. Create a Projectile_BP from C++ Class
+
+![Projectie Blueprint Creation](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Creation.png)
+
+![Projectie Blueprint Creation](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Creation_2.png)
 
 ### Upgrading to Unreal 4.2
 
