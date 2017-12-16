@@ -1495,7 +1495,21 @@ void ATank::Fire()
 
 ### Adding a Quit Button
 
-- **Objective**:
+- **Objective**: Fix an issue with collisions, add a Quit Button in the UI
+
+- Remove collision objects on the tracks and add a new simplified collision object
+- Adjust its collision offset in Blueprint Details
+
+![TankBP Collision Offset Settings](BattleTank/Saved/Screenshots/Windows/TankBP_Collision_OffsetSettings.png)
+
+1. Create a Quit Button by copy/pasting in the UI Outliner and change the text
+2. Create an OnReleased Event on the Button
+
+![MainMenu_BP Quit Button Event](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_QuitButtonEvent.png)
+
+3. Wire Event to QuitGame
+
+![MainMenu_BP Quit Button Event Graph](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_QuitButton_EventGraph.png)
 
 ### Setup Track Throttles
 
