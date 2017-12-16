@@ -1513,7 +1513,46 @@ void ATank::Fire()
 
 ### Setup Track Throttles
 
-- **Objective**:
+- **Objective**: Log out Track Throttle values to the console
+
+1. Base Tracks on C++ Class
+
+- Create A TankTrack Class
+- Inherit from UStaticMeshComponent
+- BluePrintSpawnableComponent as barrel/turret
+- Replace tracks on Tank blueprint
+- Test
+
+2. Create a new Axis Mapping in Input Bindings for the project for Left and Right Track Throttle
+
+![TankTrack Input Binding Project Settings](BattleTank/Saved/Screenshots/Windows/TankTrack_Input_Binding_Project_Settings.png)
+
+3. Create `SetThrottle` `BlueprintCallable` functions
+
+```cpp
+/// TankTrack.h
+
+// Macro here
+class BATTLETANK_API UTankTrack : public UStaticMeshComponent
+{
+	// Boilerplate here
+public:
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void SetThrottle(float Throttle);
+}
+```
+
+```cpp
+/// TankTrack.cpp
+
+void UTankTrack::SetThrottle(float Throttle)
+{
+	auto Name = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s throttle: %.2f"), *Name, Throttle)
+}
+```
+
+![TankTrack Throttle Input Settings](BattleTank/Saved/Screenshots/Windows/TankTrack_BP_Throttle_Input_Settings.png)
 
 ### `ApplyForceAtLocation()` in Action
 
