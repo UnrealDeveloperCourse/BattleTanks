@@ -1641,9 +1641,19 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ![Keyboard Input Settings](BattleTank/Saved/Screenshots/Windows/Project_Settings_Throttle_Input.png)
 
-### Fly-By-Wire Control System
+### Fly-By-Wire Control Systems
 
-- **Objective**:
+- **Objective**: Give the Tank control by intention, enabling Human or AI control. End result will be a manual control system along side a fly-by-wire system using Movement Component
+
+![Fly-By-Wire Architecture](BattleTank/Saved/Screenshots/Windows/Fly_By_Wire_Architecture.png)
+
+- Choosing the Class that gets the job done without too much added complexity
+
+![NavMovementComponent C++ Class](BattleTank/Saved/Screenshots/Windows/NavMovementComponent_Cpp_Class.png)
+
+1. Create TankMovementComponent
+
+![Tank Movement Component](BattleTank/Saved/Screenshots/Windows/Tank_Movement_Component.png)
 
 ### Using BluePrintReadOnly
 
