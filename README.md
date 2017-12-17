@@ -1,5 +1,7 @@
 # Section_04
-Battle Tank
+:boom: Battle Tank :boom:
+
+![Current Screen Shot](BattleTank/Saved/Screenshots/Windows/CurrentScreenShot.png)
 
 Hint: Make viewing this README an extra special experience with [Octopatcher](https://chrome.google.com/webstore/detail/octopatcher/lcilaoigfgceebdljpanjenhmnoijmal/related?hl=en-US&gl=US)
 
@@ -1556,11 +1558,88 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ### `ApplyForceAtLocation()` in Action
 
-- **Objective**:
+- **Objective**: Get Tank moving under our control
+
+1. Input Mapping: Keyboard "A" - left throttle "D" - right throttle
+2. "Max Driving Force" variable, per track in Newtons
+
+- F = m * a
+- [Wolfram Alpha Acceleration](http://www.wolframalpha.com/input/?i=0-16mph+in+10+secs)
+- Guess an initial force assuming no friction
+- Getting within a factor of 10 of guess is OK
+- 40k kilos at 10ms^-2 (1G acceleration) = 400k Newtons
+
+```cpp
+/// TankTrack.h
+// Macro here
+class BATTLETANK_API UTankTrack : public UStaticMeshComponent
+{
+	// Boilerplate here
+	
+public:
+	// Throttle setup here
+
+	// Max force per track in Newtons
+	UPROPERTY(EditDefaultsOnly) // this is editable on the blueprint only
+	float TrackMaxDrivingForce = 400000; // 400k Newtons, 1g Acceleration
+};
+```
+
+3. Get the forward vector of the track * Throttle * Max Driving Force
+4. Get the force location (where force will be applied) by getting the component location
+5. To get the `TankRoot`: from `GetOwner()->GetRootComponent` we get a `USceneComponent` which needs to be cast into a `UPrimitiveComponent` (inherited from `USceneComponent`) which has an `AddForceAtLocation` method
+
+![Tank Primitive Component](BattleTank/Saved/Screenshots/Windows/ClassViewer_Tank_Primitive_Component.png)
+
+```cpp
+/// TankTrack.cpp
+
+void UTankTrack::SetThrottle(float Throttle)
+{
+	auto Name = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s throttle: %.2f"), *Name, Throttle)
+
+	// TODO: clamp throttle value
+	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
+	auto ForceLocation = GetComponentLocation();
+	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
+}
+```
 
 ### Physics Materials and Friction
 
-- **Objective**:
+- **Objective**: Adjust the friction attributes to allow the Tank to move
+
+1. Edit the Tank Body Collision providing ground and track clearance, also make sure collider objects exist on the tank tracks
+
+![Edit Tank Body Collision](BattleTank/Saved/Screenshots/Windows/TankBP_Edit_Body_Collision.png)
+
+**Note:** If collisions between tracks and ground do not work, check Unreal version and `AutoWeld` collision object settings
+
+2. Create a physics material
+
+- How friction contributions get combined and calculated
+
+![Grass LayerInfo Physics Material](BattleTank/Saved/Screenshots/Windows/Grass_LayerInfo_PhysicsMat.png)
+
+![Project Settings Friction Combine Mode](BattleTank/Saved/Screenshots/Windows/Project_Settings_Friction_Combine_Mode.png)
+
+- Override the Friction Combine Mode and set amount to be 0.2 *which means friction = 0.2x the contact force*
+
+![Tank Track Override Friction Combine Mode](BattleTank/Saved/Screenshots/Windows/TankTrack_Physics_Mat_Friction_Combine_Mode.png)
+
+- Select the new Physics Material in Tank_BP Collision Settings
+
+![Tank_BP Physics Material](BattleTank/Saved/Screenshots/Windows/Tank_BP_Select_Physics_Mat.png)
+
+3. Increase the force by which the tank moves or Power, this demo is using pushing power, other physics constraints can use pushing power (using hidden wheels) which pose different set of problems
+
+- In the demo, 400k Newtons is used or 40mil cm of force
+
+4. My Keyboard Input Settings for forward and reverse movement
+
+![Keyboard Input Settings](BattleTank/Saved/Screenshots/Windows/Project_Settings_Throttle_Input.png)
 
 ### Fly-By-Wire Control System
 
