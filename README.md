@@ -1629,7 +1629,7 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ![Tank Track Override Friction Combine Mode](BattleTank/Saved/Screenshots/Windows/TankTrack_Physics_Mat_Friction_Combine_Mode.png)
 
-- Select the new Physics Material in Tank_BP Collision Settings
+- Select the new Physics Material in Tank_BP Collision Settings for each Track
 
 ![Tank_BP Physics Material](BattleTank/Saved/Screenshots/Windows/Tank_BP_Select_Physics_Mat.png)
 
