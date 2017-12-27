@@ -469,7 +469,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 ![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_05.png)
 
-1. Create the Aiming Component Default Subobject and add it to the Tank
+***1. Create the Aiming Component Default Subobject and add it to the Tank***
 
 ```cpp
 /// Tank.h
@@ -506,7 +506,7 @@ ATank::ATank()
 }
 ```
 
-2. Delegate `AimAt()` to the Aiming Component instead of Tank
+***2. Delegate `AimAt()` to the Aiming Component instead of Tank***
 
 ```cpp
 /// TankAimingComponent.h
@@ -537,7 +537,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 }
 ```
 
-3. Call the method on the `TankAimingComponent`
+***3. Call the method on the `TankAimingComponent`***
 
 ```cpp
 /// Tank.cpp
@@ -559,7 +559,7 @@ void ATank::AimAt(FVector HitLocation)
 
 ![TankBP Blueprint Callable Set Barrel Reference](BattleTank/Saved/Screenshots/Windows/TankBP_Blueprint_Callable.png)
 
-1. Declare `SetBarrelReferenced`
+***1. Declare `SetBarrelReferenced`***
 
 ```cpp
 /// TankAimingComponent.h
@@ -584,7 +584,7 @@ private:
 }
 ```
 
-2. Implement `SetBarrelReference`
+***2. Implement `SetBarrelReference`***
 
 ```cpp
 /// TankAimingComponent.cpp
@@ -626,7 +626,7 @@ void ATank::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
 }
 ```
 
-3. Logging out the Barrel Component Location
+***3. Logging out the Barrel Component Location***
 
 ```cpp
 /// TankAimingComponent.cpp
@@ -654,7 +654,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 [SuggestProjectileVelocity C++ Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Kismet/UGameplayStatics/SuggestProjectileVelocity/index.html)
 
-1. Setup a `LaunchSpeed` parameter
+***1. Setup a `LaunchSpeed` parameter***
 
 ```cpp
 /// Tank.h
@@ -679,7 +679,7 @@ private:
 
 ```
 
-2. Pass the `LaunchSpeed` to `TankAimingComponent` `AimAt()`
+***2. Pass the `LaunchSpeed` to `TankAimingComponent` `AimAt()`***
 
 ```cpp
 /// Tank.cpp
@@ -690,7 +690,7 @@ void ATank::AimAt(FVector HitLocation)
 }
 ```
 
-3. Add the new parameter to the aiming component
+***3. Add the new parameter to the aiming component***
 
 ```cpp
 /// TankAimingComponent.h
@@ -708,7 +708,7 @@ private:
 }
 ```
 
-4. Log out the `LaunchSpeed` parameter's value
+***4. Log out the `LaunchSpeed` parameter's value***
 
 ```cpp
 /// TankAimingComponent.cpp
@@ -770,14 +770,15 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 ***NOTE***: A vector that points equally down the X and Y axis is "Yawed" by 45 degrees clockwise as seen from above. Note Roll may be null as we have said nothing about Roll so it can't be inferred (we're pointing the arrow not rotating it when we create the FVector)
 
-1. Create a Barrel Class
+***1. Create a Barrel Class***
 
 ![Create TankBarrel C++ Class](BattleTank/Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class.png)
 
 ![Create TankBarrel C++ Class](BattleTank/Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class_2.png)
 
-2. Create the `MoveBarrelTowards` method
-3. Work out what `MoveBarrelTowards` needs to do
+***2. Create the `MoveBarrelTowards` method***
+
+***3. Work out what `MoveBarrelTowards` needs to do***
 
 **The pseudo-code** 
 
@@ -822,8 +823,9 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 }
 ```
 
-4. It is at this time that we need to search/replace in Tank (h and cpp) and TankAimingComponent (h and cpp) `UStaticMeshComponent * Barrel` with `UTankBarrel * Barrel` and `UStaticMeshComponent * BarrelToSet` with `UTankBarrel * BarrelToSet`
-5. Hash include `TankBarrel.h` in `TankAimingComponent.cpp` is not necessary because we are calling a method on the `TankBarrel` class
+***4. It is at this time that we need to search/replace in Tank (h and cpp) and TankAimingComponent (h and cpp) `UStaticMeshComponent * Barrel` with `UTankBarrel * Barrel` and `UStaticMeshComponent * BarrelToSet` with `UTankBarrel * BarrelToSet`***
+
+***5. Hash include `TankBarrel.h` in `TankAimingComponent.cpp` is not necessary because we are calling a method on the `TankBarrel` class***
 
 ### The C++ Compilation Process
 
@@ -835,7 +837,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 - **Objective**: Create Barrel Class and Barrel `Elevate` method
 
-1. Create Forward Declarations in h files
+***1. Create Forward Declarations in h files***
 
 ```cpp
 /// Tank.h
@@ -851,7 +853,7 @@ class UTankBarrel;
 class UTankBarrel;
 ```
 
-2. Update the cpp files' hash includes if necessary
+***2. Update the cpp files' hash includes if necessary***
 
 ```cpp
 /// Tank.cpp
@@ -875,7 +877,7 @@ class UTankBarrel;
 
 ![Tank Barrel in `Add Component` menu](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_2.png)
 
-1. Make TankBarrel show up in Unreal's Add Component menu by adding `BlueprintSpawnableComponent` to the class definition
+***1. Make TankBarrel show up in Unreal's Add Component menu by adding `BlueprintSpawnableComponent` to the class definition***
 
 ```cpp
 /// TankBarrel.h
@@ -889,10 +891,13 @@ class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 
 ![Tank Barrel in `Add Component` menu](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_3.png)
 
-2. Replace the StaticMeshComponent Barrel with the new TankBarrel component and drag that component to the Event Graph
-3. Hook up the new Barrel to the Unreal Function Input
-4. Re-assign Static Mesh of the Barrel
-5. Verify new Setup properties exist on the new Barrel
+***2. Replace the StaticMeshComponent Barrel with the new TankBarrel component and drag that component to the Event Graph***
+
+***3. Hook up the new Barrel to the Unreal Function Input***
+
+***4. Re-assign Static Mesh of the Barrel***
+
+***5. Verify new Setup properties exist on the new Barrel***
 
 ```cpp
 /// TankBarrel.h
@@ -907,15 +912,17 @@ UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
 
 ![](Tank_FireProjectile_Execution_Flow.png)
 
-1. `DegreesPerSecond` is wrong, change `Elevate(float DegreesPerSecond)` to `Elevate(float RelativeSpeed)`
-2. `RelativeSpeed` is +-1 max speed
+***1. `DegreesPerSecond` is wrong, change `Elevate(float DegreesPerSecond)` to `Elevate(float RelativeSpeed)`***
+
+***2. `RelativeSpeed` is +-1 max speed***
 
 ![](Tank_FireProjectile_Execution_Flow_2.png)
 
-3. Player/AI Controller need a tick, as well as Tank Aiming Component
-4. Tank Does not need a tick to get rid of it in Tank h and cpp files
+***3. Player/AI Controller need a tick, as well as Tank Aiming Component***
 
-5. Print the time to verify method is called every tick
+***4. Tank Does not need a tick to get rid of it in Tank h and cpp files***
+
+***5. Print the time to verify method is called every tick***
 
 ```cpp
 /// TankBarrel.cpp
@@ -927,17 +934,20 @@ void UTankBarrel::Elevate(float RelativeSpeed)
 }
 ```
 
-6. Verify: Does the `TankAimingComponent` really need to tick?
-7. Figure out: Aiming logs stop intermittently, could it be the Aiming Solution? Change the logs to figure out why.
+***6. Verify: Does the `TankAimingComponent` really need to tick?***
+
+***7. Figure out: Aiming logs stop intermittently, could it be the Aiming Solution? Change the logs to figure out why.***
 
 ### How to Report Bugs
 
 - **Objective**: Fix the Aim Solution bug, report it to Unreal
 	+ [Unreal Answer Hub](https://answers.unrealengine.com/index.html)
 
-1. Solution: Default parameters not being specified in `SuggestProjectileVelocity`
-2. Problem is in 4.11 and 4.12
-3. To report, comment and upload code to GitHub and share the commit link with Unreal
+***1. Solution: Default parameters not being specified in `SuggestProjectileVelocity`***
+
+***2. Problem is in 4.11 and 4.12***
+
+***3. To report, comment and upload code to GitHub and share the commit link with Unreal***
 
 ```cpp
 /// TankAimingComponent.cpp
@@ -957,7 +967,7 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 - **Second Objective**: Move to Forward Delarations in all .h files
 
-1. `#includes Tank.h` in multiple h files, declare `class ATank;` in each header and hash include `Tank.h` in each cpp file
+***1. `#includes Tank.h` in multiple h files, declare `class ATank;` in each header and hash include `Tank.h` in each cpp file***
 
 ## Mid-Section Quiz
 
@@ -985,13 +995,13 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 - To get started, what we would like to see in the UI is the Turret class along side the Barrel Class. Then we need to make a `BlueprintCallable` function we can use in the Event Graph.
 
-1. Create the TankTurret C++ Class
+***1. Create the TankTurret C++ Class***
 
 ![TankTurret Cpp Class](BattleTank/Saved/Screenshots/Windows/TankTurret_Cpp_Class.png)
 
 ![TankTurret Cpp Class](BattleTank/Saved/Screenshots/Windows/TankTurret_Cpp_Class_2.png)
 
-2. Add the `UCLASS(meta = (BlueprintSpawnableComponent))` macro
+***2. Add the `UCLASS(meta = (BlueprintSpawnableComponent))` macro***
 
 ```cpp
 /// TankTurret.h
@@ -1007,9 +1017,9 @@ class BATTLETANK_API UTankTurret : public UStaticMeshComponent
 
 ![Add Component](BattleTank/Saved/Screenshots/Windows/TankTurret_Add_Component_2.png)
 
-3. Create `SetTurretReference` `BlueprintCallable` function in `Tank.h` and create the implementation
+***3. Create `SetTurretReference` `BlueprintCallable` function in `Tank.h` and create the implementation***
 
-4. Create forward declaration of `UTankTurret` in `Tank.h`
+***4. Create forward declaration of `UTankTurret` in `Tank.h`***
 
 ```cpp
 /// Tank.h
@@ -1041,11 +1051,11 @@ void ATank::SetTurretReference(UTankTurret * TurretToSet)
 }
 ```
 
-5. `TankAimingComponent.h` create a `void SetTurretReference(UTankTurret * TurretToSet);`
+***5. `TankAimingComponent.h` create a `void SetTurretReference(UTankTurret * TurretToSet);`***
 
-6. `TankAimingComponent.h` create a `UTankTurret * Turret = nullptr;`
+***6. `TankAimingComponent.h` create a `UTankTurret * Turret = nullptr;`***
 
-7. `TankAimingComponent.h` forward declaration `class UTankTurret;`
+***7. `TankAimingComponent.h` forward declaration `class UTankTurret;`***
 
 
 ```cpp
@@ -1070,9 +1080,9 @@ private:
 }
 ```
 
-8. `TankAimingComponent.cpp` create a `void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)`
+***8. `TankAimingComponent.cpp` create a `void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)`***
 
-9. `TankAimingComponent.cpp` hash include `#include "TankTurret.h"`
+***9. `TankAimingComponent.cpp` hash include `#include "TankTurret.h"`***
 
 ```cpp
 /// TankAimingComponent.cpp
@@ -1096,8 +1106,9 @@ void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
 
 - **Objective**: Get fully operational and game play tested Rotation
 
-1. Create `Rotation` method
-2. Create the MaxDegreesPerSecond Property
+***1. Create `Rotation` method***
+
+***2. Create the MaxDegreesPerSecond Property***
 
 ```cpp
 /// TankTurret.h
@@ -1129,7 +1140,7 @@ void UTankTurret::Rotate(float RelativeSpeed)
 
 ![MaxDegreesPerSecond Property](BattleTank/Saved/Screenshots/Windows/TankTurret_MaxDegreesPerSecond_Property.png)
 
-3. To get the Turret, the control stack will be similar to Aiming
+***3. To get the Turret, the control stack will be similar to Aiming***
 
 ![Aiming Diagram](BattleTank/Saved/Screenshots/Windows/TankTurret_Aiming_Diagram.png)
 
@@ -1145,9 +1156,9 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 }
 ```
 
-4. Test some values in Blueprint for Elevation and Rotation values then push the values into C++ so that if designer creates more tanks the default values will all be the same.
+***4. Test some values in Blueprint for Elevation and Rotation values then push the values into C++ so that if designer creates more tanks the default values will all be the same.***
 
-5. Address the TODO find out if Aiming Component needs to tick optimization. In the video, it is not necessary but in my case it IS necessary
+***5. Address the TODO find out if Aiming Component needs to tick optimization. In the video, it is not necessary but in my case it IS necessary***
 
 ### Setting Up Projectiles
 
@@ -1155,11 +1166,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 ![Iterative Cycle Controls Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_ControlsStage.png)
 
-1. Set up Firing control setting in Project Settings
+***1. Set up Firing control setting in Project Settings***
 
 ![Projectie Fire Input Binding](BattleTank/Saved/Screenshots/Windows/Projectile_Firing_Input_Binding.png)
 
-2. Create Fire BlueprintCallable method in C++
+***2. Create Fire BlueprintCallable method in C++***
 
 ```cpp
 /// Tank.h
@@ -1185,19 +1196,19 @@ void ATank::Fire()
 }
 ```
 
-3. Edit the Input Binding Setup in Tank_BP
+***3. Edit the Input Binding Setup in Tank_BP***
 
 ![Projectie Fire Input Binding](BattleTank/Saved/Screenshots/Windows/Projectile_Firing_Input_Binding_2.png)
 
 - **Next Achievement**: Create a projectile and fire it
 
-1. Projectile deserves its own C++ class because it will have many attributes
+***1. Projectile deserves its own C++ class because it will have many attributes***
 
 ![Projectie C++ Class Creation](BattleTank/Saved/Screenshots/Windows/Projectile_Cpp_Creation_1.png)
 
 ![Projectie C++ Class Creation](BattleTank/Saved/Screenshots/Windows/Projectile_Cpp_Creation_2.png)
 
-2. Create a Projectile_BP from C++ Class
+***2. Create a Projectile_BP from C++ Class***
 
 ![Projectie Blueprint Creation](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Creation.png)
 
@@ -1221,7 +1232,7 @@ void ATank::Fire()
 
 - First Achievement: Instantiate Projectile from code
 
-1. Create A `BlueprintCallable` Property on the Tank class that we can set the Projectile with, remember forward delaration of `AProjectile`
+***1. Create A `BlueprintCallable` Property on the Tank class that we can set the Projectile with, remember forward delaration of `AProjectile`***
 
 ```cpp
 /// Tank.h
@@ -1247,9 +1258,11 @@ private:
 
 ![Add Projectile to Tank_BP](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Add_To_TankBP.png)
 
-2. Declare a reference to the barrel in the Tank class for spawning a projectile off of `UTankBarrel* Barrel = nullptr;`
-3. Create socket location on the Barrel called "Projectile"
-4. Spawn actor in the `ATank::Fire()` method
+***2. Declare a reference to the barrel in the Tank class for spawning a projectile off of `UTankBarrel* Barrel = nullptr;`***
+
+***3. Create socket location on the Barrel called "Projectile"***
+
+***4. Spawn actor in the `ATank::Fire()` method***
 
 ```cpp
 /// Tank.cpp
@@ -1280,11 +1293,11 @@ void ATank::Fire()
 
 - **Objective**: Add a Movement Component to the projectile much the same way we added Aiming Component to the Tank
 
-1. Add Projectile Movement Component, first what is it called?
+***1. Add Projectile Movement Component, first what is it called?***
 
 ![Projectile Movement Component](BattleTank/Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_1.png)
 
-2. set `bAutoActivate` to false
+***2. set `bAutoActivate` to false***
 
 ```cpp
 /// Projectile.h
@@ -1326,7 +1339,7 @@ AProjectile::AProjectile()
 
 ![Projectile Movement Component](BattleTank/Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_2.png)
 
-3. Create the lauch projectile method and call it in `Tank.cpp`
+***3. Create the lauch projectile method and call it in `Tank.cpp`***
 
 ```cpp
 /// Projectile.h
@@ -1370,8 +1383,9 @@ void ATank::Fire()
 
 ```
 
-4. Actually launch the projectile
-5. Since `ProjectileMovementComponent->bAutoActivate = false;` we need to set the velocity then call `Activate()`
+***4. Actually launch the projectile***
+
+***5. Since `ProjectileMovementComponent->bAutoActivate = false;` we need to set the velocity then call `Activate()`***
 
 ```cpp
 
@@ -1391,7 +1405,7 @@ void AProjectile::LaunchProjectile(float Speed)
 
 ![Iterative Cycle Player2 Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_Player2Stage.png)
 
-1. Defactor or Inline refactored code and remove logging code in BeginPlay
+***1. Defactor or Inline refactored code and remove logging code in BeginPlay***
 
 - Start off firing every tick in `UTankAimingComponent::AimAt`
 
@@ -1419,7 +1433,7 @@ void ATankAIController::Tick(float DeltaTime)
 }
 ```
 
-2. Limit the firing rate by declaring `ReloadTimeInSeconds` on the Tank and make it a `UPROPERTY` (in the videos this doesn't happen until next lecture)
+***2. Limit the firing rate by declaring `ReloadTimeInSeconds` on the Tank and make it a `UPROPERTY` (in the videos this doesn't happen until next lecture)***
 
 ```cpp
 /// Tank.h
@@ -1444,7 +1458,7 @@ private:
 }
 ```
 
-3. Create a timer and only fire when the timer expires
+***3. Create a timer and only fire when the timer expires***
 
 ```cpp
 /// Tank.h
@@ -1504,12 +1518,13 @@ void ATank::Fire()
 
 ![TankBP Collision Offset Settings](BattleTank/Saved/Screenshots/Windows/TankBP_Collision_OffsetSettings.png)
 
-1. Create a Quit Button by copy/pasting in the UI Outliner and change the text
-2. Create an OnReleased Event on the Button
+***1. Create a Quit Button by copy/pasting in the UI Outliner and change the text***
+
+***2. Create an OnReleased Event on the Button***
 
 ![MainMenu_BP Quit Button Event](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_QuitButtonEvent.png)
 
-3. Wire Event to QuitGame
+***3. Wire Event to QuitGame***
 
 ![MainMenu_BP Quit Button Event Graph](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_QuitButton_EventGraph.png)
 
@@ -1517,7 +1532,7 @@ void ATank::Fire()
 
 - **Objective**: Log out Track Throttle values to the console
 
-1. Base Tracks on C++ Class
+***1. Base Tracks on C++ Class***
 
 - Create A TankTrack Class
 - Inherit from UStaticMeshComponent
@@ -1525,11 +1540,11 @@ void ATank::Fire()
 - Replace tracks on Tank blueprint
 - Test
 
-2. Create a new Axis Mapping in Input Bindings for the project for Left and Right Track Throttle
+***2. Create a new Axis Mapping in Input Bindings for the project for Left and Right Track Throttle***
 
 ![TankTrack Input Binding Project Settings](BattleTank/Saved/Screenshots/Windows/TankTrack_Input_Binding_Project_Settings.png)
 
-3. Create `SetThrottle` `BlueprintCallable` functions
+***3. Create `SetThrottle` `BlueprintCallable` functions***
 
 ```cpp
 /// TankTrack.h
@@ -1560,8 +1575,9 @@ void UTankTrack::SetThrottle(float Throttle)
 
 - **Objective**: Get Tank moving under our control
 
-1. Input Mapping: Keyboard "A" - left throttle "D" - right throttle
-2. "Max Driving Force" variable, per track in Newtons
+***1. Input Mapping: Keyboard "A" - left throttle "D" - right throttle***
+
+***2. "Max Driving Force" variable, per track in Newtons***
 
 - F = m * a
 - [Wolfram Alpha Acceleration](http://www.wolframalpha.com/input/?i=0-16mph+in+10+secs)
@@ -1585,9 +1601,11 @@ public:
 };
 ```
 
-3. Get the forward vector of the track * Throttle * Max Driving Force
-4. Get the force location (where force will be applied) by getting the component location
-5. To get the `TankRoot`: from `GetOwner()->GetRootComponent` we get a `USceneComponent` which needs to be cast into a `UPrimitiveComponent` (inherited from `USceneComponent`) which has an `AddForceAtLocation` method
+***3. Get the forward vector of the track * Throttle * Max Driving Force***
+
+***4. Get the force location (where force will be applied) by getting the component location***
+
+***5. To get the `TankRoot`: from `GetOwner()->GetRootComponent` we get a `USceneComponent` which needs to be cast into a `UPrimitiveComponent` (inherited from `USceneComponent`) which has an `AddForceAtLocation` method***
 
 ![Tank Primitive Component](BattleTank/Saved/Screenshots/Windows/ClassViewer_Tank_Primitive_Component.png)
 
@@ -1611,13 +1629,13 @@ void UTankTrack::SetThrottle(float Throttle)
 
 - **Objective**: Adjust the friction attributes to allow the Tank to move
 
-1. Edit the Tank Body Collision providing ground and track clearance, also make sure collider objects exist on the tank tracks
+***1. Edit the Tank Body Collision providing ground and track clearance, also make sure collider objects exist on the tank tracks***
 
 ![Edit Tank Body Collision](BattleTank/Saved/Screenshots/Windows/TankBP_Edit_Body_Collision.png)
 
 **Note:** If collisions between tracks and ground do not work, check Unreal version and `AutoWeld` collision object settings
 
-2. Create a physics material
+***2. Create a physics material***
 
 - How friction contributions get combined and calculated
 
@@ -1633,11 +1651,11 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ![Tank_BP Physics Material](BattleTank/Saved/Screenshots/Windows/Tank_BP_Select_Physics_Mat.png)
 
-3. Increase the force by which the tank moves or Power, this demo is using pushing power, other physics constraints can use pushing power (using hidden wheels) which pose different set of problems
+***3. Increase the force by which the tank moves or Power, this demo is using pushing power, other physics constraints can use pushing power (using hidden wheels) which pose different set of problems***
 
 - In the demo, 400k Newtons is used or 40mil cm of force
 
-4. My Keyboard Input Settings for forward and reverse movement
+***4. My Keyboard Input Settings for forward and reverse movement***
 
 ![Keyboard Input Settings](BattleTank/Saved/Screenshots/Windows/Project_Settings_Throttle_Input.png)
 
@@ -1651,7 +1669,7 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ![NavMovementComponent C++ Class](BattleTank/Saved/Screenshots/Windows/NavMovementComponent_Cpp_Class.png)
 
-1. Create TankMovementComponent
+***1. Create TankMovementComponent***
 
 ![Tank Movement Component](BattleTank/Saved/Screenshots/Windows/Tank_Movement_Component.png)
 
@@ -1699,7 +1717,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 ![Component Architecture](BattleTank/Saved/Screenshots/Windows/Component_Architecture.png)
 
-1. Get references to tracks in the movement component
+***1. Get references to tracks in the movement component***
 
 ```cpp
 /// TankMovementComponent.h
@@ -1727,7 +1745,7 @@ private:
 };
 ```
 
-2. Create an initialize method to wire up the tank tracks in blueprint
+***2. Create an initialize method to wire up the tank tracks in blueprint***
 
 ```cpp
 /// TankMovementComponent.cpp
@@ -1740,33 +1758,33 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
 }
 ```
 
-3. Make `TankMovementComponent` Blueprint Spawnable
+***3. Make `TankMovementComponent` Blueprint Spawnable***
 
 `ClassGroup=(Custom), meta=(BlueprintSpawnableComponent)`
 
 ![Blueprint Spawnable Component Added](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_BPSpawnableAdded.png)
 
-4. Remove the default subobject assignment in `Tank.cpp`
+***4. Remove the default subobject assignment in `Tank.cpp`***
 
 `TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));`
 
 ![Default Subobject Removed](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_DefaultSubobjectRemoved.png)
 
-5. Add the new component to the tank and replace the old component that was created in C++ from the input setup graph.
+***5. Add the new component to the tank and replace the old component that was created in C++ from the input setup graph.***
 
 ![Add Movement Component to Tank](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_AddedToTank.png)
 
 ![Movement Component in Input Setup Replaced](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_AddToTankInputSetup.png)
 
-6. Create new event after Set Turret Reference for Initialize in the Event Graph
+***6. Create new event after Set Turret Reference for Initialize in the Event Graph***
 
 ![Initialize Event Created](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_EventGraphInitialize.png)
 
-7. Add instances of left and right track as inputs to the Initialize event in the Event Graph
+***7. Add instances of left and right track as inputs to the Initialize event in the Event Graph***
 
 ![Left and Right Tracks Added to Event Graph](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_EventGraph_LRTracks.png)
 
-8. Finally, set the throttles on each of the tank tracks in the `IntendMoveForward` method.
+***8. Finally, set the throttles on each of the tank tracks in the `IntendMoveForward` method.***
 
 ```cpp
 /// TankMovementComponent.cpp
@@ -1791,7 +1809,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 - **Objective**: Turning inputs
 
-1. Create an `IntendTurnRight` `BlueprintCallable` method for `UTankMovementComponent`
+***1. Create an `IntendTurnRight` `BlueprintCallable` method for `UTankMovementComponent`***
 
 ```cpp
 /// TankMovementComponent.h
@@ -1821,11 +1839,11 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
 ```
 
-2. Create a new turn right input binding in project settings
+***2. Create a new turn right input binding in project settings***
 
 ![New Input Binding for Turn Right](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_TurnRightInput.png)
 
-3. Wire up Turn Right Event in Input Setup
+***3. Wire up Turn Right Event in Input Setup***
 
 ![Turn Right Input Setup](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_TurnRight_InputSetup.png)
 
@@ -1835,15 +1853,15 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
 [Nav Mesh Volume Reference](https://docs.unrealengine.com/latest//INT/Engine/Actors/Volumes/index.html#volumetypes)
 
-1. Show Nav meshes in viewport
+***1. Show Nav meshes in viewport***
 
 ![Show Nav Mesh](BattleTank/Saved/Screenshots/Windows/AI_Pathfinding_ShowNav.png)
 
-2. Create a 100m square `NavMeshBoundsVolume`
+***2. Create a 100m square `NavMeshBoundsVolume`***
 
 ![Create Nav Mesh](BattleTank/Saved/Screenshots/Windows/AI_Pathfinding_NavMeshBoundsVolume.png)
 
-3. Discuss how we are using pathfinding
+***3. Discuss how we are using pathfinding***
 
 - Tank AI Controller `MoveToActor()`
 
@@ -1865,7 +1883,7 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
 - **Objective**: Implement and Log out AI pathfinding information
 
-1. Add the MoveToActor call inside the `ATankAIController` class
+***1. Add the MoveToActor call inside the `ATankAIController` class***
 
 ```cpp
 /// TankAIController.h
@@ -1901,10 +1919,13 @@ void ATankAIController::Tick(float DeltaTime)
 }
 ```
 
-2. Find `RequestDirectMove()` Signature in the Game Engine code: Engine > UE4 > Source > Runtime > Engine > Classes > GameFrameWork
-3. Copy the signature
-4. Override in the TankMovementComponent.h, (hint: use `override`)
-5. No need to call Super since we're replacing
+***2. Find `RequestDirectMove()` Signature in the Game Engine code: Engine > UE4 > Source > Runtime > Engine > Classes > GameFrameWork***
+
+***3. Copy the signature***
+
+***4. Override in the TankMovementComponent.h, (hint: use `override`)***
+
+***5. No need to call Super since we're replacing***
 
 ```cpp
 /// TankMovementComponent.h
@@ -1923,13 +1944,90 @@ public:
 };
 ```
 
-6. Log the tank name and value of `MoveVelocity`
+***6. Log the tank name and value of `MoveVelocity`***
 
 ## Mid-Section Quiz
 
+> **Question 4:**
+> If two surfaces have friction coefficients of 0.2 and 1.0 respectively, what type of friction combine would you need to get an effective friction between them of 0.6?
+
+**A: Average**
+
+*Explanation:* Ground has it's own coefficient for friction in its settings. In the class example the ground's coefficient is not known therefore we set the friction to be Min, meaning the minimum of the two coefficients. The tank has its coefficient set in the Physics Material. If both coefficients are known, to calculate the average means (1.0 + 0.2)/2 = 0.6.
+
 ### DotProduct() Vector Operator
 
-- **Objective**:
+- **Objective**: Calculate the direction, the unit vector, in which to move the AI Controller not the velocity 
+
+***1. Get unit vectors of the tank's forward direction, or the local X axis***
+
+```cpp
+/// TankMovementComponent.cpp
+
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	// auto TankName = GetOwner()->GetName();
+	// UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *TankName, *MoveVelocity.ToString())
+
+	// Get unit vectors of the tank's forward direction
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+	
+}
+```
+
+***2. Calculate the speed to drive the tank forward/backward based on the angle between the forward direction of the controlled tank and the forward vector of the opponent using Cosine.***
+
+- Angle is zero, we are looking directly at the opponent. We are already facing in the direction where the AI wants us to be going. Speed is full throttle (1)
+
+![Cosine AngleOfIntention Vs TankForward](BattleTank/Saved/Screenshots/Windows/Cosine_Function_AngleOfIntention_Vs_TankForwardDir.png)
+
+- Angle at 90, AI intention is to turn right in our case since we have an `IntendTurnRight` method. We should be moving at a rate of 0 since we shouldn't be moving forward, we should be turning to face the opponent.
+
+![Cosign Angle at 90 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_90_Degrees.png)
+
+- Angle is 180, Full throttle in the reverse, the opponent is directly behind
+
+![Cosign Angle at 180 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_180_Degrees.png)
+
+- Angle is 270, Zero throttle, the opponent is to the left so turn left
+
+![Cosign Angle at 270 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_270_Degrees.png)
+
+- Angle is 360, Full throttle, the opponent is directly ahead
+
+![Cosign Angle at 360 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_360_Degrees.png)
+
+- The calculation according to Wikipedia
+- *Magnitude* of **A** (Tank forward intention) * *Magnitude* of **B** (AI Tank forward intention) * **cosine** of the angle between them (theta)
+- *Magnitude*: *size* of **A** or *size* of **B**, we are already is at most **1** since we are already getting the safe normal of each.
+
+![Wikipedia snippit](BattleTank/Saved/Screenshots/Windows/Cosine_Function_Wikipedia.png)
+
+- What is Dot Product telling us in basic terms?
+
+![Dot Product Diagram](BattleTank/Saved/Screenshots/Windows/CrossProduct_Usage_Diagram.png)
+
+***3. Use FVector::DotProduct()***
+
+- Dot AIForwardIntention & TankForward
+- Feed result into IntendMoveForward()
+
+```cpp
+/// TankMovementComponent.cpp
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	// Get unit vectors of the tank's forward direction
+	// ...
+
+	// Calculate the forward throw and pass result to `IntendMoveForward`
+	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+	
+	IntendMoveForward(ForwardThrow);
+}
+```
 
 ### CrossProduct() Vector Operator
 
