@@ -24,4 +24,7 @@ private:
 
 	virtual void Tick(float DeltaTime) override;
 
+	// proximity the AI tank should achieve when moving towards player
+	float AcceptanceRadius = 3000; // todo check cm
+
 };
