@@ -1695,6 +1695,94 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 ![Component Architecture](BattleTank/Saved/Screenshots/Windows/Component_Architecture.png)
 
+1. Get references to tracks in the movement component
+
+```cpp
+/// TankMovementComponent.h
+
+// Forward Declarations
+class UTankTrack;
+
+/**
+ * Takes input axis values and uses them to move the tank
+ */
+UCLASS()
+class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
+{
+	GENERATED_BODY()
+	
+public:
+	// Need to wire this up in Blueprint when the component is added
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
+
+	// public definitions cont...
+private:
+	UTankTrack * LeftTrack = nullptr;
+	UTankTrack * RightTrack = nullptr;
+};
+```
+
+2. Create an initialize method to wire up the tank tracks in blueprint
+
+```cpp
+/// TankMovementComponent.cpp
+
+void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
+{
+	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	LeftTrack = LeftTrackToSet;
+	RightTrack = RightTrackToSet;
+}
+```
+
+3. Make `TankMovementComponent` Blueprint Spawnable
+
+`ClassGroup=(Custom), meta=(BlueprintSpawnableComponent)`
+
+![Blueprint Spawnable Component Added](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_BPSpawnableAdded.png)
+
+4. Remove the default subobject assignment in `Tank.cpp`
+
+`TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));`
+
+![Default Subobject Removed](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_DefaultSubobjectRemoved.png)
+
+5. Add the new component to the tank and replace the old component that was created in C++ from the input setup graph.
+
+![Add Movement Component to Tank](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_AddedToTank.png)
+
+![Movement Component in Input Setup Replaced](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_AddToTankInputSetup.png)
+
+6. Create new event after Set Turret Reference for Initialize in the Event Graph
+
+![Initialize Event Created](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_EventGraphInitialize.png)
+
+7. Add instances of left and right track as inputs to the Initialize event in the Event Graph
+
+![Left and Right Tracks Added to Event Graph](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_EventGraph_LRTracks.png)
+
+8. Finally, set the throttles on each of the tank tracks in the `IntendMoveForward` method.
+
+```cpp
+/// TankMovementComponent.cpp
+
+#include "TankTrack.h"
+// hash includes...
+
+// Initialize method...
+
+// Edited to call `SetThrottle` on each of the tracks
+void UTankMovementComponent::IntendMoveForward(float Throw)
+{
+	// Log information...
+
+	// Set here
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(Throw);
+}
+```
+
 ### Completing Manual Tank Movement
 
 - **Objective**:
