@@ -35,6 +35,7 @@ public:
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
+	// Takes input axis values and uses them to move the tank
 	UPROPERTY(BlueprintReadOnly)
 	UTankMovementComponent* TankMovementComponent = nullptr;
 

@@ -7,7 +7,7 @@
 #include "TankMovementComponent.generated.h"
 
 /**
- * 
+ * Takes input axis values and uses them to move the tank
  */
 UCLASS()
 class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent

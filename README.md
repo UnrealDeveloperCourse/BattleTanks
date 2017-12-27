@@ -1657,11 +1657,43 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ### Using BluePrintReadOnly
 
-- **Objective**:
+- **Objective**: Setup the movement component to be a read-only component capable of being drag & dropped into the event graph
+
+**NOTE: Unreal seems finicky when compiling this component, save often, use source control to your advantage, and shut down and restart Unreal if need be.**
+
+[`BlueprintReadOnly` Unreal Docs](https://wiki.unrealengine.com/Blueprints,_Creating_Variables_in_C%2B%2B_For_Use_In_BP#BlueprintReadOnly)
+
+```cpp
+/// TankMovementComponent.h
+
+UCLASS()
+class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
+{
+	GENERATED_BODY()
+	
+public:
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendMoveForward(float Throw);
+	
+};
+```
+
+```cpp
+/// TankMovementComponent.cpp
+
+#include "TankMovementComponent.h"
+
+void UTankMovementComponent::IntendMoveForward(float Throw)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %s"), Throw)
+}
+```
 
 ### A Better Component Architecture
 
-- **Objective**:
+- **Objective**: Revise movement of the tank
+
+![Component Architecture](BattleTank/Saved/Screenshots/Windows/Component_Architecture.png)
 
 ### Completing Manual Tank Movement
 
@@ -1672,7 +1704,6 @@ void UTankTrack::SetThrottle(float Throttle)
 - **Objective**:
 
 ### Dissecting `RequestDirectMove()`
-
 
 - **Objective**:
 
