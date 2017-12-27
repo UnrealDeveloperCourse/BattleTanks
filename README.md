@@ -1693,6 +1693,8 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 - **Objective**: Revise movement of the tank
 
+**NOTE: This method removes previous instability in Unreal after the movement component had been added**
+
 - Current Component Architecture: Get rid of cyclical passing of references from component back to tank
 
 ![Component Architecture](BattleTank/Saved/Screenshots/Windows/Component_Architecture.png)
