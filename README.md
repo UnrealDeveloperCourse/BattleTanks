@@ -1693,6 +1693,8 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 - **Objective**: Revise movement of the tank
 
+- Current Component Architecture: Get rid of cyclical passing of references from component back to tank
+
 ![Component Architecture](BattleTank/Saved/Screenshots/Windows/Component_Architecture.png)
 
 1. Get references to tracks in the movement component
