@@ -1789,11 +1789,77 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 ### Completing Manual Tank Movement
 
-- **Objective**:
+- **Objective**: Turning inputs
+
+1. Create an `IntendTurnRight` `BlueprintCallable` method for `UTankMovementComponent`
+
+```cpp
+/// TankMovementComponent.h
+// ...hash includes
+
+UCLASS()
+class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
+{
+	GENERATED_BODY()
+	
+public:
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendTurnRight(float Throw);
+
+// ...class definition cont
+}
+```
+
+```cpp
+/// TankMovementComponent.cpp
+
+void UTankMovementComponent::IntendTurnRight(float Throw)
+{
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+}
+
+```
+
+2. Create a new turn right input binding in project settings
+
+![New Input Binding for Turn Right](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_TurnRightInput.png)
+
+3. Wire up Turn Right Event in Input Setup
+
+![Turn Right Input Setup](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_TurnRight_InputSetup.png)
 
 ### Introducing AI Pathfinding
 
-- **Objective**:
+- **Objective**: Introduce pathfinding
+
+[Nav Mesh Volume Reference](https://docs.unrealengine.com/latest/INT/Engine/Actors/Volumes/index.html?utm_source=editor&utm_medium=docs&utm_campaign=doc_anchors#Volume Types)
+
+1. Show Nav meshes in viewport
+
+![Show Nav Mesh](BattleTank/Saved/Screenshots/Windows/AI_Pathfinding_ShowNav.png)
+
+2. Create a 100m square `NavMeshBoundsVolume`
+
+![Create Nav Mesh](BattleTank/Saved/Screenshots/Windows/AI_Pathfinding_NavMeshBoundsVolume.png)
+
+3. Discuss how we are using pathfinding
+
+- Tank AI Controller `MoveToActor()`
+
+![Tank AI Controller `MoveToActor()`](BattleTank/Saved/Screenshots/Windows/AI_Controller_MoveToActor.png)
+
+- Nav Movement Component `RequestDirectMove()`
+
+![Nav Movement Component `RequestDirectMove()`](BattleTank/Saved/Screenshots/Windows/AI_Controller_NavMovementComponent.png)
+
+- TODO: Intercept `RequestDirectMove` and use it to move AI tanks
+
+- Pathfinding Logic
+
+![Pathfinding Logic Slide](BattleTank/Saved/Screenshots/Windows/AI_Controller_Pathfinding_Logic.png)
+
+- `RequestDirectMove()` is a Vector of the next navigation point in the navigation volume
 
 ### Dissecting `RequestDirectMove()`
 
