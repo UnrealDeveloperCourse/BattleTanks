@@ -1863,7 +1863,67 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
 ### Dissecting `RequestDirectMove()`
 
-- **Objective**:
+- **Objective**: Implement and Log out AI pathfinding information
+
+1. Add the MoveToActor call inside the `ATankAIController` class
+
+```cpp
+/// TankAIController.h
+
+UCLASS()
+class BATTLETANK_API ATankAIController : public AAIController
+{
+	GENERATED_BODY()
+
+private:
+	// class definition...
+
+	// proximity the AI tank should achieve when moving towards player
+	float AcceptanceRadius = 3000; // todo check cm
+
+// class definition cont...
+};
+```
+
+```cpp
+/// TankAIController.cpp
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	// tick code...
+
+	// Start moving toward the Player Tank
+	if (PlayerTank)
+	{
+		// Move towards the player
+		MoveToActor(PlayerTank, AcceptanceRadius);
+	}
+}
+```
+
+2. Find `RequestDirectMove()` Signature in the Game Engine code: Engine > UE4 > Source > Runtime > Engine > Classes > GameFrameWork
+3. Copy the signature
+4. Override in the TankMovementComponent.h, (hint: use `override`)
+5. No need to call Super since we're replacing
+
+```cpp
+/// TankMovementComponent.h
+
+// Macro here...
+class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
+{
+	// Boilerplate here
+	
+public:
+	// Public definitions here
+
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+	
+// Class definition cont...
+};
+```
+
+6. Log the tank name and value of `MoveVelocity`
 
 ## Mid-Section Quiz
 
