@@ -1454,7 +1454,7 @@ private:
 	// declare ReloadTimeInSeconds
 	UPROPERTY(EditDefaultsOnly, category = Firing)
 	float ReloadTimeInSeconds = 3;
-// Class declaration continued...
+// Class definition continued...
 }
 ```
 
@@ -2092,7 +2092,77 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 ### How to Use Blueprint Variables
 
-- **Objective**:
+- **Objective**: Indication of when it will be possible to fire
+
+![Iterative Cycle UI Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_UIStage.png)
+
+- A way to accomplish our goal is to have an enum attribute on the Aiming Component and create a BP Variable on the Player UI Widget to be able to access this variable.
+
+![Aiming Component Architecture](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_Architecture.png)
+
+***1. Make `GetControlledTank()` `BlueprintCallable` and in the protected section of the class code so that it is accessible to other objects***
+
+```cpp
+/// TankPlayerController.h
+
+UCLASS()
+class BATTLETANK_API ATankPlayerController : public APlayerController
+{
+	GENERATED_BODY()
+	
+public:
+	// public code here...
+	
+protected:
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	ATank* GetControlledTank() const;
+
+// Class definition cont...
+}
+```
+
+***2. Create a variable on `PlayerUI_BP` that is of type `TankAimingComponent`***
+
+![Tank Aiming Component Diagram](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_Diagram.png)
+
+- After saving and compiling the PlayerUI_BP the Set BP Aiming Comp Reference node will be available
+
+![Aiming Comp Reference](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_SetAimingCompRef.png)
+
+***3. Right click in Event Graph and create a node for `GetControlledTank()`***
+
+***4. We need access to the `TankAimingComponent` but it is not exposed in the code as `BlueprintReadonly` in `Tank.h` yet so do that next***
+
+```cpp
+/// Tank.h
+
+UCLASS()
+class BATTLETANK_API ATank : public APawn
+{
+	GENERATED_BODY()
+
+public:
+	// public code here...
+
+protected:
+	// Provide access to TankAimingComponent in BP
+	UPROPERTY(BlueprintReadOnly)
+	UTankAimingComponent* TankAimingComponent = nullptr;
+// class definition continued...
+}
+```
+
+- When project is recompiled it will be accessable
+
+![Tank Aiming Component](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_TankAimingComp.png)
+
+![Tank Aiming Component Event Graph](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_EventGraph.png)
+
+***5. Create binding for crosshair color and opacity***
+
+![Create Color & Opacity Binding](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_CreateBinding.png)
+
+![Binding Created](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_CreateBinding_02.png)
 
 ### Using Enum(erations) in UE4
 
