@@ -2112,7 +2112,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	
 public:
 	// public code here...
-	
+
 protected:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	ATank* GetControlledTank() const;
@@ -2166,7 +2166,50 @@ protected:
 
 ### Using Enum(erations) in UE4
 
-- **Objective**:
+- **Objective**: Use meaningful way of encoding states and use events to communicate state for reloading.
+
+[Unreal Docs for Strongly Typed Enums](https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/#strongly-typedenums)
+
+***1. Create the Strongly Typed Enum in C++***
+
+- Use the following pattern:
+	+ `UENUM()`
+	+ `enum class EThing : uint8 {Thing1, Thing2};`
+- Specify Reloading, Aiming, & Locked
+- Create private member & initialize to Reloading
+
+```cpp
+/// TankAimingComponent.h
+
+// Enum for aiming state
+UENUM()
+enum class EFiringState : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+//...
+
+//...
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	//...
+public:	
+	//...
+protected:
+	//...
+	UPROPERTY(BlueprintReadonly, Category = State)
+	EFiringState FiringState = EFiringState::Reloading;
+	//...
+private:
+	//...
+};
+```
+
+***2. Create the node graph below in PlayerUI_BP***
+
+![Tank Aiming Component Firing Enum](PlayerUI_BP_AimingComponent_FiringEnum.png)
 
 ### Refactoring our Aiming Component
 
