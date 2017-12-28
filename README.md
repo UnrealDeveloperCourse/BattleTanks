@@ -2088,7 +2088,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 ### Finalizing Your Class Code
 
-- **Objective**:
+- **Objective**: Make final changes to TankMovementComponent
 
 ### How to Use Blueprint Variables
 
