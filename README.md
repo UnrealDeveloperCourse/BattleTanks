@@ -2050,10 +2050,6 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 ![Sine at 270 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_270_Degrees.png)
 
-- Angle is 360, the same as 0
-
-![Sine at 360 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_360_Degrees.png)
-
 - Cross Product according to Wikipedia
 
 ![Wikipedia snippit](BattleTank/Saved/Screenshots/Windows/CrossProduct_Wikipedia.png)
@@ -2073,6 +2069,22 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 ***3. Find the Z component of the resulting vector***
 
 ***4. Feed the result to `IntendTurnRight()`***
+
+```cpp
+/// TankMovementComponent.cpp
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	// Get unit vectors of the tank's forward direction
+	// ...
+
+	// Calculate the forward throw...
+
+    // Calculate the right throw
+	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+	IntendTurnRight(RightThrow);
+}
+```
 
 ### Finalizing Your Class Code
 
