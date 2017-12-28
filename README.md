@@ -1957,9 +1957,9 @@ public:
 
 ### DotProduct() Vector Operator
 
-- **Objective**: Calculate the direction, the unit vector, in which to move the AI Controller not the velocity 
+- **Objective**: Calculate the throttle and move the tanks forward or backward using DotProduct
 
-***1. Get unit vectors of the tank's forward direction, or the local X axis***
+***1. Get unit vectors of the tank's forward direction, or the world X axis***
 
 ```cpp
 /// TankMovementComponent.cpp
@@ -1999,15 +1999,16 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 ![Cosign Angle at 360 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_360_Degrees.png)
 
-- The calculation according to Wikipedia
+- Dot Product according to Wikipedia
+
+![Wikipedia snippit](BattleTank/Saved/Screenshots/Windows/DotProduct_Wikipedia.png)
+
 - *Magnitude* of **A** (Tank forward intention) * *Magnitude* of **B** (AI Tank forward intention) * **cosine** of the angle between them (theta)
 - *Magnitude*: *size* of **A** or *size* of **B**, we are already is at most **1** since we are already getting the safe normal of each.
 
-![Wikipedia snippit](BattleTank/Saved/Screenshots/Windows/Cosine_Function_Wikipedia.png)
-
 - What is Dot Product telling us in basic terms?
 
-![Dot Product Diagram](BattleTank/Saved/Screenshots/Windows/CrossProduct_Usage_Diagram.png)
+![Dot Product Diagram](BattleTank/Saved/Screenshots/Windows/DotProduct_Usage_Diagram.png)
 
 ***3. Use FVector::DotProduct()***
 
@@ -2031,7 +2032,47 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 ### CrossProduct() Vector Operator
 
-- **Objective**:
+- **Objective**: Turn the tanks toward the player tank using CrossProduct
+
+- Angle is at 0, target is directly ahead, turn at a rate of 0
+
+![Sine at 0 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_0_Degrees.png)
+
+- Angle at 90 degrees, target to the right, turn as fast as possible
+
+![Sine at 90 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_90_Degrees.png)
+
+- Angle is 180, target is behind, since we are working with floating point numbers the number will never perseptively be exactly 0
+
+![Sine at 180 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_180_Degrees.png)
+
+- Angle is 270, target is to the left, turn as fast as possible
+
+![Sine at 270 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_270_Degrees.png)
+
+- Angle is 360, the same as 0
+
+![Sine at 360 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_360_Degrees.png)
+
+- Cross Product according to Wikipedia
+
+![Wikipedia snippit](BattleTank/Saved/Screenshots/Windows/CrossProduct_Wikipedia.png)
+
+- *Magnitude* of **A** (Tank forward intention) * *Magnitude* of **B** (AI Tank forward intention) * **sine** of the angle between them (theta) * *n* the unit vector perpendicular to the plane (world Z axis)
+
+- We get a *Vector* from the Dot Product not a float. This means the turning velocity is a distance from 0 and the dot product. The more perpendicular the angle between the tank and the opponent is, the faster the tank will turn.
+
+- What is Cross Product telling us in basic terms?
+
+![Cross Product Diagram](BattleTank/Saved/Screenshots/Windows/CrossProduct_Usage_Diagram.png)
+
+***1. Use FVector::CrossProduct()***
+
+***2. Cross `AIForwardIntention` & `TankForward`***
+
+***3. Find the Z component of the resulting vector***
+
+***4. Feed the result to `IntendTurnRight()`***
 
 ### Finalizing Your Class Code
 
