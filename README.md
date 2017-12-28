@@ -1955,7 +1955,7 @@ public:
 
 *Explanation:* Ground has it's own coefficient for friction in its settings. In the class example the ground's coefficient is not known therefore we set the friction to be Min, meaning the minimum of the two coefficients. The tank has its coefficient set in the Physics Material. If both coefficients are known, to calculate the average means (1.0 + 0.2)/2 = 0.6.
 
-### DotProduct() Vector Operator
+### `DotProduct()` Vector Operator
 
 - **Objective**: Calculate the throttle and move the tanks forward or backward using DotProduct
 
@@ -1981,7 +1981,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 - Angle is zero, we are looking directly at the opponent. We are already facing in the direction where the AI wants us to be going. Speed is full throttle (1)
 
-![Cosine AngleOfIntention Vs TankForward](BattleTank/Saved/Screenshots/Windows/Cosine_Function_AngleOfIntention_Vs_TankForwardDir.png)
+![Cosine `AngleOfIntention` Vs `TankForward`](BattleTank/Saved/Screenshots/Windows/Cosine_Function_AngleOfIntention_Vs_TankForwardDir.png)
 
 - Angle at 90, AI intention is to turn right in our case since we have an `IntendTurnRight` method. We should be moving at a rate of 0 since we shouldn't be moving forward, we should be turning to face the opponent.
 
@@ -2010,10 +2010,10 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 ![Dot Product Diagram](BattleTank/Saved/Screenshots/Windows/DotProduct_Usage_Diagram.png)
 
-***3. Use FVector::DotProduct()***
+***3. Use `FVector::DotProduct()`***
 
-- Dot AIForwardIntention & TankForward
-- Feed result into IntendMoveForward()
+- Dot `AIForwardIntention` & `TankForward`
+- Feed result into `IntendMoveForward()`
 
 ```cpp
 /// TankMovementComponent.cpp
@@ -2030,7 +2030,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 }
 ```
 
-### CrossProduct() Vector Operator
+### `CrossProduct()` Vector Operator
 
 - **Objective**: Turn the tanks toward the player tank using CrossProduct
 
@@ -2062,7 +2062,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 ![Cross Product Diagram](BattleTank/Saved/Screenshots/Windows/CrossProduct_Usage_Diagram.png)
 
-***1. Use FVector::CrossProduct()***
+***1. Use `FVector::CrossProduct()`***
 
 ***2. Cross `AIForwardIntention` & `TankForward`***
 
