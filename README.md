@@ -2273,73 +2273,141 @@ private:
 
 ![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor.png)
 
-**Challenge**
+- **Overview**: This part of the refactoring process essentially shifts responsibility from Tank to Pawn classes thereby severing the relationship between Tank and Tank Controllers
 
-***1. Move just the aiming code from tank***
+**Part 1: Tank <-- TankAimingComponent**
 
-***2. Move forward declarations and includes***
+- `Tank.h`
 
-***3. Check all tanks can aim***
+	+ Remove references to `UTankAimingComponent`
 
-**Overview: This part of the refactoring process essentially shifts responsibility from Tank to Pawn classes thereby severing the relationship between Tank and Tank Controllers**
+	+ Remove `AimAt()` definition, it already exists in `TankAimingComponent.h` however the signature is different
 
-**Part 1**
+	+ Put a copy of `LaunchSpeed` in `TankAimingComponent.h` so that removing `LaunchSpeed` as an argument to `AimAt` is possible later
 
-- Remove references to `UTankAimingComponent` from `Tank.h` and `Tank.cpp`
+- `Tank.cpp`
 
-- Get rid of `AimAt()` in `Tank.cpp`
+	+ Remove references to `UTankAimingComponent`
 
-- Where we are at after these changes:
+	+ Get rid of `AimAt()`
+
+***Achievement: Tank decoupled from TankAimingComponent***
 
 ![Class Structure Diagram Aiming Component](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_01.png)
 
-**Part 2**
+**Part 2: TankAimingComponent <-- TankPlayerController**
 
-- `Tank.h`: remove `AimAt()` definition, it already exists in `TankAimingComponent.h` however the signature is different
+- `TankAimingComponent.cpp`
 
-- Put a copy of `LaunchSpeed` in `TankAimingComponent.h` so that removing `LaunchSpeed` as an argument to AimAt is possible
+	+ Remove `LaunchSpeed` argument from AimAt signature
 
-- Remove `LaunchSpeed` argument from AimAt signature in `TankAimingComponent.cpp`
+- `TankPlayerController.h`
 
-- `TankPlayerController.cpp`: `GetControlledTank()` doesn't need to Cast `GetPawn()` into `ATank` so removing that and removing `Tank.h` will sever another dependency
+	+ Remove `GetControlledTank()` method and forward declaration of `ATank`
 
-- Where are we using `ATank` in `TankPlayerController.h`
+- `TankPlayerController.cpp`
 
-- Remove `GetControlledTank()` from `TankPlayerController.h`
+	+ `ATankPlayerController::GetControlledTank()`
 
-- Where we are after these changes:
+		* Doesn't need to Cast `GetPawn()` into `ATank` so removing that and removing `Tank.h` *will sever another dependency*
+
+	+ `ATankPlayerController::BeginPlay()`
+
+		* `GetControlledTank()` not necessary, all that is needed is `GetPawn()`, so replace it with `GetPawn()`
+
+	+ `ATankPlayerController::AimTowardsCrosshair()`
+
+		* change the test in the beginning to be an `ensure` check for an `AimingComponent`, not a `Tank`
+
+***Achievement: Tanks do not aim but dependency has been removed***
 
 ![Class Structure Diagram Player Controller](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_02.png)
 
-**Part 3**
+**Part 3: Tank <-- TankAIController**
 
-- `GetControlledTank()` not necessary in `TankPlayerController.cpp`, all that is needed is `GetPawn()`, so remove it
+- `TankAIController.cpp`
+	
+	+ remove hash include Tank.h *severing the dependency to the tank*
+	
+	+ hash include the `TankAimingComponent.h` *creating a dependency in the Refactoring Graph*
 
-- Replace instance of `GetControlledTank()` in `BeginPlay()` with `GetPawn()`
+	+ `TankAIController::Tick()`
 
-- In `AimTowardsCrosshair()` change the test in the beginning to be an `ensure` check for an `AimingComponent`, not a `Tank`
+		* Remove unnecessary Casts of `ATank` for `PlayerTank` and `ControlledTank`
 
-**Part 4**
+		* Change the test for `PlayerTank` and `ControlledTank` use the new `ensure` pattern
 
-- `TankAIController.cpp`: Remove unnecessary Casts of `ATank` for `PlayerTank` and `ControlledTank` in `Tick()`
+		* Instead of calling `AimAt()` from the tank, change that to call from the `AimingComponent`
+		
+			- First get `AimingComponent`: `auto AimingComponent = ControlledTank->FindComponentByType<UTankAimingComponent>();`
+		
+			- Then call it: `AimingComponent->AimAt(PlayerTank->GetActorLocation());`
 
-- Change the test for `PlayerTank` and `ControlledTank` use the new `ensure` pattern
+		* Comment out firing because tank has now been replaced with pawn, don't be concerned with firing at this stage
 
-- hash include the `TankAimingComponent.h` *creating* a dependency in the Refactoring Graph
-
-- Instead of calling `AimAt()` from the tank, change that to call from the `AimingComponent`
-	+ First get `AimingComponent`: `auto AimingComponent = ControlledTank->FindComponentByType<UTankAimingComponent>();`
-	+ Then call it: `AimingComponent->AimAt(PlayerTank->GetActorLocation());`
-
-- Comment out firing because tank has now been replaced with pawn, don't be concerned with firing at this stage
-
-- Where we are after these changes:
+***Achievement: Tanks will now aim***
 
 ![Class Structure Diagram Player and AI Controller](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_03.png)
 
 ### Finish Our Refactoring
 
-- **Objective**:
+- **Objective**: Finish refactoring to the new architecture
+
+- Where we will be after refactoring: Projectile and Barrel dependencies removed, Projectile dependency with AimingComponent created
+
+![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Finish_Our_Refactor.png)
+
+**Part 1: Enable Firing for the Player Controller**
+
+- *Unreal*
+
+	+ In the `Tank_BP`, delete the Fire function from the Input Setup Graph
+
+- `Tank.h`
+
+	+ Remove references and forward declarations of `Barrel` and `Projectile`
+
+	+ Move `ProjectileBlueprint`, `LaunchSpeed`, `ReloadTimeInSeconds`, `Barrel`, and `LastFireTime` into `TankAimingComponent.h` and remove duplicate lines for creating `Barrel` and `LaunchSpeed`
+
+	+ Make sure all that's left is the code for the constructor
+
+- `Tank.cpp`
+
+	+ Remove hash includes to `Projectile.h` and `TankBarrel.h`
+
+	+ Move the `Fire()` method into `TankAimingComponent.cpp`
+
+	+ Make sure all that's left is the code for the constructor
+
+- `TankAimingComponent.h`
+
+	+ forward declare `AProjectile` in header and hash include in cpp file
+
+- `TankAimingComponent.cpp`
+
+	+ Modify the `Fire()` method to `ensure` the `Barrel` AND `ProjectileBlueprint` both exist, both are required for firing to work
+
+- *Unreal*
+
+	+ Re-bind Input to `Fire()` method (now on the `AimingComponent`) in `Tank_BP`
+
+	+ Remember in TankAiming > Details > Setup > Projectile Blueprint to select Projectile_BP or the project will crash when playing the game
+
+***Achievement: All dependencies on the Tank class have been disconnected***
+
+![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Finish_Our_Refactor_01.png)
+
+**Part 2: Enabled Firing for the AI Controller**
+
+- `TankAIController.h`
+
+	+ remove forward declaration of `ATank`
+
+- `TankAIController.cpp`
+
+	+ `Tick()`
+
+		* `AimingComponent->Fire();`
 
 ### Adding TickComponent() Back
 
