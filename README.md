@@ -2209,11 +2209,13 @@ private:
 
 ***2. Create the node graph below in PlayerUI_BP***
 
-![Tank Aiming Component Firing Enum](PlayerUI_BP_AimingComponent_FiringEnum.png)
+![Tank Aiming Component Firing Enum](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_FiringEnum.png)
 
 ### Refactoring our Aiming Component
 
-- **Objective**:
+- **Objective**: Get Aiming Component to the same architecture as the movement component
+
+![Aiming Component Refactoring Diagram](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_Refactoring_Diagram.png)
 
 ### Attaching a Debugger to Unreal
 
@@ -2247,11 +2249,93 @@ private:
 
 ### Starting From Green
 
-- **Objective**:
+- **Objective**: First step in making changes to Game Architecture is getting back to functioning code or a "Green" state. Right now, the aiming doesn't work.
+
+- Map the current class structure
+
+![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Starting_From_Green_Refactor.png)
+
+- Red, Green, Refactor
+
+![Red Green Refactor](BattleTank/Saved/Screenshots/Windows/Starting_From_Green_RedGreenRefactor.png)
+
+- We're going to be gutting the Tank
+
+- First, we can map out the methods for aiming to better understand the dependencies
+
+![Aiming Methods Diagram](BattleTank/Saved/Screenshots/Windows/Starting_From_Green_AimingMethods.png)
 
 ### Aiming Without the Tank
 
-- **Objective**:
+- **Objective**: Aiming still works and some dependencies have been chopped
+
+- Where we will be after refactoring
+
+![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor.png)
+
+**Challenge**
+
+***1. Move just the aiming code from tank***
+
+***2. Move forward declarations and includes***
+
+***3. Check all tanks can aim***
+
+**Overview: This part of the refactoring process essentially shifts responsibility from Tank to Pawn classes thereby severing the relationship between Tank and Tank Controllers**
+
+**Part 1**
+
+- Remove references to `UTankAimingComponent` from `Tank.h` and `Tank.cpp`
+
+- Get rid of `AimAt()` in `Tank.cpp`
+
+- Where we are at after these changes:
+
+![Class Structure Diagram Aiming Component](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_01.png)
+
+**Part 2**
+
+- `Tank.h`: remove `AimAt()` definition, it already exists in `TankAimingComponent.h` however the signature is different
+
+- Put a copy of `LaunchSpeed` in `TankAimingComponent.h` so that removing `LaunchSpeed` as an argument to AimAt is possible
+
+- Remove `LaunchSpeed` argument from AimAt signature in `TankAimingComponent.cpp`
+
+- `TankPlayerController.cpp`: `GetControlledTank()` doesn't need to Cast `GetPawn()` into `ATank` so removing that and removing `Tank.h` will sever another dependency
+
+- Where are we using `ATank` in `TankPlayerController.h`
+
+- Remove `GetControlledTank()` from `TankPlayerController.h`
+
+- Where we are after these changes:
+
+![Class Structure Diagram Player Controller](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_02.png)
+
+**Part 3**
+
+- `GetControlledTank()` not necessary in `TankPlayerController.cpp`, all that is needed is `GetPawn()`, so remove it
+
+- Replace instance of `GetControlledTank()` in `BeginPlay()` with `GetPawn()`
+
+- In `AimTowardsCrosshair()` change the test in the beginning to be an `ensure` check for an `AimingComponent`, not a `Tank`
+
+**Part 4**
+
+- `TankAIController.cpp`: Remove unnecessary Casts of `ATank` for `PlayerTank` and `ControlledTank` in `Tick()`
+
+- Change the test for `PlayerTank` and `ControlledTank` use the new `ensure` pattern
+
+- hash include the `TankAimingComponent.h` *creating* a dependency in the Refactoring Graph
+
+- Instead of calling `AimAt()` from the tank, change that to call from the `AimingComponent`
+	+ First get `AimingComponent`: `auto AimingComponent = ControlledTank->FindComponentByType<UTankAimingComponent>();`
+	+ Then call it: `AimingComponent->AimAt(PlayerTank->GetActorLocation());`
+
+- Comment out firing because tank has now been replaced with pawn, don't be concerned with firing at this stage
+
+- Where we are after these changes:
+
+![Class Structure Diagram Player and AI Controller](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_03.png)
 
 ### Finish Our Refactoring
 
