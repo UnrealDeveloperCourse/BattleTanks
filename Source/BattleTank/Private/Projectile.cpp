@@ -31,9 +31,6 @@ void AProjectile::Tick(float DeltaTime)
 
 void AProjectile::LaunchProjectile(float Speed)
 {
-	//auto TankName = GetOwner()->GetName();
-	//UE_LOG(LogTemp, Warning, TEXT("%s Firing at speed %f"), *TankName, Speed)
-	UE_LOG(LogTemp, Warning, TEXT("Launch speed: %.2f"), Speed)
 	ProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
 	ProjectileMovementComponent->Activate();
 }

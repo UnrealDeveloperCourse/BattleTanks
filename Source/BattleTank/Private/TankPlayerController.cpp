@@ -2,11 +2,16 @@
 
 #include "TankPlayerController.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
+#include "Engine/World.h"
 
 
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (ensure(AimingComponent)){ FoundAimingComponent(AimingComponent); }
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -22,7 +27,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimAtCrosshair()
 {
-	if (!GetControlledTank()) { return; }
+	if (!ensure(GetControlledTank())) { return; }
 
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation))
@@ -38,7 +43,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector & HitLocation) const
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
-	///UE_LOG(LogTemp, Warning, TEXT("Screen location: %s"), *ScreenLocation.ToString())
 
 	// De-project the screen location of the crosshair to a world direction
 	FVector LookDirection;

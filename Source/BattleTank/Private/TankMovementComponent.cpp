@@ -12,25 +12,22 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
-	///UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %s"), Throw)
+	if (!ensure(LeftTrack && RightTrack)) { return; }
+	
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
-	///UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %s"), Throw)
+	if (!ensure(LeftTrack && RightTrack)) { return; }
+
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
 {
-	// auto TankName = GetOwner()->GetName();
-	// UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *TankName, *MoveVelocity.ToString())
-
 	// Get unit vectors of the tank's forward direction
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
