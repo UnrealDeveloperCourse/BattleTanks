@@ -2217,35 +2217,140 @@ private:
 
 ![Aiming Component Refactoring Diagram](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_Refactoring_Diagram.png)
 
+- `Unreal`
+
+	+ Remove `SetTurretReference` and `SetBarrelReference` from `Tank_BP`
+
+- `Tank`
+
+	+ Remove code for `BeginPlay`, `SetupPlayerInputComponent`, `SetTurretReferece`, `SetTankReference`, `TankAimingComponent` DefaultSubobject
+
+- `TankAimingComponent`
+	+ Remove code for `SetBarrelReference`, `SetTurretReference`
+
+	+ Add a new `Initialize` method, like `TankMovementComponent`
+
+- `Unreal`
+
+	+ Create Initialize method in the Event Graph and wire everything up
+
+![Aiming Component Event Graph](BattleTank/Saved/Screenshots/Windows/Aiming_Component_Refactor.png)
+
+```cpp
+UFUNCTION(BlueprintCallable, Category = Setup)
+void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+```
+
 ### Attaching a Debugger to Unreal
 
-- **Objective**:
+- **Objective**: Get familiarized with Unreal Debugging techniques
+
+- Attach a Visual Studio Debugger to the Unreal Process
+
+![Launch Visual Studio Debugger](BattleTank/Saved/Screenshots/Windows/Visual_Studio_Debug_Process.png)
 
 ### Constructor and Begin Play Timing
 
-- **Objective**:
+- **Objective**: Understand exactly what order C++ and BeginPlay methods get called. Using logs to debug the timing.
+
+- Printing in Unreal
+
+![Unreal Debug Print String](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String.png)
+
+![Unreal Debug Print String 2](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_02.png)
+
+- Printing object construction
+
+![Unreal Debug Print String 3](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_03.png)
+
+- Optimize printing during construction by turning of construction on drag
+
+![Unreal Debug Print On Construct](BattleTank/Saved/Screenshots/Windows/Tank_BP_Logging_Construct_On_Drag.png)
+
+- Filtering the output log using UUID
+
+![Unreal Debug Print String 4](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_04.png)
 
 ### Decoupling Your Architecture
 
-- **Objective**:
+- **Objective**: Alternative methods of getting the TankAimingComponent Class, Solving Race Conditions
+
+- Logging Construction and BeginPlay from C++
+
+![Logging Construction and BeginPlay](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_05.png)
+
+![Logging Construction and BeginPlay 2](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_05.png)
+
+- Constructors and Begin Play cycles in Unreal
+
+![Constructors and Begin Play Cycles](BattleTank/Saved/Screenshots/Windows/Unreal_Constructor_BeginPlay_Cycles.png)
+
+- Key thing to note in this slide is we don't know the order each component will get created in Constructors. The same goes for Begin Play. We can't know for sure when TankAimingComponent will get constructed or when other classes will have access to it.
+
+![Constructors and Begin Play Cycles 2](BattleTank/Saved/Screenshots/Windows/Unreal_Constructor_BeginPlay_Cycles_2.png)
+
+- To get around these "Race" Conditions in C++, we can use a `GetComponentByClass` function in the TankPlayerContoller_BP Event Graph. That way we can be sure it happens during BeginPlay.
+
+![GetComponentByType BP Function](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_GetComponentByType.png)
 
 ### `BlueprintImplementableEvent`
 
-- **Objective**:
+- **Objective**: Expose C++ function to BP that takes a parameter
+
+- `UFunction(BlueprintImplementableEvent)` does not require you to define the function
+
+![BlueprintImplementable Function Creation](BattleTank/Saved/Screenshots/Windows/BlueprintImplementable_Function.png)
+
+- Wiring up the `BlueprintImplementableEvent` in `TankPlayerController_BP`
+
+- Must broadcast the event during `BeginPlay`
+
+```cpp
+/// TankPlayerController.cpp
+
+void ATankPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent){ FoundAimingComponent(AimingComponent); }
+}
+```
+
+![TankPlayerController_BP Event Graph](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_BPImplementableEvent.png)
 
 ## Mid-Section Quiz
 
 ### Using the ensure Assertion
 
-- **Objective**:
+- **Objective**: Learn a useful new pointer protection technique, the ensure assertion
+
+[Unreal Doc Assertions](https://docs.unrealengine.com/latest/INT/Programming/Assertions/)
+
+- `if (!(LeftTrack && RightTrack)) { return; }` becomes `if (!ensure(LeftTrack && RightTrack)) { return; }`
 
 ### Dependency Mapping
 
-- **Objective**:
+- **Objective**: Look through project files and find out what depends on what
+
+**Part 1: Revise Aiming Architecture Graph**
+
+![Tank Aiming Architecture Spaghetti](BattleTank/Saved/Screenshots/Windows/Tank_Aiming_Architecture_Spaghetti.png)
+
+![Tank Aiming Architecture Desired](BattleTank/Saved/Screenshots/Windows/Tank_Aiming_Architecture_Desired.png)
+
+**Part 2: Revise Movement Architecture Graph**
+
+![Tank Aiming Architecture Desired](BattleTank/Saved/Screenshots/Windows/Tank_Aiming_Architecture_Desired.png)
+
+- Go ahead and implement this in the code
+
+- `Tank`
+	+ Remove all instances and code related to `TankMovementComponent`
 
 ### Talking Head - Real World Skills
 
-- **Objective**:
+- **Objective**: 
 
 ### Starting From Green
 
