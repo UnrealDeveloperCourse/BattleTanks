@@ -2350,8 +2350,6 @@ void ATankPlayerController::BeginPlay()
 
 ### Talking Head - Real World Skills
 
-- **Objective**: 
-
 ### Starting From Green
 
 - **Objective**: First step in making changes to Game Architecture is getting back to functioning code or a "Green" state. Right now, the aiming doesn't work.
@@ -2369,6 +2367,19 @@ void ATankPlayerController::BeginPlay()
 - First, we can map out the methods for aiming to better understand the dependencies
 
 ![Aiming Methods Diagram](BattleTank/Saved/Screenshots/Windows/Starting_From_Green_AimingMethods.png)
+
+- Fix an ensure error in `Tank.cpp` by getting the aiming component during `BeginPlay`
+
+```cpp
+/// Tank.cpp
+
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+}
+
+```
 
 ### Aiming Without the Tank
 
