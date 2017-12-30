@@ -2451,7 +2451,7 @@ void ATank::BeginPlay()
 
 		* Remove unnecessary Casts of `ATank` for `PlayerTank` and `ControlledTank`
 
-		* Change the test for `PlayerTank` and `ControlledTank` use the new `ensure` pattern
+		* Change the test for `PlayerTank` and `ControlledTank` use the new `ensure` pattern i.e. `if (!ensure(PlayerTank && ControlledTank)){ return; }`, also dedent the code that was inside the if clause
 
 		* Instead of calling `AimAt()` from the tank, change that to call from the `AimingComponent`
 		
@@ -2500,6 +2500,8 @@ void ATank::BeginPlay()
 	+ forward declare `AProjectile` in header and hash include in cpp file
 
 - `TankAimingComponent.cpp`
+
+	+ hash include `Projectile.h`
 
 	+ Modify the `Fire()` method to `ensure` the `Barrel` AND `ProjectileBlueprint` both exist, both are required for firing to work
 
