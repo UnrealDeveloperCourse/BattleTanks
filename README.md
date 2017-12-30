@@ -2399,7 +2399,7 @@ void ATank::BeginPlay()
 
 	+ Remove `AimAt()` definition, it already exists in `TankAimingComponent.h` however the signature is different
 
-	+ Put a copy of `LaunchSpeed` in `TankAimingComponent.h` so that removing `LaunchSpeed` as an argument to `AimAt` is possible later
+	+ Put a copy of `LaunchSpeed` in `TankAimingComponent.h` and remove `LaunchSpeed` as an argument to `AimAt`
 
 - `Tank.cpp`
 
@@ -2415,7 +2415,7 @@ void ATank::BeginPlay()
 
 - `TankAimingComponent.cpp`
 
-	+ Remove `LaunchSpeed` argument from AimAt signature
+	+ Remove `LaunchSpeed` argument from `AimAt` signature
 
 - `TankPlayerController.h`
 
@@ -2443,7 +2443,7 @@ void ATank::BeginPlay()
 
 - `TankAIController.cpp`
 	
-	+ remove hash include Tank.h *severing the dependency to the tank*
+	+ remove hash include `Tank.h` *severing the dependency to the tank*
 	
 	+ hash include the `TankAimingComponent.h` *creating a dependency in the Refactoring Graph*
 
@@ -2455,7 +2455,7 @@ void ATank::BeginPlay()
 
 		* Instead of calling `AimAt()` from the tank, change that to call from the `AimingComponent`
 		
-			- First get `AimingComponent`: `auto AimingComponent = ControlledTank->FindComponentByType<UTankAimingComponent>();`
+			- First get `AimingComponent`: `auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();`
 		
 			- Then call it: `AimingComponent->AimAt(PlayerTank->GetActorLocation());`
 

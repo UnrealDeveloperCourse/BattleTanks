@@ -29,6 +29,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendTurnRight(float Throw);
+
+	UPROPERTY(EditDefaultsOnly, category = Firing)
+	float LaunchSpeed = 100000; // 1000 m/s
 	
 private:
 	UTankTrack * LeftTrack = nullptr;
