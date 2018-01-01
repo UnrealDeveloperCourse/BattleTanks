@@ -32,6 +32,8 @@ private:
 		FActorComponentTickFunction *ThisTickFunction
 	) override;
 
+	void ApplySidewaysForce(float DeltaTime);
+
 	virtual void BeginPlay() override;
 
 	UFUNCTION()

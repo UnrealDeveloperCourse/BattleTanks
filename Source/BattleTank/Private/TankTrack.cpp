@@ -11,6 +11,11 @@ UTankTrack::UTankTrack()
 
 void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
 {
+	ApplySidewaysForce(DeltaTime);
+}
+
+void UTankTrack::ApplySidewaysForce(float DeltaTime)
+{
 	//Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	auto SlippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
 
@@ -35,7 +40,7 @@ void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UP
 
 void UTankTrack::SetThrottle(float Throttle)
 {
-	// TODO: clamp throttle value
+	Throttle = FMath::Clamp<float>(Throttle, -1, +1);
 	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
 	auto ForceLocation = GetComponentLocation();
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
