@@ -877,7 +877,7 @@ class UTankBarrel;
 
 ![Tank Barrel in `Add Component` menu](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_2.png)
 
-***1. Make TankBarrel show up in Unreal's Add Component menu by adding `BlueprintSpawnableComponent` to the class definition***
+***1. Make TankBarrel show up in Unreal's Add Component menu by adding `BlueprintSpawnableComponent` to the class declaration***
 
 ```cpp
 /// TankBarrel.h
@@ -885,7 +885,7 @@ class UTankBarrel;
 UCLASS(meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 {
-	// Class Definition code
+	// Class declaration code
 }
 ```
 
@@ -1009,7 +1009,7 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 // Add `BlueprintSpawnableComponent` macro
 UCLASS(meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankTurret : public UStaticMeshComponent
-{ //Class Definition
+{ //Class declaration
 }
 ```
 
@@ -1037,7 +1037,7 @@ public:
 	UFUNCTION(BlueprintCallable, category = Setup)
 		void SetTurretReference(UTankTurret * TurretToSet);
 
-	// Class definition continued...
+	// Class declaration continued...
 }
 ```
 
@@ -1076,7 +1076,7 @@ public:
 	// More code here
 private:
 	UTankTurret* Turret = nullptr;
-	// Class definition continued...
+	// Class declaration continued...
 }
 ```
 
@@ -1454,7 +1454,7 @@ private:
 	// declare ReloadTimeInSeconds
 	UPROPERTY(EditDefaultsOnly, category = Firing)
 	float ReloadTimeInSeconds = 3;
-// Class definition continued...
+// Class declaration continued...
 }
 ```
 
@@ -1738,7 +1738,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
 
-	// public definitions cont...
+	// public declarations cont...
 private:
 	UTankTrack * LeftTrack = nullptr;
 	UTankTrack * RightTrack = nullptr;
@@ -1824,7 +1824,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendTurnRight(float Throw);
 
-// ...class definition cont
+// ...class declaration cont
 }
 ```
 
@@ -1894,12 +1894,12 @@ class BATTLETANK_API ATankAIController : public AAIController
 	GENERATED_BODY()
 
 private:
-	// class definition...
+	// class declaration...
 
 	// proximity the AI tank should achieve when moving towards player
 	float AcceptanceRadius = 3000; // todo check cm
 
-// class definition cont...
+// class declaration cont...
 };
 ```
 
@@ -1936,11 +1936,11 @@ class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
 	// Boilerplate here
 	
 public:
-	// Public definitions here
+	// Public declarations here
 
 	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	
-// Class definition cont...
+// Class declaration cont...
 };
 ```
 
@@ -2117,7 +2117,7 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	ATank* GetControlledTank() const;
 
-// Class definition cont...
+// Class declaration cont...
 }
 ```
 
@@ -2148,7 +2148,7 @@ protected:
 	// Provide access to TankAimingComponent in BP
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
-// class definition continued...
+// class declaration continued...
 }
 ```
 
@@ -2397,7 +2397,7 @@ void ATank::BeginPlay()
 
 	+ Remove references to `UTankAimingComponent`
 
-	+ Remove `AimAt()` definition, it already exists in `TankAimingComponent.h` however the signature is different
+	+ Remove `AimAt()` declaration, it already exists in `TankAimingComponent.h` however the signature is different
 
 	+ Put a copy of `LaunchSpeed` in `TankAimingComponent.h` and remove `LaunchSpeed` as an argument to `AimAt`
 
@@ -2529,7 +2529,90 @@ void ATank::BeginPlay()
 
 ### Adding TickComponent() Back
 
-- **Objective**:
+- **Objective**: Get aiming component ticking again so that we can change the reticle color programmatically
+
+- Fixing issues with Unreal Project
+
+![Fixing Issues in Unreal](BattleTank/Saved/Screenshots/Windows/Deleting_Intermediate_Files_To_Fix_Issues.png)
+
+![Rebuild Unreal Project](BattleTank/Saved/Screenshots/Windows/Deleting_Intermediate_Files_Rebuild_UProject.png)
+
+![Rebuild Unreal Project](BattleTank/Saved/Screenshots/Windows/Deleting_Intermediate_Files_Build_VS_Project.png)
+
+1. Right click goto definition of UActorComponent and copy/paste the function signature into TankAimingComponent.h header file. Also override the `BeginPlay` method.
+
+```cpp
+/// TankAimingComponent.h
+
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	// ...
+private:
+	// ...
+	virtual void BeginPlay() override;
+	
+	virtual void TickComponent(
+		float DeltaTime,
+		enum ELevelTick TickType,
+		FActorComponentTickFunction *ThisTickFunction
+	) override;
+// Class declaration cont...
+};
+```
+
+```cpp
+/// TankAimingComponent.cpp
+
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Aiming Comp Ticking"))
+}
+```
+
+2. `TankAimingComponent.h` override `BeginPlay`
+
+3. `TankAimingComponent.cpp`
+
+	+ initialize the `LastFireTime` variable in `BeginPlay`
+
+```cpp
+void UTankAimingComponent::BeginPlay()
+{
+	// Ensure cannot fire immediately at game start
+	// Firing enabled when reload time has elapsed
+	LastFireTime = FPlatformTime::Seconds();
+}
+```
+
+	+ Changes to the `Fire` code
+
+```cpp
+void UTankAimingComponent::Fire()
+{
+	// Begin tracking the firing state using the EFiringState enum
+	if (FiringState != EFiringState::Reloading)
+	{
+		// Spawn a projectile at the socket on the barrel
+		if (!ensure(Barrel)) { return; }
+		if (!ensure(ProjectileBlueprint)) { return; }
+		// cont...
+	}
+}
+```
+
+	+ Begin tracking the firing status in `Tick`
+
+```cpp
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+{
+	// moved here from `Fire` method
+	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+	{
+		FiringState = EFiringState::Reloading;
+	}
+}
+```
 
 ### Are Two Floats Equal?
 
