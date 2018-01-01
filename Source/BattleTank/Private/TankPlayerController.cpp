@@ -13,7 +13,6 @@ void ATankPlayerController::BeginPlay()
 	if (ensure(AimingComponent)) {
 		FoundAimingComponent(AimingComponent);
 	}
-	
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -48,13 +47,11 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector & HitLocation) const
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		// Line trace along the look direction and see what we hit up to a max range
-		GetLookVectorHitLocation(LookDirection, HitLocation);
-		return true;
+		return GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
 
 	HitLocation = FVector(0);
 	return false;
-
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const
