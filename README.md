@@ -2551,7 +2551,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 private:
 	// ...
 	virtual void BeginPlay() override;
-	
+
 	virtual void TickComponent(
 		float DeltaTime,
 		enum ELevelTick TickType,
@@ -2616,7 +2616,65 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 ### Are Two Floats Equal?
 
-- **Objective**:
+- **Objective**: Is the barrel moving? Use `FVector::Equals()` for comparing floats to within a specific tolerance.
+
+**NOTE: Before beginning this lecture, fix an issue where we are able to play the game but TankPlayerController_BP editor not opening and causing an Unreal Editor crash by protecting a nullptr in AimAtCrosshair.**
+
+```cpp
+void ATankPlayerController::AimAtCrosshair()
+{
+	if (!ensure(GetPawn())) { return; }
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	//...
+}
+```
+
+![Writing `IsBarrelMoving`](BattleTank/Saved/Screenshots/Windows/TankAimingComponent_Comparing_Floats.png)
+
+1. `TankAimingComponent.h`
+
+```cpp
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+class BATTLETANK_API UTankAimingComponent : public UActorComponent
+{
+	//...
+private:
+	FVector AimDirection = FVector(0);
+
+	bool IsBarrelMoving();
+// Class declaration cont...
+}
+```
+
+2. `TankAimingComponent.cpp`
+
+	+ Create `IsBarrelMoving` thin method
+
+```cpp
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+	return !Barrel->GetForwardVector().Equals(AimDirection, .01);
+}
+```
+
+	+ Edit the if statement in `TickComponent` to include `IsBarrelMoving`
+
+```cpp
+if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+{
+	FiringState = EFiringState::Reloading;
+}
+else if (IsBarrelMoving())
+{
+	FiringState = EFiringState::Aiming;
+}
+else
+{
+	FiringState = EFiringState::Locked;
+}
+```
+
 
 ### Programmatic Sideways Friction
 
