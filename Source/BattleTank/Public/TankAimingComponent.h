@@ -50,6 +50,8 @@ public:
 
 	double LastFireTime = 0;
 
+	EFiringState GetFiringState() const;
+
 protected:
 	UPROPERTY(BlueprintReadonly, Category = State)
 	EFiringState FiringState = EFiringState::Reloading;

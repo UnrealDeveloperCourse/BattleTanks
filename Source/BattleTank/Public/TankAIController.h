@@ -15,12 +15,14 @@ class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 
+protected:
+	// proximity the AI tank should achieve when moving towards player
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	float AcceptanceRadius = 6000; // todo check cm
+
 private:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
-
-	// proximity the AI tank should achieve when moving towards player
-	float AcceptanceRadius = 3000; // todo check cm
 
 };
