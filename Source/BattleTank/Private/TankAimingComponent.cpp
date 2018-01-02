@@ -6,8 +6,8 @@
 #include "Projectile.h"
 #include "TankAimingComponent.h"
 #include "Engine/StaticMeshSocket.h"
-#include "Engine/World.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/GameplayStaticsTypes.h"
 
@@ -24,6 +24,7 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::BeginPlay()
 {
+	Super::BeginPlay();
 	// Ensure cannot fire immediately at game start
 	// Firing enabled when reload time has elapsed
 	LastFireTime = GetWorld()->GetTimeSeconds();
@@ -57,7 +58,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	}
 }
 
-int UTankAimingComponent::GetRoundsLeft() const
+int32 UTankAimingComponent::GetRoundsLeft() const
 {
 	return RoundsLeft;
 }

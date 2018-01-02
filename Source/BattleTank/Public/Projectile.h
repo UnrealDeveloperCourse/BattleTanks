@@ -3,9 +3,16 @@
 #pragma once
 
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Particles/ParticleSystemComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
+
+
+//Forward declares
+class UParticleSystemComponent;
+
 
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
@@ -26,6 +33,11 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	
 	UProjectileMovementComponent * ProjectileMovementComponent = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* CollisionMesh = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* LaunchBlast = nullptr;
 };

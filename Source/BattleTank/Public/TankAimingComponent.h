@@ -40,18 +40,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
-	UPROPERTY(EditDefaultsOnly, category = Firing)
-	float LaunchSpeed = 100000; // 1000 m/s
-
-	UPROPERTY(EditDefaultsOnly, category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint;
-
-	UPROPERTY(EditDefaultsOnly, category = Firing)
-	float ReloadTimeInSeconds = 3;
-
-	double LastFireTime = 0;
-
 	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	int32 GetRoundsLeft() const;
 
 protected:
 	UPROPERTY(BlueprintReadonly, Category = State)
@@ -69,18 +61,27 @@ private:
 		FActorComponentTickFunction *ThisTickFunction
 	) override;
 
-	int RoundsLeft = 3;
-
-	UFUNCTION(BlueprintCallable, Category = Firing)
-	int GetRoundsLeft() const;
-
-	FVector AimDirection = FVector(0);
+	void MoveBarrelTowards(FVector AimDirection);
 
 	bool IsBarrelMoving();
 
-	void MoveBarrelTowards(FVector AimDirection);
-
 	UTankBarrel * Barrel = nullptr;
 	UTankTurret * Turret = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, category = Firing)
+	float LaunchSpeed = 10000;
+
+	UPROPERTY(EditDefaultsOnly, category = Firing)
+	float ReloadTimeInSeconds = 3;
+
+	UPROPERTY(EditDefaultsOnly, category = Firing)
+	int32 RoundsLeft = 3;
+
+	double LastFireTime = 0;
+
+	FVector AimDirection;
 };
 
