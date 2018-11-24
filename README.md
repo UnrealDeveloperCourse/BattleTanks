@@ -1,7 +1,7 @@
 # Section_04
 :boom: Battle Tank :boom:
 
-![Current Screen Shot](BattleTank/Saved/Screenshots/Windows/CurrentScreenShot.png)
+![Current Screen Shot](Saved/Screenshots/Windows/CurrentScreenShot.png)
 
 Hint: Make viewing this README an extra special experience with [Octopatcher](https://chrome.google.com/webstore/detail/octopatcher/lcilaoigfgceebdljpanjenhmnoijmal/related?hl=en-US&gl=US)
 
@@ -60,7 +60,7 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 
 - Tank_BP Event Graph
 
-![Camera Input Binding](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_Camera_Input_Binding.png)
+![Camera Input Binding](Saved/Screenshots/Windows/Tank_BP_Event_Graph_Camera_Input_Binding.png)
 
 ### User Interface (UI) in Unreal
 
@@ -75,7 +75,7 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 	+ Create Widget with class PlayerUI_BP
 	+ Add to Viewport
 
-![PlayerUI_BP Event Graph](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_Event_Graph.png)
+![PlayerUI_BP Event Graph](Saved/Screenshots/Windows/PlayerUI_BP_Event_Graph.png)
 
 - Make the reticule visible
 	+ BattleTankGameMode_BP
@@ -94,9 +94,9 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 	+ Add to Viewport
 - Apply a background image
 
-![MainMenu Level BP Viewport Widget](BattleTank/Saved/Screenshots/Windows/MainMenu_Level_BP_ViewportWidget.png)
+![MainMenu Level BP Viewport Widget](Saved/Screenshots/Windows/MainMenu_Level_BP_ViewportWidget.png)
 
-![MainMenu_BP Viewport](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_Viewport_Hierarchy.png)
+![MainMenu_BP Viewport](Saved/Screenshots/Windows/MainMenu_BP_Viewport_Hierarchy.png)
 
 ### UI Scale Box, Buttons & Mouse
 
@@ -105,7 +105,7 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 - GetPlayerController
 - SetShowMouseCursor
 
-![MainMenu Level BP](BattleTank/Saved/Screenshots/Windows/MainMenu_Level_BP.png)
+![MainMenu Level BP](Saved/Screenshots/Windows/MainMenu_Level_BP.png)
 
 ### Controller Ready Navigation
 
@@ -114,7 +114,7 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 		* Events
 			- OnClicked
 
-![MainMenu_BP Viewport](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_Viewport.png)
+![MainMenu_BP Viewport](Saved/Screenshots/Windows/MainMenu_BP_Viewport.png)
 
 - MainMenu_BP Event Graph
 	+ Wire up opening a level
@@ -128,7 +128,7 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 	+ create Get Player Controller node
 	+ create Set Input Mode UIOnly node
 
-![MainMenu_BP Event Graph](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_Event_Graph.png)
+![MainMenu_BP Event Graph](Saved/Screenshots/Windows/MainMenu_BP_Event_Graph.png)
 
 - Create a Game Quit Action
 - Project -> Engine Input -> Action Mapping
@@ -137,7 +137,7 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 - BattleGround Level BP
 	+ Wire up Action Quit
 
-![BattleGround Level BP Event Graph](BattleTank/Saved/Screenshots/Windows/BattleGround_Level_BP.png)
+![BattleGround Level BP Event Graph](Saved/Screenshots/Windows/BattleGround_Level_BP.png)
 
 ### Trial Packaging Your Game
 
@@ -154,18 +154,18 @@ Hint: Make viewing this README an extra special experience with [Octopatcher](ht
 
 - Create a Tank C++ Class
 
-![Create a Tank C++ Class](BattleTank/Saved/Screenshots/Windows/Tank_Class.png)
+![Create a Tank C++ Class](Saved/Screenshots/Windows/Tank_Class.png)
 
 - Create a TankPlayerController C++ Class
 
-![Reparent Player Controller Class](BattleTank/Saved/Screenshots/Windows/Class_Settings_ReParent_Controller_Class.png)
+![Reparent Player Controller Class](Saved/Screenshots/Windows/Class_Settings_ReParent_Controller_Class.png)
 
 ### Using Virtual and Override
 
 - Backstory: what pawn are we possessing when starting the game?
 - Try Logging from a Blueprint
 
-![Print Player Controller](BattleTank/Saved/Screenshots/Windows/Print_Player_Controller.png)
+![Print Player Controller](Saved/Screenshots/Windows/Print_Player_Controller.png)
 
 - Take a look at APlayerController and the AActor parent
 
@@ -234,26 +234,26 @@ vtable for Kitteh:
 
 ### Creating an AI Controller Class
 
-![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_01.png)
+![Aiming Architecture](Saved/Screenshots/Windows/Aiming_Architecture_01.png)
 
-![AI Controller C++ Class](BattleTank/Saved/Screenshots/Windows/AI_Controller_Cpp_Class.png)
+![AI Controller C++ Class](Saved/Screenshots/Windows/AI_Controller_Cpp_Class.png)
 
 - Create a TankAIController
 - Auto Possess [with] AI
 
-![AI Auto Possess](BattleTank/Saved/Screenshots/Windows/Tank_BP_AI_AutoPossess.png)
+![AI Auto Possess](Saved/Screenshots/Windows/Tank_BP_AI_AutoPossess.png)
 
 - At Game Start multiple pawns get possessed by TankAIController
 
-![TankAIController Start Game](BattleTank/Saved/Screenshots/Windows/Tank_AIController_StartGame.png)
+![TankAIController Start Game](Saved/Screenshots/Windows/Tank_AIController_StartGame.png)
 
 ### Get the Player Controller with C++
 
 - AimAt(Player)
 
-![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_02.png)
+![Aiming Architecture](Saved/Screenshots/Windows/Aiming_Architecture_02.png)
 
-![Finding Player Controller](BattleTank/Saved/Screenshots/Windows/Finding_Player_Controller.png)
+![Finding Player Controller](Saved/Screenshots/Windows/Finding_Player_Controller.png)
 
 ```cpp
 ATank* ATankAIController::GetPlayerTank() const
@@ -264,13 +264,13 @@ ATank* ATankAIController::GetPlayerTank() const
 }
 ```
 
-![GetPlayerTank](BattleTank/Saved/Screenshots/Windows/GetPlayerTank.png)
+![GetPlayerTank](Saved/Screenshots/Windows/GetPlayerTank.png)
 
 ### Add `Tick()` to Player Controller
 
 - AimAt(Crosshair)
 
-![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_03.png)
+![Aiming Architecture](Saved/Screenshots/Windows/Aiming_Architecture_03.png)
 
 ```cpp
 void ATankPlayerController::AimAtCrosshair()
@@ -323,7 +323,7 @@ float CrosshairYLocation = 0.3333;
 
 - **Objective**: Get world space direction as a unit vector
 
-![DeprojectScreenToWorld UE_Log](BattleTank/Saved/Screenshots/Windows/UE_Log_DeprojectScreenToWorld.png)
+![DeprojectScreenToWorld UE_Log](Saved/Screenshots/Windows/UE_Log_DeprojectScreenToWorld.png)
 
 - [DeprojectScreenPositionToWorld Unreal Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/APlayerController/DeprojectScreenPositionToWorld/index.html)
 
@@ -352,7 +352,7 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &
 
 - **Objective**: Get an actual point in the world to aim at
  
-![LinearTraceSingleByChannel UE_Log](BattleTank/Saved/Screenshots/Windows/UE_Log_LinearTraceSingleByChannel.png)
+![LinearTraceSingleByChannel UE_Log](Saved/Screenshots/Windows/UE_Log_LinearTraceSingleByChannel.png)
 
 - [LineTraceSingleByChannel Unreal Doc](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UWorld/LineTraceSingleByChannel/index.html)
 
@@ -392,7 +392,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 
 - **Objective**: Call same `AimAt()` method whether it is a player controller or an AI controller possessing a tank
 
-![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_04.png)
+![Aiming Architecture](Saved/Screenshots/Windows/Aiming_Architecture_04.png)
 
 - Create `AimAt` method on the Tank class
 
@@ -467,7 +467,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 - **Objective**: Create an Aiming Component in C++ and Delegate aiming to it
 
-![Aiming Architecture](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_05.png)
+![Aiming Architecture](Saved/Screenshots/Windows/Aiming_Architecture_05.png)
 
 ***1. Create the Aiming Component Default Subobject and add it to the Tank***
 
@@ -553,11 +553,11 @@ void ATank::AimAt(FVector HitLocation)
 
 - **Objective**: Find start and end location of the projectile
 
-![Barrel -> HitLocation](BattleTank/Saved/Screenshots/Windows/BP_Callable_Barrel_HitLocation.png)
+![Barrel -> HitLocation](Saved/Screenshots/Windows/BP_Callable_Barrel_HitLocation.png)
 
-![Class Viewer Static Mesh Component](BattleTank/Saved/Screenshots/Windows/Class_Viewer_Static_Mesh_Component.png)
+![Class Viewer Static Mesh Component](Saved/Screenshots/Windows/Class_Viewer_Static_Mesh_Component.png)
 
-![TankBP Blueprint Callable Set Barrel Reference](BattleTank/Saved/Screenshots/Windows/TankBP_Blueprint_Callable.png)
+![TankBP Blueprint Callable Set Barrel Reference](Saved/Screenshots/Windows/TankBP_Blueprint_Callable.png)
 
 ***1. Declare `SetBarrelReferenced`***
 
@@ -644,11 +644,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 - **Objective**: Understand launch velocity
 
-![Launch Unit Vectors](BattleTank/Saved/Screenshots/Windows/LaunchVelocity_UnitVectors.png)
+![Launch Unit Vectors](Saved/Screenshots/Windows/LaunchVelocity_UnitVectors.png)
 
 [Wikipedia Projectile Motion](https://en.wikipedia.org/wiki/Projectile_motion)
 
-![Wikipedia Projectile Motion Image](BattleTank/Saved/Downloads/Ideal_projectile_motion_for_different_angles.png)
+![Wikipedia Projectile Motion Image](Saved/Downloads/Ideal_projectile_motion_for_different_angles.png)
 
 [SuggestProjectileVelocity Learn Doc](https://docs.unrealengine.com/latest/INT/BlueprintAPI/Game/Components/ProjectileMovement/SuggestProjectileVelocity/index.html)
 
@@ -772,9 +772,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 ***1. Create a Barrel Class***
 
-![Create TankBarrel C++ Class](BattleTank/Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class.png)
+![Create TankBarrel C++ Class](Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class.png)
 
-![Create TankBarrel C++ Class](BattleTank/Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class_2.png)
+![Create TankBarrel C++ Class](Saved/Screenshots/Windows/TankBarrel_Create_StaticMeshComponent_Class_2.png)
 
 ***2. Create the `MoveBarrelTowards` method***
 
@@ -831,7 +831,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 - **Objective**: Understand the best way to import header files
 
-![Compiliation Process](BattleTank/Saved/Screenshots/Windows/Cpp_Compilation_Process.png)
+![Compiliation Process](Saved/Screenshots/Windows/Cpp_Compilation_Process.png)
 
 ### Using Forward Declarations
 
@@ -873,9 +873,9 @@ class UTankBarrel;
 
 - **Objective**: Replace the `UStaticMeshComponent` class with `TankBarrel` C++ class as input to the `Set Barrel Reference` Unreal Function in the Event Graph for Tank_BP and add some setup Unreal Properties to the `TankBarrel`
 
-![Set Barrel Reference and Setup Properties](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel.png)
+![Set Barrel Reference and Setup Properties](Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel.png)
 
-![Tank Barrel in `Add Component` menu](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_2.png)
+![Tank Barrel in `Add Component` menu](Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_2.png)
 
 ***1. Make TankBarrel show up in Unreal's Add Component menu by adding `BlueprintSpawnableComponent` to the class declaration***
 
@@ -889,7 +889,7 @@ class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 }
 ```
 
-![Tank Barrel in `Add Component` menu](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_3.png)
+![Tank Barrel in `Add Component` menu](Saved/Screenshots/Windows/Tank_BP_Event_Graph_TankBarrel_3.png)
 
 ***2. Replace the StaticMeshComponent Barrel with the new TankBarrel component and drag that component to the Event Graph***
 
@@ -977,17 +977,17 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 - If values are plugged in manually for `SetRelativeRotation()` then the problem we need to solve is visible by playing the game. The barrel rotates beyond the maximum elevation and does not stop rotating at around 8 seconds (calculation based on `MaxDegreesPerSecond`)
 
-![Barrel Elevated](BattleTank/Saved/Screenshots/Windows/TankBarrel_Elevate_02.png)
+![Barrel Elevated](Saved/Screenshots/Windows/TankBarrel_Elevate_02.png)
 
 - Use the `FMath` struct's `Clamp` function to clamp the elevate speed to +/-1
 - Calculate the `ElevationChange` using `GetWorld()->DeltaTimeSeconds` to get current time in seconds
 - Also `Clamp` the degree of elevation to the values set in the blueprint 0 -> 40
 
-![Barrel Elevated](BattleTank/Saved/Screenshots/Windows/TankBarrel_Elevate_03.png)
+![Barrel Elevated](Saved/Screenshots/Windows/TankBarrel_Elevate_03.png)
 
 - Test it works, play game, deposess the tank and inspect it's details
 
-![Barrel Elevated](BattleTank/Saved/Screenshots/Windows/TankBarrel_Elevate.png)
+![Barrel Elevated](Saved/Screenshots/Windows/TankBarrel_Elevate.png)
 
 ### CHALLENGE - Turret Rotation
 
@@ -997,9 +997,9 @@ bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 
 ***1. Create the TankTurret C++ Class***
 
-![TankTurret Cpp Class](BattleTank/Saved/Screenshots/Windows/TankTurret_Cpp_Class.png)
+![TankTurret Cpp Class](Saved/Screenshots/Windows/TankTurret_Cpp_Class.png)
 
-![TankTurret Cpp Class](BattleTank/Saved/Screenshots/Windows/TankTurret_Cpp_Class_2.png)
+![TankTurret Cpp Class](Saved/Screenshots/Windows/TankTurret_Cpp_Class_2.png)
 
 ***2. Add the `UCLASS(meta = (BlueprintSpawnableComponent))` macro***
 
@@ -1013,9 +1013,9 @@ class BATTLETANK_API UTankTurret : public UStaticMeshComponent
 }
 ```
 
-![Add Component](BattleTank/Saved/Screenshots/Windows/TankTurret_Add_Component.png)
+![Add Component](Saved/Screenshots/Windows/TankTurret_Add_Component.png)
 
-![Add Component](BattleTank/Saved/Screenshots/Windows/TankTurret_Add_Component_2.png)
+![Add Component](Saved/Screenshots/Windows/TankTurret_Add_Component_2.png)
 
 ***3. Create `SetTurretReference` `BlueprintCallable` function in `Tank.h` and create the implementation***
 
@@ -1100,7 +1100,7 @@ void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
 
 - Now we are able to create the function in `Tank_BP`
 
-![SetTurretReferece BlueprintCallable Function](BattleTank/Saved/Screenshots/Windows/TankTurret_SetTurretReference_BPCallable_Function.png)
+![SetTurretReferece BlueprintCallable Function](Saved/Screenshots/Windows/TankTurret_SetTurretReference_BPCallable_Function.png)
 
 ### CHALLENGE - Turret Rotation Pt 2
 
@@ -1138,11 +1138,11 @@ void UTankTurret::Rotate(float RelativeSpeed)
 }
 ```
 
-![MaxDegreesPerSecond Property](BattleTank/Saved/Screenshots/Windows/TankTurret_MaxDegreesPerSecond_Property.png)
+![MaxDegreesPerSecond Property](Saved/Screenshots/Windows/TankTurret_MaxDegreesPerSecond_Property.png)
 
 ***3. To get the Turret, the control stack will be similar to Aiming***
 
-![Aiming Diagram](BattleTank/Saved/Screenshots/Windows/TankTurret_Aiming_Diagram.png)
+![Aiming Diagram](Saved/Screenshots/Windows/TankTurret_Aiming_Diagram.png)
 
 ```cpp
 /// TankAimingComponent.cpp
@@ -1164,11 +1164,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 - **Objective**: Move beyond the Tank and focus on firing
 
-![Iterative Cycle Controls Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_ControlsStage.png)
+![Iterative Cycle Controls Stage](Saved/Screenshots/Windows/Iterative_Cycle_ControlsStage.png)
 
 ***1. Set up Firing control setting in Project Settings***
 
-![Projectie Fire Input Binding](BattleTank/Saved/Screenshots/Windows/Projectile_Firing_Input_Binding.png)
+![Projectie Fire Input Binding](Saved/Screenshots/Windows/Projectile_Firing_Input_Binding.png)
 
 ***2. Create Fire BlueprintCallable method in C++***
 
@@ -1198,21 +1198,21 @@ void ATank::Fire()
 
 ***3. Edit the Input Binding Setup in Tank_BP***
 
-![Projectie Fire Input Binding](BattleTank/Saved/Screenshots/Windows/Projectile_Firing_Input_Binding_2.png)
+![Projectie Fire Input Binding](Saved/Screenshots/Windows/Projectile_Firing_Input_Binding_2.png)
 
 - **Next Achievement**: Create a projectile and fire it
 
 ***1. Projectile deserves its own C++ class because it will have many attributes***
 
-![Projectie C++ Class Creation](BattleTank/Saved/Screenshots/Windows/Projectile_Cpp_Creation_1.png)
+![Projectie C++ Class Creation](Saved/Screenshots/Windows/Projectile_Cpp_Creation_1.png)
 
-![Projectie C++ Class Creation](BattleTank/Saved/Screenshots/Windows/Projectile_Cpp_Creation_2.png)
+![Projectie C++ Class Creation](Saved/Screenshots/Windows/Projectile_Cpp_Creation_2.png)
 
 ***2. Create a Projectile_BP from C++ Class***
 
-![Projectie Blueprint Creation](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Creation.png)
+![Projectie Blueprint Creation](Saved/Screenshots/Windows/Projectile_BP_Creation.png)
 
-![Projectie Blueprint Creation](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Creation_2.png)
+![Projectie Blueprint Creation](Saved/Screenshots/Windows/Projectile_BP_Creation_2.png)
 
 ### Upgrading to Unreal 4.2
 
@@ -1256,7 +1256,7 @@ private:
 }
 ```
 
-![Add Projectile to Tank_BP](BattleTank/Saved/Screenshots/Windows/Projectile_BP_Add_To_TankBP.png)
+![Add Projectile to Tank_BP](Saved/Screenshots/Windows/Projectile_BP_Add_To_TankBP.png)
 
 ***2. Declare a reference to the barrel in the Tank class for spawning a projectile off of `UTankBarrel* Barrel = nullptr;`***
 
@@ -1287,7 +1287,7 @@ void ATank::Fire()
 
 - **Achievement Unlocked!**
 
-![Projectile SpawnActor](BattleTank/Saved/Screenshots/Windows/Projectile_SpawnActor.png)
+![Projectile SpawnActor](Saved/Screenshots/Windows/Projectile_SpawnActor.png)
 
 ### Projectile Moving Components
 
@@ -1295,7 +1295,7 @@ void ATank::Fire()
 
 ***1. Add Projectile Movement Component, first what is it called?***
 
-![Projectile Movement Component](BattleTank/Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_1.png)
+![Projectile Movement Component](Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_1.png)
 
 ***2. set `bAutoActivate` to false***
 
@@ -1337,7 +1337,7 @@ AProjectile::AProjectile()
 }
 ```
 
-![Projectile Movement Component](BattleTank/Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_2.png)
+![Projectile Movement Component](Saved/Screenshots/Windows/Projectile_MovementComponent_Creation_2.png)
 
 ***3. Create the lauch projectile method and call it in `Tank.cpp`***
 
@@ -1403,7 +1403,7 @@ void AProjectile::LaunchProjectile(float Speed)
 
 - **Objective**: Limit firing rate, make the Tank AI fire at the Player Tank
 
-![Iterative Cycle Player2 Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_Player2Stage.png)
+![Iterative Cycle Player2 Stage](Saved/Screenshots/Windows/Iterative_Cycle_Player2Stage.png)
 
 ***1. Defactor or Inline refactored code and remove logging code in BeginPlay***
 
@@ -1516,17 +1516,17 @@ void ATank::Fire()
 - Remove collision objects on the tracks and add a new simplified collision object
 - Adjust its collision offset in Blueprint Details
 
-![TankBP Collision Offset Settings](BattleTank/Saved/Screenshots/Windows/TankBP_Collision_OffsetSettings.png)
+![TankBP Collision Offset Settings](Saved/Screenshots/Windows/TankBP_Collision_OffsetSettings.png)
 
 ***1. Create a Quit Button by copy/pasting in the UI Outliner and change the text***
 
 ***2. Create an OnReleased Event on the Button***
 
-![MainMenu_BP Quit Button Event](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_QuitButtonEvent.png)
+![MainMenu_BP Quit Button Event](Saved/Screenshots/Windows/MainMenu_BP_QuitButtonEvent.png)
 
 ***3. Wire Event to QuitGame***
 
-![MainMenu_BP Quit Button Event Graph](BattleTank/Saved/Screenshots/Windows/MainMenu_BP_QuitButton_EventGraph.png)
+![MainMenu_BP Quit Button Event Graph](Saved/Screenshots/Windows/MainMenu_BP_QuitButton_EventGraph.png)
 
 ### Setup Track Throttles
 
@@ -1542,7 +1542,7 @@ void ATank::Fire()
 
 ***2. Create a new Axis Mapping in Input Bindings for the project for Left and Right Track Throttle***
 
-![TankTrack Input Binding Project Settings](BattleTank/Saved/Screenshots/Windows/TankTrack_Input_Binding_Project_Settings.png)
+![TankTrack Input Binding Project Settings](Saved/Screenshots/Windows/TankTrack_Input_Binding_Project_Settings.png)
 
 ***3. Create `SetThrottle` `BlueprintCallable` functions***
 
@@ -1569,7 +1569,7 @@ void UTankTrack::SetThrottle(float Throttle)
 }
 ```
 
-![TankTrack Throttle Input Settings](BattleTank/Saved/Screenshots/Windows/TankTrack_BP_Throttle_Input_Settings.png)
+![TankTrack Throttle Input Settings](Saved/Screenshots/Windows/TankTrack_BP_Throttle_Input_Settings.png)
 
 ### `ApplyForceAtLocation()` in Action
 
@@ -1607,7 +1607,7 @@ public:
 
 ***5. To get the `TankRoot`: from `GetOwner()->GetRootComponent` we get a `USceneComponent` which needs to be cast into a `UPrimitiveComponent` (inherited from `USceneComponent`) which has an `AddForceAtLocation` method***
 
-![Tank Primitive Component](BattleTank/Saved/Screenshots/Windows/ClassViewer_Tank_Primitive_Component.png)
+![Tank Primitive Component](Saved/Screenshots/Windows/ClassViewer_Tank_Primitive_Component.png)
 
 ```cpp
 /// TankTrack.cpp
@@ -1631,7 +1631,7 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ***1. Edit the Tank Body Collision providing ground and track clearance, also make sure collider objects exist on the tank tracks***
 
-![Edit Tank Body Collision](BattleTank/Saved/Screenshots/Windows/TankBP_Edit_Body_Collision.png)
+![Edit Tank Body Collision](Saved/Screenshots/Windows/TankBP_Edit_Body_Collision.png)
 
 **Note:** If collisions between tracks and ground do not work, check Unreal version and `AutoWeld` collision object settings
 
@@ -1639,17 +1639,17 @@ void UTankTrack::SetThrottle(float Throttle)
 
 - How friction contributions get combined and calculated
 
-![Grass LayerInfo Physics Material](BattleTank/Saved/Screenshots/Windows/Grass_LayerInfo_PhysicsMat.png)
+![Grass LayerInfo Physics Material](Saved/Screenshots/Windows/Grass_LayerInfo_PhysicsMat.png)
 
-![Project Settings Friction Combine Mode](BattleTank/Saved/Screenshots/Windows/Project_Settings_Friction_Combine_Mode.png)
+![Project Settings Friction Combine Mode](Saved/Screenshots/Windows/Project_Settings_Friction_Combine_Mode.png)
 
 - Override the Friction Combine Mode and set amount to be 0.2 *which means friction = 0.2x the contact force*
 
-![Tank Track Override Friction Combine Mode](BattleTank/Saved/Screenshots/Windows/TankTrack_Physics_Mat_Friction_Combine_Mode.png)
+![Tank Track Override Friction Combine Mode](Saved/Screenshots/Windows/TankTrack_Physics_Mat_Friction_Combine_Mode.png)
 
 - Select the new Physics Material in Tank_BP Collision Settings for each Track
 
-![Tank_BP Physics Material](BattleTank/Saved/Screenshots/Windows/Tank_BP_Select_Physics_Mat.png)
+![Tank_BP Physics Material](Saved/Screenshots/Windows/Tank_BP_Select_Physics_Mat.png)
 
 ***3. Increase the force by which the tank moves or Power, this demo is using pushing power, other physics constraints can use pushing power (using hidden wheels) which pose different set of problems***
 
@@ -1657,21 +1657,21 @@ void UTankTrack::SetThrottle(float Throttle)
 
 ***4. My Keyboard Input Settings for forward and reverse movement***
 
-![Keyboard Input Settings](BattleTank/Saved/Screenshots/Windows/Project_Settings_Throttle_Input.png)
+![Keyboard Input Settings](Saved/Screenshots/Windows/Project_Settings_Throttle_Input.png)
 
 ### Fly-By-Wire Control Systems
 
 - **Objective**: Give the Tank control by intention, enabling Human or AI control. End result will be a manual control system along side a fly-by-wire system using Movement Component
 
-![Fly-By-Wire Architecture](BattleTank/Saved/Screenshots/Windows/Fly_By_Wire_Architecture.png)
+![Fly-By-Wire Architecture](Saved/Screenshots/Windows/Fly_By_Wire_Architecture.png)
 
 - Choosing the Class that gets the job done without too much added complexity
 
-![NavMovementComponent C++ Class](BattleTank/Saved/Screenshots/Windows/NavMovementComponent_Cpp_Class.png)
+![NavMovementComponent C++ Class](Saved/Screenshots/Windows/NavMovementComponent_Cpp_Class.png)
 
 ***1. Create TankMovementComponent***
 
-![Tank Movement Component](BattleTank/Saved/Screenshots/Windows/Tank_Movement_Component.png)
+![Tank Movement Component](Saved/Screenshots/Windows/Tank_Movement_Component.png)
 
 ### Using BluePrintReadOnly
 
@@ -1715,7 +1715,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 - Current Component Architecture: Get rid of cyclical passing of references from component back to tank
 
-![Component Architecture](BattleTank/Saved/Screenshots/Windows/Component_Architecture.png)
+![Component Architecture](Saved/Screenshots/Windows/Component_Architecture.png)
 
 ***1. Get references to tracks in the movement component***
 
@@ -1762,27 +1762,27 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 `ClassGroup=(Custom), meta=(BlueprintSpawnableComponent)`
 
-![Blueprint Spawnable Component Added](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_BPSpawnableAdded.png)
+![Blueprint Spawnable Component Added](Saved/Screenshots/Windows/TankMovementComponent_BPSpawnableAdded.png)
 
 ***4. Remove the default subobject assignment in `Tank.cpp`***
 
 `TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));`
 
-![Default Subobject Removed](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_DefaultSubobjectRemoved.png)
+![Default Subobject Removed](Saved/Screenshots/Windows/TankMovementComponent_DefaultSubobjectRemoved.png)
 
 ***5. Add the new component to the tank and replace the old component that was created in C++ from the input setup graph.***
 
-![Add Movement Component to Tank](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_AddedToTank.png)
+![Add Movement Component to Tank](Saved/Screenshots/Windows/TankMovementComponent_AddedToTank.png)
 
-![Movement Component in Input Setup Replaced](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_AddToTankInputSetup.png)
+![Movement Component in Input Setup Replaced](Saved/Screenshots/Windows/TankMovementComponent_AddToTankInputSetup.png)
 
 ***6. Create new event after Set Turret Reference for Initialize in the Event Graph***
 
-![Initialize Event Created](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_EventGraphInitialize.png)
+![Initialize Event Created](Saved/Screenshots/Windows/TankMovementComponent_EventGraphInitialize.png)
 
 ***7. Add instances of left and right track as inputs to the Initialize event in the Event Graph***
 
-![Left and Right Tracks Added to Event Graph](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_EventGraph_LRTracks.png)
+![Left and Right Tracks Added to Event Graph](Saved/Screenshots/Windows/TankMovementComponent_EventGraph_LRTracks.png)
 
 ***8. Finally, set the throttles on each of the tank tracks in the `IntendMoveForward` method.***
 
@@ -1841,11 +1841,11 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
 ***2. Create a new turn right input binding in project settings***
 
-![New Input Binding for Turn Right](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_TurnRightInput.png)
+![New Input Binding for Turn Right](Saved/Screenshots/Windows/TankMovementComponent_TurnRightInput.png)
 
 ***3. Wire up Turn Right Event in Input Setup***
 
-![Turn Right Input Setup](BattleTank/Saved/Screenshots/Windows/TankMovementComponent_TurnRight_InputSetup.png)
+![Turn Right Input Setup](Saved/Screenshots/Windows/TankMovementComponent_TurnRight_InputSetup.png)
 
 ### Introducing AI Pathfinding
 
@@ -1855,27 +1855,27 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
 ***1. Show Nav meshes in viewport***
 
-![Show Nav Mesh](BattleTank/Saved/Screenshots/Windows/AI_Pathfinding_ShowNav.png)
+![Show Nav Mesh](Saved/Screenshots/Windows/AI_Pathfinding_ShowNav.png)
 
 ***2. Create a 100m square `NavMeshBoundsVolume`***
 
-![Create Nav Mesh](BattleTank/Saved/Screenshots/Windows/AI_Pathfinding_NavMeshBoundsVolume.png)
+![Create Nav Mesh](Saved/Screenshots/Windows/AI_Pathfinding_NavMeshBoundsVolume.png)
 
 ***3. Discuss how we are using pathfinding***
 
 - Tank AI Controller `MoveToActor()`
 
-![Tank AI Controller `MoveToActor()`](BattleTank/Saved/Screenshots/Windows/AI_Controller_MoveToActor.png)
+![Tank AI Controller `MoveToActor()`](Saved/Screenshots/Windows/AI_Controller_MoveToActor.png)
 
 - Nav Movement Component `RequestDirectMove()`
 
-![Nav Movement Component `RequestDirectMove()`](BattleTank/Saved/Screenshots/Windows/AI_Controller_NavMovementComponent.png)
+![Nav Movement Component `RequestDirectMove()`](Saved/Screenshots/Windows/AI_Controller_NavMovementComponent.png)
 
 - TODO: Intercept `RequestDirectMove` and use it to move AI tanks
 
 - Pathfinding Logic
 
-![Pathfinding Logic Slide](BattleTank/Saved/Screenshots/Windows/AI_Controller_Pathfinding_Logic.png)
+![Pathfinding Logic Slide](Saved/Screenshots/Windows/AI_Controller_Pathfinding_Logic.png)
 
 - `RequestDirectMove()` is a Vector of the next navigation point in the navigation volume
 
@@ -1981,34 +1981,34 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 - Angle is zero, we are looking directly at the opponent. We are already facing in the direction where the AI wants us to be going. Speed is full throttle (1)
 
-![Cosine `AngleOfIntention` Vs `TankForward`](BattleTank/Saved/Screenshots/Windows/Cosine_Function_AngleOfIntention_Vs_TankForwardDir.png)
+![Cosine `AngleOfIntention` Vs `TankForward`](Saved/Screenshots/Windows/Cosine_Function_AngleOfIntention_Vs_TankForwardDir.png)
 
 - Angle at 90, AI intention is to turn right in our case since we have an `IntendTurnRight` method. We should be moving at a rate of 0 since we shouldn't be moving forward, we should be turning to face the opponent.
 
-![Cosign Angle at 90 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_90_Degrees.png)
+![Cosign Angle at 90 Degrees](Saved/Screenshots/Windows/Cosine_Function_90_Degrees.png)
 
 - Angle is 180, Full throttle in the reverse, the opponent is directly behind
 
-![Cosign Angle at 180 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_180_Degrees.png)
+![Cosign Angle at 180 Degrees](Saved/Screenshots/Windows/Cosine_Function_180_Degrees.png)
 
 - Angle is 270, Zero throttle, the opponent is to the left so turn left
 
-![Cosign Angle at 270 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_270_Degrees.png)
+![Cosign Angle at 270 Degrees](Saved/Screenshots/Windows/Cosine_Function_270_Degrees.png)
 
 - Angle is 360, Full throttle, the opponent is directly ahead
 
-![Cosign Angle at 360 Degrees](BattleTank/Saved/Screenshots/Windows/Cosine_Function_360_Degrees.png)
+![Cosign Angle at 360 Degrees](Saved/Screenshots/Windows/Cosine_Function_360_Degrees.png)
 
 - Dot Product according to Wikipedia
 
-![Wikipedia snippit](BattleTank/Saved/Screenshots/Windows/DotProduct_Wikipedia.png)
+![Wikipedia snippit](Saved/Screenshots/Windows/DotProduct_Wikipedia.png)
 
 - *Magnitude* of **A** (Tank forward intention) * *Magnitude* of **B** (AI Tank forward intention) * **cosine** of the angle between them (theta)
 - *Magnitude*: *size* of **A** or *size* of **B**, we are already is at most **1** since we are already getting the safe normal of each.
 
 - What is Dot Product telling us in basic terms?
 
-![Dot Product Diagram](BattleTank/Saved/Screenshots/Windows/DotProduct_Usage_Diagram.png)
+![Dot Product Diagram](Saved/Screenshots/Windows/DotProduct_Usage_Diagram.png)
 
 ***3. Use `FVector::DotProduct()`***
 
@@ -2036,23 +2036,23 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 - Angle is at 0, target is directly ahead, turn at a rate of 0
 
-![Sine at 0 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_0_Degrees.png)
+![Sine at 0 Degrees](Saved/Screenshots/Windows/Sine_Function_0_Degrees.png)
 
 - Angle at 90 degrees, target to the right, turn as fast as possible
 
-![Sine at 90 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_90_Degrees.png)
+![Sine at 90 Degrees](Saved/Screenshots/Windows/Sine_Function_90_Degrees.png)
 
 - Angle is 180, target is behind, since we are working with floating point numbers the number will never perseptively be exactly 0
 
-![Sine at 180 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_180_Degrees.png)
+![Sine at 180 Degrees](Saved/Screenshots/Windows/Sine_Function_180_Degrees.png)
 
 - Angle is 270, target is to the left, turn as fast as possible
 
-![Sine at 270 Degrees](BattleTank/Saved/Screenshots/Windows/Sine_Function_270_Degrees.png)
+![Sine at 270 Degrees](Saved/Screenshots/Windows/Sine_Function_270_Degrees.png)
 
 - Cross Product according to Wikipedia
 
-![Wikipedia snippit](BattleTank/Saved/Screenshots/Windows/CrossProduct_Wikipedia.png)
+![Wikipedia snippit](Saved/Screenshots/Windows/CrossProduct_Wikipedia.png)
 
 - *Magnitude* of **A** (Tank forward intention) * *Magnitude* of **B** (AI Tank forward intention) * **sine** of the angle between them (theta) * *n* the unit vector perpendicular to the plane (world Z axis)
 
@@ -2060,7 +2060,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 - What is Cross Product telling us in basic terms?
 
-![Cross Product Diagram](BattleTank/Saved/Screenshots/Windows/CrossProduct_Usage_Diagram.png)
+![Cross Product Diagram](Saved/Screenshots/Windows/CrossProduct_Usage_Diagram.png)
 
 ***1. Use `FVector::CrossProduct()`***
 
@@ -2094,13 +2094,13 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 - **Objective**: Indication of when it will be possible to fire
 
-![Iterative Cycle UI Stage](BattleTank/Saved/Screenshots/Windows/Iterative_Cycle_UIStage.png)
+![Iterative Cycle UI Stage](Saved/Screenshots/Windows/Iterative_Cycle_UIStage.png)
 
 - A way to accomplish our goal is to have an enum attribute on the Aiming Component and create a BP Variable on the Player UI Widget to be able to access this variable.
 
-![Aiming Component Architecture](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_Architecture.png)
+![Aiming Component Architecture](Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_Architecture.png)
 
-![Tank Aiming Component Diagram](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_Diagram.png)
+![Tank Aiming Component Diagram](Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_Diagram.png)
 
 ***1. Make `GetControlledTank()` `BlueprintCallable` and in the protected section of the class code so that it is accessible to other objects***
 
@@ -2125,15 +2125,15 @@ protected:
 
 ***2. Create a variable on `PlayerUI_BP` that is of type `TankAimingComponent`***
 
-![Tank Aiming Component BP Variable](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_BP_Variable_01.png)
+![Tank Aiming Component BP Variable](Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_BP_Variable_01.png)
 
-![Tank Aiming Component BP Variable](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_BP_Variable_02.png)
+![Tank Aiming Component BP Variable](Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_BP_Variable_02.png)
 
-![Tank Aiming Component BP Variable](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_BP_Variable_03.png)
+![Tank Aiming Component BP Variable](Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_BP_Variable_03.png)
 
 - After saving and compiling the PlayerUI_BP the Set BP Aiming Comp Reference node will be available
 
-![Aiming Comp Reference](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_SetAimingCompRef.png)
+![Aiming Comp Reference](Saved/Screenshots/Windows/TankPlayerController_BP_SetAimingCompRef.png)
 
 ***3. Right click in Event Graph and create a node for `GetControlledTank()`***
 
@@ -2160,15 +2160,15 @@ protected:
 
 - When project is recompiled it will be accessable
 
-![Tank Aiming Component](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_TankAimingComp.png)
+![Tank Aiming Component](Saved/Screenshots/Windows/TankPlayerController_BP_TankAimingComp.png)
 
-![Tank Aiming Component Event Graph](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_EventGraph.png)
+![Tank Aiming Component Event Graph](Saved/Screenshots/Windows/TankPlayerController_BP_EventGraph.png)
 
 ***5. Create binding for crosshair color and opacity***
 
-![Create Color & Opacity Binding](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_CreateBinding.png)
+![Create Color & Opacity Binding](Saved/Screenshots/Windows/PlayerUI_BP_CreateBinding.png)
 
-![Binding Created](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_CreateBinding_02.png)
+![Binding Created](Saved/Screenshots/Windows/PlayerUI_BP_CreateBinding_02.png)
 
 ### Using Enum(erations) in UE4
 
@@ -2215,13 +2215,13 @@ private:
 
 ***2. Create the node graph below in PlayerUI_BP***
 
-![Tank Aiming Component Firing Enum](BattleTank/Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_FiringEnum.png)
+![Tank Aiming Component Firing Enum](Saved/Screenshots/Windows/PlayerUI_BP_AimingComponent_FiringEnum.png)
 
 ### Refactoring our Aiming Component
 
 - **Objective**: Get Aiming Component to the same architecture as the movement component
 
-![Aiming Component Refactoring Diagram](BattleTank/Saved/Screenshots/Windows/Aiming_Architecture_Refactoring_Diagram.png)
+![Aiming Component Refactoring Diagram](Saved/Screenshots/Windows/Aiming_Architecture_Refactoring_Diagram.png)
 
 - `Unreal`
 
@@ -2240,7 +2240,7 @@ private:
 
 	+ Create Initialize method in the Event Graph and wire everything up
 
-![Aiming Component Event Graph](BattleTank/Saved/Screenshots/Windows/Aiming_Component_Refactor.png)
+![Aiming Component Event Graph](Saved/Screenshots/Windows/Aiming_Component_Refactor.png)
 
 ```cpp
 UFUNCTION(BlueprintCallable, Category = Setup)
@@ -2253,7 +2253,7 @@ void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 - Attach a Visual Studio Debugger to the Unreal Process
 
-![Launch Visual Studio Debugger](BattleTank/Saved/Screenshots/Windows/Visual_Studio_Debug_Process.png)
+![Launch Visual Studio Debugger](Saved/Screenshots/Windows/Visual_Studio_Debug_Process.png)
 
 ### Constructor and Begin Play Timing
 
@@ -2261,21 +2261,21 @@ void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 - Printing in Unreal
 
-![Unreal Debug Print String](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String.png)
+![Unreal Debug Print String](Saved/Screenshots/Windows/Unreal_Debug_Print_String.png)
 
-![Unreal Debug Print String 2](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_02.png)
+![Unreal Debug Print String 2](Saved/Screenshots/Windows/Unreal_Debug_Print_String_02.png)
 
 - Printing object construction
 
-![Unreal Debug Print String 3](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_03.png)
+![Unreal Debug Print String 3](Saved/Screenshots/Windows/Unreal_Debug_Print_String_03.png)
 
 - Optimize printing during construction by turning of construction on drag
 
-![Unreal Debug Print On Construct](BattleTank/Saved/Screenshots/Windows/Tank_BP_Logging_Construct_On_Drag.png)
+![Unreal Debug Print On Construct](Saved/Screenshots/Windows/Tank_BP_Logging_Construct_On_Drag.png)
 
 - Filtering the output log using UUID
 
-![Unreal Debug Print String 4](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_04.png)
+![Unreal Debug Print String 4](Saved/Screenshots/Windows/Unreal_Debug_Print_String_04.png)
 
 ### Decoupling Your Architecture
 
@@ -2283,21 +2283,21 @@ void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 - Logging Construction and BeginPlay from C++
 
-![Logging Construction and BeginPlay](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_05.png)
+![Logging Construction and BeginPlay](Saved/Screenshots/Windows/Unreal_Debug_Print_String_05.png)
 
-![Logging Construction and BeginPlay 2](BattleTank/Saved/Screenshots/Windows/Unreal_Debug_Print_String_05.png)
+![Logging Construction and BeginPlay 2](Saved/Screenshots/Windows/Unreal_Debug_Print_String_05.png)
 
 - Constructors and Begin Play cycles in Unreal
 
-![Constructors and Begin Play Cycles](BattleTank/Saved/Screenshots/Windows/Unreal_Constructor_BeginPlay_Cycles.png)
+![Constructors and Begin Play Cycles](Saved/Screenshots/Windows/Unreal_Constructor_BeginPlay_Cycles.png)
 
 - Key thing to note in this slide is we don't know the order each component will get created in Constructors. The same goes for Begin Play. We can't know for sure when TankAimingComponent will get constructed or when other classes will have access to it.
 
-![Constructors and Begin Play Cycles 2](BattleTank/Saved/Screenshots/Windows/Unreal_Constructor_BeginPlay_Cycles_2.png)
+![Constructors and Begin Play Cycles 2](Saved/Screenshots/Windows/Unreal_Constructor_BeginPlay_Cycles_2.png)
 
 - To get around these "Race" Conditions in C++, we can use a `GetComponentByClass` function in the TankPlayerContoller_BP Event Graph. That way we can be sure it happens during BeginPlay.
 
-![GetComponentByType BP Function](BattleTank/Saved/Screenshots/Windows/Tank_BP_Event_Graph_GetComponentByType.png)
+![GetComponentByType BP Function](Saved/Screenshots/Windows/Tank_BP_Event_Graph_GetComponentByType.png)
 
 ### `BlueprintImplementableEvent`
 
@@ -2305,7 +2305,7 @@ void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 - `UFunction(BlueprintImplementableEvent)` does not require you to define the function
 
-![BlueprintImplementable Function Creation](BattleTank/Saved/Screenshots/Windows/BlueprintImplementable_Function.png)
+![BlueprintImplementable Function Creation](Saved/Screenshots/Windows/BlueprintImplementable_Function.png)
 
 - Wiring up the `BlueprintImplementableEvent` in `TankPlayerController_BP`
 
@@ -2323,7 +2323,7 @@ void ATankPlayerController::BeginPlay()
 }
 ```
 
-![TankPlayerController_BP Event Graph](BattleTank/Saved/Screenshots/Windows/TankPlayerController_BP_BPImplementableEvent.png)
+![TankPlayerController_BP Event Graph](Saved/Screenshots/Windows/TankPlayerController_BP_BPImplementableEvent.png)
 
 ## Mid-Section Quiz
 
@@ -2341,13 +2341,13 @@ void ATankPlayerController::BeginPlay()
 
 **Part 1: Revise Aiming Architecture Graph**
 
-![Tank Aiming Architecture Spaghetti](BattleTank/Saved/Screenshots/Windows/Tank_Aiming_Architecture_Spaghetti.png)
+![Tank Aiming Architecture Spaghetti](Saved/Screenshots/Windows/Tank_Aiming_Architecture_Spaghetti.png)
 
-![Tank Aiming Architecture Desired](BattleTank/Saved/Screenshots/Windows/Tank_Aiming_Architecture_Desired.png)
+![Tank Aiming Architecture Desired](Saved/Screenshots/Windows/Tank_Aiming_Architecture_Desired.png)
 
 **Part 2: Revise Movement Architecture Graph**
 
-![Tank Aiming Architecture Desired](BattleTank/Saved/Screenshots/Windows/Tank_Aiming_Architecture_Desired.png)
+![Tank Aiming Architecture Desired](Saved/Screenshots/Windows/Tank_Aiming_Architecture_Desired.png)
 
 - Go ahead and implement this in the code
 
@@ -2362,17 +2362,17 @@ void ATankPlayerController::BeginPlay()
 
 - Map the current class structure
 
-![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Starting_From_Green_Refactor.png)
+![Class Structure Diagram](Saved/Screenshots/Windows/Starting_From_Green_Refactor.png)
 
 - Red, Green, Refactor
 
-![Red Green Refactor](BattleTank/Saved/Screenshots/Windows/Starting_From_Green_RedGreenRefactor.png)
+![Red Green Refactor](Saved/Screenshots/Windows/Starting_From_Green_RedGreenRefactor.png)
 
 - We're going to be gutting the Tank
 
 - First, we can map out the methods for aiming to better understand the dependencies
 
-![Aiming Methods Diagram](BattleTank/Saved/Screenshots/Windows/Starting_From_Green_AimingMethods.png)
+![Aiming Methods Diagram](Saved/Screenshots/Windows/Starting_From_Green_AimingMethods.png)
 
 - Fix an ensure error in `Tank.cpp` by getting the aiming component during `BeginPlay`
 
@@ -2393,7 +2393,7 @@ void ATank::BeginPlay()
 
 - Where we will be after refactoring
 
-![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor.png)
+![Class Structure Diagram](Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor.png)
 
 - **Overview**: This part of the refactoring process essentially shifts responsibility from Tank to Pawn classes thereby severing the relationship between Tank and Tank Controllers
 
@@ -2415,7 +2415,7 @@ void ATank::BeginPlay()
 
 ***Achievement: Tank decoupled from TankAimingComponent***
 
-![Class Structure Diagram Aiming Component](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_01.png)
+![Class Structure Diagram Aiming Component](Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_01.png)
 
 **Part 2: TankAimingComponent <-- TankPlayerController**
 
@@ -2443,7 +2443,7 @@ void ATank::BeginPlay()
 
 ***Achievement: Tanks do not aim but dependency has been removed***
 
-![Class Structure Diagram Player Controller](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_02.png)
+![Class Structure Diagram Player Controller](Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_02.png)
 
 **Part 3: Tank <-- TankAIController**
 
@@ -2469,7 +2469,7 @@ void ATank::BeginPlay()
 
 ***Achievement: Tanks will now aim***
 
-![Class Structure Diagram Player and AI Controller](BattleTank/Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_03.png)
+![Class Structure Diagram Player and AI Controller](Saved/Screenshots/Windows/Aiming_Without_Tank_Refactor_03.png)
 
 ### Finish Our Refactoring
 
@@ -2477,7 +2477,7 @@ void ATank::BeginPlay()
 
 - Where we will be after refactoring: Projectile and Barrel dependencies removed, Projectile dependency with AimingComponent created
 
-![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Finish_Our_Refactor.png)
+![Class Structure Diagram](Saved/Screenshots/Windows/Finish_Our_Refactor.png)
 
 **Part 1: Enable Firing for the Player Controller**
 
@@ -2519,7 +2519,7 @@ void ATank::BeginPlay()
 
 ***Achievement: All dependencies on the Tank class have been disconnected***
 
-![Class Structure Diagram](BattleTank/Saved/Screenshots/Windows/Finish_Our_Refactor_01.png)
+![Class Structure Diagram](Saved/Screenshots/Windows/Finish_Our_Refactor_01.png)
 
 **Part 2: Enabled Firing for the AI Controller**
 
@@ -2539,11 +2539,11 @@ void ATank::BeginPlay()
 
 - Fixing issues with Unreal Project
 
-![Fixing Issues in Unreal](BattleTank/Saved/Screenshots/Windows/Deleting_Intermediate_Files_To_Fix_Issues.png)
+![Fixing Issues in Unreal](Saved/Screenshots/Windows/Deleting_Intermediate_Files_To_Fix_Issues.png)
 
-![Rebuild Unreal Project](BattleTank/Saved/Screenshots/Windows/Deleting_Intermediate_Files_Rebuild_UProject.png)
+![Rebuild Unreal Project](Saved/Screenshots/Windows/Deleting_Intermediate_Files_Rebuild_UProject.png)
 
-![Rebuild Unreal Project](BattleTank/Saved/Screenshots/Windows/Deleting_Intermediate_Files_Build_VS_Project.png)
+![Rebuild Unreal Project](Saved/Screenshots/Windows/Deleting_Intermediate_Files_Build_VS_Project.png)
 
 1. Right click goto definition of UActorComponent and copy/paste the function signature into TankAimingComponent.h header file. Also override the `BeginPlay` method.
 
@@ -2635,7 +2635,7 @@ void ATankPlayerController::AimAtCrosshair()
 }
 ```
 
-![Writing `IsBarrelMoving`](BattleTank/Saved/Screenshots/Windows/TankAimingComponent_Comparing_Floats.png)
+![Writing `IsBarrelMoving`](Saved/Screenshots/Windows/TankAimingComponent_Comparing_Floats.png)
 
 1. `TankAimingComponent.h`
 
@@ -2707,11 +2707,11 @@ else
 
 - Tank_BP > Event Graph > Details > Events
 
-![Hit Event Create in BP](BattleTank/Saved/Screenshots/Windows/OnComponentHitEvent_Create.png)
+![Hit Event Create in BP](Saved/Screenshots/Windows/OnComponentHitEvent_Create.png)
 
 - Replacing the contents of this Blueprint with C++
 
-![Component Hit Event in BP](BattleTank/Saved/Screenshots/Windows/OnComponentHitEvent.png)
+![Component Hit Event in BP](Saved/Screenshots/Windows/OnComponentHitEvent.png)
 
 1. Register delegate at `BeginPlay`
 
@@ -2736,7 +2736,7 @@ UFUNCTION()
 
 4. Check "Simulation Generates Hit Events"
 
-![Component Hit Event in BP](BattleTank/Saved/Screenshots/Windows/OnComponentHitEvent_Collisions.png)
+![Component Hit Event in BP](Saved/Screenshots/Windows/OnComponentHitEvent_Collisions.png)
 
 [Lecture Project Changes](https://github.com/UnrealDeveloperCourse/Section_04/commit/35861a81f910fb150cbc51ceb9b5b539dbb5107d)
 
@@ -2746,15 +2746,15 @@ UFUNCTION()
 
 - Select the Tank Component
 
-![](BattleTank/Saved/Screenshots/Windows/Tank_BP_Select_Tank_Component.png)
+![](Saved/Screenshots/Windows/Tank_BP_Select_Tank_Component.png)
 
 - Check the collision settings are correct
 
-![](BattleTank/Saved/Screenshots/Windows/Tank_BP_CollisionSettings.png)
+![](Saved/Screenshots/Windows/Tank_BP_CollisionSettings.png)
 
 - Set Damping to make enable deceleration and to mellow the tank rotation while it is not in contact with the ground.
 
-![Damping Settings](BattleTank/Saved/Screenshots/Windows/Tank_BP_Physics_Settings_Damping.png)
+![Damping Settings](Saved/Screenshots/Windows/Tank_BP_Physics_Settings_Damping.png)
 
 [Ben's Project Changes](https://github.com/UnrealCourse/04_BattleTank/commit/fa5baeb68120e5ce78d214e36cde61643b00e43c)
 
@@ -2772,7 +2772,7 @@ UFUNCTION()
 
 - Disable Auto Possess AI on the tanks
 
-![Disable AI Auto Possess](BattleTank/Saved/Screenshots/Windows/Tank_Disable_AutoPosess.png)
+![Disable AI Auto Possess](Saved/Screenshots/Windows/Tank_Disable_AutoPosess.png)
 
 **Project Changes**
 
@@ -2810,9 +2810,9 @@ UFUNCTION()
 
 2. Create a binding for text
 
-![Create Text Binding](BattleTank/Saved/Screenshots/Windows/Ammo_Display_Text_Create_Binding.png)
+![Create Text Binding](Saved/Screenshots/Windows/Ammo_Display_Text_Create_Binding.png)
 
-![UI Text Binding `GetRoundsLeft`](BattleTank/Saved/Screenshots/Windows/UI_Text_Binding_Get_Rounds_Left.png)
+![UI Text Binding `GetRoundsLeft`](Saved/Screenshots/Windows/UI_Text_Binding_Get_Rounds_Left.png)
 
 [Ben's Project Changes](https://github.com/UnrealCourse/04_BattleTank/commit/65346fc7e3ae644bf934877624cde6fa3df34635)
 
@@ -2823,15 +2823,15 @@ UFUNCTION()
 
 - **Objective**: Reusing AimingComponent to create a stationary mortar entirely in Unreal, no coding.
 
-![Mortar BP Class](BattleTank/Saved/Screenshots/Windows/Mortar_BP_Class.png)
+![Mortar BP Class](Saved/Screenshots/Windows/Mortar_BP_Class.png)
 
-![Mortar BP Geo](BattleTank/Saved/Screenshots/Windows/Mortar_BP_Geo.png)
+![Mortar BP Geo](Saved/Screenshots/Windows/Mortar_BP_Geo.png)
 
-![Mortart BP Components](BattleTank/Saved/Screenshots/Windows/Mortar_BP_Components.png)
+![Mortart BP Components](Saved/Screenshots/Windows/Mortar_BP_Components.png)
 
-![Mortar Event Graph](BattleTank/Saved/Screenshots/Windows/Mortar_BP_EventGraph.png)
+![Mortar Event Graph](Saved/Screenshots/Windows/Mortar_BP_EventGraph.png)
 
-![Mortar Projectile BP](BattleTank/Saved/Screenshots/Windows/Mortar_BP_Projectile_BP.png)
+![Mortar Projectile BP](Saved/Screenshots/Windows/Mortar_BP_Projectile_BP.png)
 
 ### Using the Reference Viewer
 
@@ -2861,11 +2861,11 @@ UFUNCTION()
 
 - **Objective**: Create Impact Blasts
 
-![Particle Systems Launch Blast](BattleTank/Saved/Screenshots/Windows/Particle_Systems_LaunchBlast.png)
+![Particle Systems Launch Blast](Saved/Screenshots/Windows/Particle_Systems_LaunchBlast.png)
 
-![Particle Systems Impact Blast](BattleTank/Saved/Screenshots/Windows/Particle_Systems_ImpactBlast.png)
+![Particle Systems Impact Blast](Saved/Screenshots/Windows/Particle_Systems_ImpactBlast.png)
 
-![Impact Blast Assign To Component](BattleTank/Saved/Screenshots/Windows/Particle_Systems_ImpactBlast_AssignToComponent.png)
+![Impact Blast Assign To Component](Saved/Screenshots/Windows/Particle_Systems_ImpactBlast_AssignToComponent.png)
 
 - `AttachTo` deprecated
 
@@ -2889,19 +2889,19 @@ UFUNCTION()
 
 - Have a look at force components that we could potentially add via Blueprint
 
-![Projectile Radial Force](BattleTank/Saved/Screenshots/Windows/Projectile_Radial_Force_Component.png)
+![Projectile Radial Force](Saved/Screenshots/Windows/Projectile_Radial_Force_Component.png)
 
 - Add the Explosion Force Component in C++ much the same way we added `LaunchBlast` and `ImpactBlast` Particle Components to the Projectile 
 
-![Explosion Force Component](BattleTank/Saved/Screenshots/Windows/Projectile_Explosion_Force_Component.png)
+![Explosion Force Component](Saved/Screenshots/Windows/Projectile_Explosion_Force_Component.png)
 
-![`AttachToComponent` Transforms Visible](BattleTank/Saved/Screenshots/Windows/Projectile_Explosion_Force_Component_AttachToComponent_Transforms.png)
+![`AttachToComponent` Transforms Visible](Saved/Screenshots/Windows/Projectile_Explosion_Force_Component_AttachToComponent_Transforms.png)
 
 [Wikipedia Impulse Force](https://en.wikipedia.org/wiki/Impulse_(physics))
 
 - Impulse force is the area beneath the curve
 
-![Impulse Force Graph](BattleTank/Saved/Downloads/ImpulseForceGraph.png)
+![Impulse Force Graph](Saved/Downloads/ImpulseForceGraph.png)
 
 **Project Changes**
 
@@ -2913,11 +2913,11 @@ UFUNCTION()
 
 - **Objective**: Make the projectiles dissappear after a resonable time period
 
-![Projectile Destruction Schemes](BattleTank/Saved/Screenshots/Windows/Projectile_Destruction_Schemes.png)
+![Projectile Destruction Schemes](Saved/Screenshots/Windows/Projectile_Destruction_Schemes.png)
 
 - Destroy on timer expire manages cleaning up scene objects automatically
 
-![Destroy `OnTimerExpire`](BattleTank/Saved/Screenshots/Windows/Projectile_Destroy_OnTimerExpire.png)
+![Destroy `OnTimerExpire`](Saved/Screenshots/Windows/Projectile_Destroy_OnTimerExpire.png)
 
 **Project Changes**
 
@@ -2947,59 +2947,59 @@ UFUNCTION()
 
 - Create Widget Component
 
-![Create Widget Component](BattleTank/Saved/Screenshots/Windows/Widget_Component_Create.png)
+![Create Widget Component](Saved/Screenshots/Windows/Widget_Component_Create.png)
 
 - Create Widget Blueprint
 
-![Create Widget Blueprint](BattleTank/Saved/Screenshots/Windows/Widget_BP_Create.png)
+![Create Widget Blueprint](Saved/Screenshots/Windows/Widget_BP_Create.png)
 
 - Create a progress bar
 
-![Create Widget Blueprint](BattleTank/Saved/Screenshots/Windows/Widget_BP_Create_ProgressBar.png)
+![Create Widget Blueprint](Saved/Screenshots/Windows/Widget_BP_Create_ProgressBar.png)
 
 - Scale the anchor of the progress bar to fill the entire canvas
 
 - Fill the progress bar to the entire canvas by setting offsets to zero
 
-![Create Widget Blueprint](BattleTank/Saved/Screenshots/Windows/Widget_BP_Create_AnchorAt100.png)
+![Create Widget Blueprint](Saved/Screenshots/Windows/Widget_BP_Create_AnchorAt100.png)
 
 - Select the HealthBar Class in the Widget Component
 
-![Select the HealthBar Class](BattleTank/Saved/Screenshots/Windows/Widget_Component_Class.png)
+![Select the HealthBar Class](Saved/Screenshots/Windows/Widget_Component_Class.png)
 
 - Create a `GetHealthPercent` method that returns the current health percentage
 
 - Test the heath percentage is working in Blueprint
 
-![Testing `GetHealthPercent`](BattleTank/Saved/Screenshots/Windows/Widget_Component_Testing_GetHealthPercent.png)
+![Testing `GetHealthPercent`](Saved/Screenshots/Windows/Widget_Component_Testing_GetHealthPercent.png)
 
 **Set the location of the widget to the location of the Tank on screen**
 
 - Create Blueprint Variable "MyTank" of type `Tank`
 
-![Widget HealthBar Create Variable](BattleTank/Saved/Screenshots/Windows/Widget_HealthBar_CreateVariable.png)
+![Widget HealthBar Create Variable](Saved/Screenshots/Windows/Widget_HealthBar_CreateVariable.png)
 
-![Widget HealthBar Create Variable TypeTank](BattleTank/Saved/Screenshots/Windows/Widget_HealthBar_CreateVariable_TypeTank.png)
+![Widget HealthBar Create Variable TypeTank](Saved/Screenshots/Windows/Widget_HealthBar_CreateVariable_TypeTank.png)
 
 - Get Health Percent in Get Percent Binding
 
-![Widget HealthBar Event Graph GetHealthPercent](BattleTank/Saved/Screenshots/Windows/Widget_HealthBar_EventGraph_GetHealthPercent.png)
+![Widget HealthBar Event Graph GetHealthPercent](Saved/Screenshots/Windows/Widget_HealthBar_EventGraph_GetHealthPercent.png)
 
 - Setup Tank_BP Event Graph
 
 - Widget Component -> Get User Widget Object -> Cast to HeathBar_BP -> Set MyTank Widget
 
-![Widget HealthBar Tank_BP Set MyTank Widget](BattleTank/Saved/Screenshots/Windows/Widget_HealthBar_TankBP_SetMyTank_Widget.png)
+![Widget HealthBar Tank_BP Set MyTank Widget](Saved/Screenshots/Windows/Widget_HealthBar_TankBP_SetMyTank_Widget.png)
 
-![Widget HealthBar Get Reference To Tank](BattleTank/Saved/Screenshots/Windows/Widget_HealthBar_GetReferenceToTank.png)
+![Widget HealthBar Get Reference To Tank](Saved/Screenshots/Windows/Widget_HealthBar_GetReferenceToTank.png)
 
 - Collapse group and rename to `InitializeHealthBarWidget`
 
-![Widget HealthBar Tank_BP Set MyTank CollapseToFunc](BattleTank/Saved/Screenshots/Windows/Widget_HealthBar_TankBP_SetMyTank_CollapseToFunc.png)
+![Widget HealthBar Tank_BP Set MyTank CollapseToFunc](Saved/Screenshots/Windows/Widget_HealthBar_TankBP_SetMyTank_CollapseToFunc.png)
 
 - Position and Scale the Heath Bar Widget in the Tank_BP Viewport and select Screen Space
 
-![Widget HealthBar Tank_BP Position](BattleTank/Saved/Screenshots/Windows/Widget_HealthBar_TankBP_Position.png)
+![Widget HealthBar Tank_BP Position](Saved/Screenshots/Windows/Widget_HealthBar_TankBP_Position.png)
 
 **Project Changes**
 
